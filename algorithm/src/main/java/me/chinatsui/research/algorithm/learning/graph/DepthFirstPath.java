@@ -46,7 +46,6 @@ public class DepthFirstPath {
 
         for (int w : graph.adj(v)) {
             if (!marked[w]) {
-                marked[w] = true;
                 edgeTo[w] = v;
                 dfs(w);
             }
