@@ -9,16 +9,16 @@ public class PSet<T> implements Iterable<T> {
 
     private final Set<T> v;
 
-    public static <T> PSet<T> of(T first) {
-        return PSet.<T>empty().plus(first);
+    public static <T> PSet<T> of(T t) {
+        return PSet.<T>empty().plus(t);
     }
 
     public static <T> PSet<T> empty() {
         return wrap(new HashSet<>());
     }
 
-    public PSet<T> plus(T first) {
-        v.add(first);
+    public PSet<T> plus(T t) {
+        v.add(t);
         return this;
     }
 
@@ -27,8 +27,8 @@ public class PSet<T> implements Iterable<T> {
         return this;
     }
 
-    public PSet<T> minus(T first) {
-        v.remove(first);
+    public PSet<T> minus(T t) {
+        v.remove(t);
         return this;
     }
 
@@ -40,6 +40,22 @@ public class PSet<T> implements Iterable<T> {
     public PSet<T> minus(PSet<T> p) {
         v.removeAll(p.v);
         return this;
+    }
+
+    public boolean isEmpty() {
+        return v.size() == 0;
+    }
+
+    public boolean contains(T t) {
+        return v.contains(t);
+    }
+
+    public PSet<T> intersect(PSet<T> others) {
+        return PSet.empty();
+    }
+
+    public int size() {
+        return v.size();
     }
 
     static <T> PSet<T> wrap(Set<T> set) {
