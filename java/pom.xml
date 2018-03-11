@@ -8,6 +8,10 @@
     <artifactId>java</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <jackson.version>2.8.1</jackson.version>
+    </properties>
+
     <parent>
         <groupId>me.chinatsui.project-17618</groupId>
         <artifactId>parent</artifactId>
@@ -20,6 +24,26 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
 

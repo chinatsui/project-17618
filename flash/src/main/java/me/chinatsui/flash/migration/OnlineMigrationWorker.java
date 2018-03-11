@@ -12,13 +12,13 @@ public class OnlineMigrationWorker implements Runnable {
     public void run() {
         OnlineMigration migration = service.getNextExecuteMigration();
 
-        if (migration != null) {
-            OnlineMigrationResult result = migration.execute();
+        while (migration != null) {
+            OnlineMigrationResult result = OnlineMigrationResult.PARTIAL_DONE;
             while (result != OnlineMigrationResult.DONE) {
-                service.loadToDB(migration, result);
                 result = migration.execute();
             }
-            service.loadToDB(migration, result);
+            service.markAsCompleted(migration);
+            migration = service.getNextExecuteMigration();
         }
     }
 

@@ -13,6 +13,10 @@ public class PSet<T> implements Iterable<T> {
         return PSet.<T>empty().plus(t);
     }
 
+    public static <T> PSet<T> of(PSet<T> p) {
+        return PSet.<T>empty().plus(p);
+    }
+
     public static <T> PSet<T> empty() {
         return wrap(new HashSet<>());
     }
@@ -24,6 +28,11 @@ public class PSet<T> implements Iterable<T> {
 
     public PSet<T> plus(T... elements) {
         v.addAll(Arrays.asList(elements));
+        return this;
+    }
+
+    public PSet<T> plus(PSet<T> p) {
+        v.addAll(p.v);
         return this;
     }
 
@@ -51,7 +60,13 @@ public class PSet<T> implements Iterable<T> {
     }
 
     public PSet<T> intersect(PSet<T> others) {
-        return PSet.empty();
+        PSet<T> intersection = PSet.empty();
+        for (T t : others) {
+            if (this.contains(t)) {
+                intersection.plus(t);
+            }
+        }
+        return intersection;
     }
 
     public int size() {

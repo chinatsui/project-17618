@@ -8,4 +8,6 @@ public interface OnlineMigration {
 
     PSet<OnlineMigration> getDependencies();
 
+    OnlineMigrationResult getResult();
+
 }
