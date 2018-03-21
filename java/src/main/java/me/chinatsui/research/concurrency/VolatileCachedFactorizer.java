@@ -1,9 +1,17 @@
 package me.chinatsui.research.concurrency;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class VolatileCachedFactorizer {
+public enum VolatileCachedFactorizer {
+
+    INSTANCE;
+
+    private static final BigInteger ZERO = BigInteger.ZERO;
+    private static final BigInteger ONE = BigInteger.ONE;
+    private static final BigInteger TWO = BigInteger.valueOf(2);
 
     private volatile LastOneCache cache = new LastOneCache(null, null);
 
@@ -19,7 +27,27 @@ public class VolatileCachedFactorizer {
     }
 
     private BigInteger[] factor(BigInteger i) {
-        return null;
+        List<BigInteger> results = new ArrayList<>();
+
+//        while (!i.equals(ONE)) {
+//            for (BigInteger factor = TWO; true; factor = factor.add(ONE)) {
+//                if (i.mod(factor).equals(ZERO)) {
+//                    results.add(factor);
+//                    i = i.divide(factor);
+//                    break;
+//                }
+//            }
+//        }
+
+        for (BigInteger f = TWO; f.compareTo(i) <= 0; f = f.add(ONE)) {
+            if (i.mod(f).equals(ZERO)) {
+                results.add(f);
+                i = i.divide(f);
+                f = f.subtract(ONE);
+            }
+        }
+
+        return results.toArray(new BigInteger[0]);
     }
 
     static class LastOneCache {
@@ -29,7 +57,7 @@ public class VolatileCachedFactorizer {
 
         public LastOneCache(BigInteger lastOne, BigInteger[] factors) {
             this.lastNumber = lastOne;
-            this.factors = Arrays.copyOf(factors, factors.length);
+            this.factors = factors != null ? Arrays.copyOf(factors, factors.length) : null;
         }
 
         public BigInteger[] getFactors(BigInteger i) {
@@ -39,6 +67,7 @@ public class VolatileCachedFactorizer {
 
             return Arrays.copyOf(factors, factors.length);
         }
+
     }
 
 }
