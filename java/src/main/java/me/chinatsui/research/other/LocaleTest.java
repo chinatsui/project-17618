@@ -1,8 +1,7 @@
-package me.chinatsui.research.javase;
+package me.chinatsui.research.other;
 
 import java.util.Arrays;
 import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * Created by chinatsui on 31/01/2018.

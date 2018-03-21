@@ -1,4 +1,4 @@
-package me.chinatsui.research.javase;
+package me.chinatsui.research.other;
 
 /**
  * Created by chinatsui on 05/03/2018.

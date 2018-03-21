@@ -1,4 +1,4 @@
-package me.chinatsui.research.javase;
+package me.chinatsui.research.other;
 
 import sun.misc.BASE64Encoder;
 

@@ -1,4 +1,4 @@
-package me.chinatsui.research.javase;
+package me.chinatsui.research.concurrency;
 
 
 public class DeadLockTest {
