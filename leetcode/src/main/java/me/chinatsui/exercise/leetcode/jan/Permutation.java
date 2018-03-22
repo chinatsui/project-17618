@@ -1,4 +1,4 @@
-package me.chinatsui.exercise.leetcode;
+package me.chinatsui.exercise.leetcode.jan;
 
 
 import java.util.ArrayList;

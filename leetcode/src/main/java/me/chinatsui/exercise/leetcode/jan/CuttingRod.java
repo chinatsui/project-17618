@@ -1,4 +1,4 @@
-package me.chinatsui.exercise.leetcode;
+package me.chinatsui.exercise.leetcode.jan;
 
 /**
  * Created by chinatsui on 13/01/2018.
