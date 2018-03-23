@@ -13,7 +13,7 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Iterable<T> {
         elementData = new Object[10];
     }
 
-    public void enqueue(T item) {
+    public void offer(T item) {
         if (size == elementData.length) {
             resize(elementData.length * 2);
         }
@@ -21,7 +21,7 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Iterable<T> {
         elementData[size++] = item;
     }
 
-    public T dequeue() {
+    public T poll() {
         T item = (T) elementData[0];
         System.arraycopy(elementData, 1, elementData, 0, size - 1);
         elementData[--size] = null;
@@ -65,10 +65,10 @@ public class ArrayQueue<T> extends AbstractQueue<T> implements Iterable<T> {
 
     public static void main(String[] args) {
         ArrayQueue<String> q = new ArrayQueue();
-        q.enqueue("A");
-        q.enqueue("B");
-        q.enqueue("C");
-        q.enqueue("D");
+        q.offer("A");
+        q.offer("B");
+        q.offer("C");
+        q.offer("D");
 
         System.out.println(q);
 

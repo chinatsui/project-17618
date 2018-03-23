@@ -18,8 +18,6 @@ public class ValidateBinarySearchTree2 {
     private boolean minAssigned = false;
 
     public boolean isValidBST(TreeNode treeNode) {
-        int lastValue = Integer.MIN_VALUE;
-
         if (treeNode == null) {
             return true;
         }

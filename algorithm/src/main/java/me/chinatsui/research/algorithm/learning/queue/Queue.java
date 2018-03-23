@@ -2,9 +2,9 @@ package me.chinatsui.research.algorithm.learning.queue;
 
 public interface Queue<T> {
 
-    void enqueue(T item);
+    void offer(T item);
 
-    T dequeue();
+    T poll();
 
     int size();
 

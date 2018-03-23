@@ -10,7 +10,7 @@ public class LinkedQueue<T> extends AbstractQueue<T> implements Iterable<T> {
 
     private int size;
 
-    public void enqueue(T item) {
+    public void offer(T item) {
         Node node = new Node(item, null);
 
         if (isEmpty()) {
@@ -23,7 +23,7 @@ public class LinkedQueue<T> extends AbstractQueue<T> implements Iterable<T> {
         size++;
     }
 
-    public T dequeue() {
+    public T poll() {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
