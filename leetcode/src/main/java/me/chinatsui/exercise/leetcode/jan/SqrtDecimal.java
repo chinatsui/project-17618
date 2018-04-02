@@ -8,21 +8,26 @@ public class SqrtDecimal {
     }
 
     public long mySqrt(int x) {
-        long lo = 1;
-        long hi = x;
-
-        while (lo < hi) {
-            long mid = (lo + hi) / 2;
-            if (mid * mid > x) {
-                hi = mid - 1;
-            } else if (mid * mid < x) {
-                lo = mid + 1;
-            } else {
-                return mid;
-            }
+        if (x == 0) {
+            return 0;
         }
 
-        return lo * lo > x ? lo - 1 : lo;
+        int lo = 1;
+        int hi = x;
+
+        while (true) {
+            int mid = lo + (hi - lo) / 2;
+
+            if (mid > x / mid) {
+                hi = mid - 1;
+            } else {
+                if ((mid + 1) > x / (mid + 1)) {
+                    return mid;
+                } else {
+                    lo = mid + 1;
+                }
+            }
+        }
     }
 
 }
