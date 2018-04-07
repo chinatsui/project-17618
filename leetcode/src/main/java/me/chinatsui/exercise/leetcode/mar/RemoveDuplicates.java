@@ -22,7 +22,6 @@ public enum RemoveDuplicates {
                 nums[++prev] = nums[i];
             }
         }
-
         return ++prev;
     }
 

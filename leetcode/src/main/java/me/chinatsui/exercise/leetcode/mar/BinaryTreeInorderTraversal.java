@@ -1,4 +1,4 @@
-package me.chinatsui.exercise.leetcode.mar.tree;
+package me.chinatsui.exercise.leetcode.mar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ public enum BinaryTreeInorderTraversal {
     INSTANCE;
 
     public static void main(String[] args) {
-        System.out.println(INSTANCE.traverseRecursively(TreeNode.getBinarySearchTree()));
+//        System.out.println(INSTANCE.traverseRecursively(TreeNode.getBinarySearchTree()));
         System.out.println(INSTANCE.traverseIteratively(TreeNode.getBinarySearchTree()));
     }
 
@@ -30,31 +30,27 @@ public enum BinaryTreeInorderTraversal {
     public List<Integer> traverseIteratively(TreeNode root) {
         List<Integer> history = new ArrayList();
 
-        TreeNode cur = root;
         Stack<TreeNode> s = new Stack();
 
-        while (!s.empty() || cur != null) {
-            while (!isLeaf(cur)) {
-                s.push(cur);
-                cur = cur.left;
+        while (!s.empty() || root != null) {
+            while (!isLeaf(root)) {
+                s.push(root);
+                root = root.left;
             }
 
-            if (cur != null) {
-                history.add(cur.val);
+            if (root != null) {
+                history.add(root.val);
             }
 
-            while (!s.empty() && cur == s.peek().right) {
-                cur = s.pop();
-            }
-
-            if (!s.empty() && cur != s.peek().right) {
-                history.add(s.peek().val);
+            while (!s.empty() && root == s.peek().right) {
+                root = s.pop();
             }
 
             if (s.empty()) {
-                cur = null;
+                root = null;
             } else {
-                cur = s.peek().right;
+                history.add(s.peek().val);
+                root = s.peek().right;
             }
         }
 

@@ -1,4 +1,4 @@
-package me.chinatsui.exercise.leetcode.mar.tree;
+package me.chinatsui.exercise.leetcode.mar;
 
 public class TreeNode {
 

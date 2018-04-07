@@ -1,46 +1,34 @@
 package me.chinatsui.research.algorithm.learning.search;
 
-import me.chinatsui.research.algorithm.utils.DataUtils;
-
-import java.util.Arrays;
-
 public class BinarySearch {
 
-    public static int search(Comparable[] data, int key) {
-        validate(data);
-        return search(data, 0, data.length - 1, key);
+    public static void main(String[] args) {
+        int[] data = {11, 17, 19, 19, 25, 27, 27, 28, 36, 40, 40, 48, 48, 56, 58, 59, 63, 67, 67, 74};
+        int key = 598;
+        int index = search(data, key);
+        if (index == -1) {
+            System.out.println("Not found.");
+        } else {
+            System.out.println("key: " + key + ", Index: " + index + ", data[" + index + "]: " + data[index]);
+        }
     }
 
-    private static void validate(Comparable[] data) {
-        for (int i = 0; i < data.length - 1; i++) {
-            if (data[i].compareTo(data[i + 1]) > 0) {
-                throw new IllegalArgumentException("Input array is not sorted.");
+    public static int search(int[] data, int key) {
+        int l = 0;
+        int h = data.length - 1;
+
+        while (l < h) {
+            int m = l + (h - l) / 2;
+            if (key == data[m]) {
+                return m;
+            } else if (key < data[m]) {
+                h = m - 1;
+            } else {
+                l = m + 1;
             }
         }
-    }
 
-    private static int search(Comparable[] data, int lo, int hi, Comparable key) {
-        if (lo >= hi) {
-            return data[lo].compareTo(key) == 0 ? lo : -1;
-        }
-
-        int middle = (lo + hi) / 2;
-
-        if (key.compareTo(data[middle]) == 0) {
-            return middle;
-        } else if (key.compareTo(data[middle]) < 0) {
-            hi = middle - 1;
-            return search(data, lo, hi, key);
-        } else {
-            lo = middle + 1;
-            return search(data, lo, hi, key);
-        }
-    }
-
-    public static void main(String[] args) {
-        Integer[] data = DataUtils.getSortedRandomIntegerArray(20, 100);
-        System.out.println(Arrays.toString(data));
-        System.out.println(search(data, 0, data.length - 1, 3));
+        return data[l] == key ? l : -1;
     }
 
 }

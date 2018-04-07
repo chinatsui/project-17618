@@ -10,6 +10,16 @@ import org.junit.Test;
 public class LinkedListTest {
 
     @Test
+    public void test_remove_last() {
+        LinkedList<Integer> list = new LinkedList();
+        list.addFirst(1);
+        list.addFirst(2);
+        list.addFirst(3);
+        System.out.println(list.getFirst());
+        System.out.println(list.getLast());
+    }
+
+    @Test
     public void test_add_first_add_last() {
         LinkedList<Integer> q = new LinkedList();
         q.addFirst(0);

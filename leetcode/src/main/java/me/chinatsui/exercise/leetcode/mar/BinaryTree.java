@@ -1,14 +1,12 @@
-package me.chinatsui.exercise.leetcode.mar.tree;
+package me.chinatsui.exercise.leetcode.mar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 public enum BinaryTree {
 

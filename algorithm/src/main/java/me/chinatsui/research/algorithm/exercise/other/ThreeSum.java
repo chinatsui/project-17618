@@ -20,7 +20,7 @@ public class ThreeSum {
             for (int j = i + 1; j < data.length; j++) {
                 int part = data[i] + data[j];
 
-                int index = BinarySearch.search(data, -part);
+                int index = BinarySearch.search(Arrays.stream(data).mapToInt(n -> n).toArray(), -part);
                 if (index > j) {
                     count++;
                     System.out.println("[" + data[i] + "," + data[j] + "," + (-part) + "]");
