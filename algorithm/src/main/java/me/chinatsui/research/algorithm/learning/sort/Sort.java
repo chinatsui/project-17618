@@ -29,11 +29,11 @@ public abstract class Sort {
         long start = System.currentTimeMillis();
         sort(a);
         long end = System.currentTimeMillis();
-        validation(a);
+        validate(a);
         System.out.println(this.getClass().getSimpleName() + " sort " + size + " elements, cost " + (end - start) + " ms.");
     }
 
-    private void validation(Comparable[] a) {
+    private void validate(Comparable[] a) {
         if (!isSorted(a)) {
             throw new RuntimeException("Array is not sorted.");
         }

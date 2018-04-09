@@ -52,61 +52,6 @@ public class MergeSort extends Sort {
                 a[k] = aux[j++];
             }
         }
-//        System.out.println(Arrays.toString(a));
     }
-
-
-    /* -- Before  -- */
-    /*
-    @Override
-    void sort(Comparable[] a) {
-        System.arraycopy(mergeSort(a), 0, a, 0, a.length);
-    }
-
-    private Comparable[] mergeSort(Comparable[] a) {
-        if (a.length == 1) {
-            return a;
-        }
-
-        Comparable[] left = new Comparable[a.length / 2];
-        Comparable[] right = new Comparable[a.length - a.length / 2];
-
-        System.arraycopy(a, 0, left, 0, a.length / 2);
-        System.arraycopy(a, a.length / 2, right, 0, a.length - a.length / 2);
-
-        Comparable[] toBeMergedLeft = mergeSort(left);
-        Comparable[] toBeMergedRight = mergeSort(right);
-
-        return merge(toBeMergedLeft, toBeMergedRight);
-    }
-
-    private Comparable[] merge(Comparable[] a, Comparable[] b) {
-        Comparable[] result = new Comparable[a.length + b.length];
-
-        int m = 0;
-        int n = 0;
-        Comparable min;
-
-        for (int i = 0; i < result.length; i++) {
-            if (m == a.length) {
-                min = b[n];
-                n++;
-            } else if (n == b.length) {
-                min = a[m];
-                m++;
-            } else if (less(a[m], b[n])) {
-                min = a[m];
-                m++;
-            } else {
-                min = b[n];
-                n++;
-            }
-
-            result[i] = min;
-        }
-
-        return result;
-    }
-    */
 
 }

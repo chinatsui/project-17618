@@ -30,7 +30,7 @@ public class SortTest {
 
         @Override
         public void run() {
-            sort.test(100000);
+            sort.test(100*100*100);
         }
 
     }

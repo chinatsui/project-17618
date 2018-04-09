@@ -3,6 +3,10 @@ package me.chinatsui.research.algorithm.learning.sort;
 
 public class QuickSort extends Sort {
 
+    public static void main(String[] args) {
+        new QuickSort().test(10);
+    }
+
     @Override
     public void sort(Comparable[] a) {
         sort(a, 0, a.length - 1);
@@ -13,31 +17,22 @@ public class QuickSort extends Sort {
         if (low >= hi)
             return;
 
-        int split = low;
+        int pivot = hi;
 
-        for (int i = low + 1; i <= hi; i++) {
-            if (less(a[i], a[split])) {
-                swap(a, split++, i);
+        int sm = low - 1;
+        for (int i = low; i <= hi - 1; i++) {
+            if (less(a[i], a[pivot])) {
+                sm++;
+                if (sm != i) {
+                    exchange(a, sm, i);
+                }
             }
         }
+        exchange(a, sm + 1, pivot);
+        pivot = sm + 1;
 
-        sort(a, low, split - 1);
-        sort(a, split + 1, hi);
-    }
-
-    private void swap(Comparable[] a, int s, int t) {
-
-        if (s < 0 || t >= a.length || t < s) {
-            throw new IllegalArgumentException();
-        }
-
-        Comparable m = a[t];
-
-        for (int i = t; i > s; i--) {
-            a[i] = a[i - 1];
-        }
-
-        a[s] = m;
+        sort(a, low, pivot - 1);
+        sort(a, pivot + 1, hi);
     }
 
 }
