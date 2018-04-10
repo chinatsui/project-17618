@@ -1,124 +1,134 @@
 package me.chinatsui.exercise.leetcode.mar;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
-import java.util.TreeMap;
 
-public enum BinaryTree {
-
-    INSTANCE;
+public class BinaryTree {
 
     public static void main(String[] args) {
-        INSTANCE.traverseByLevelOrder(TreeNode.getFullBinaryTree());
-        INSTANCE.traverseByColumnOrder(TreeNode.getFullBinaryTree());
-        System.out.println(INSTANCE.isSymmetric(TreeNode.getSymmetricTree()));
-        System.out.println(INSTANCE.isBinarySearchTree(TreeNode.getBinarySearchTree()));
+        Integer[] levelOrder = {10, 5, -3, 3, 2, null, 11, 3, -2, null, 1};
+        TreeNode root = deserializeFromLevelOrder(levelOrder);
+
+        System.out.println(root);
     }
 
-    public boolean isBinarySearchTree(TreeNode root) {
-        if (root == null) {
-            return true;
-        }
-
-        List<TreeNode> history = new ArrayList<>();
-        traverseByInOrder(root, history);
-
-        int prev = history.get(0).val;
-        for (int i = 1; i < history.size(); i++) {
-            int cur = history.get(i).val;
-            if (prev >= cur) {
-                return false;
-            }
-            prev = cur;
-        }
-
-        return true;
+    public static TreeNode deserializeFromPreorder(Integer[] preorder) {
+        LinkedList<Integer> list = new LinkedList();
+        list.addAll(Arrays.asList(preorder));
+        return buildTreeFromPreorder(list);
     }
 
-    private void traverseByInOrder(TreeNode node, List<TreeNode> history) {
-        if (node != null) {
-            traverseByInOrder(node.left, history);
-            history.add(node);
-            traverseByInOrder(node.right, history);
+    private static TreeNode buildTreeFromPreorder(LinkedList<Integer> linkedList) {
+        Integer val = linkedList.poll();
+        if (val == null) {
+            return null;
+        } else {
+            TreeNode root = new TreeNode(val);
+            root.left = buildTreeFromPreorder(linkedList);
+            root.right = buildTreeFromPreorder(linkedList);
+            return root;
         }
     }
 
-    public boolean isSymmetric(TreeNode root) {
-        if (root == null) {
-            return true;
+    public static TreeNode deserializeFromLevelOrder(Integer[] levelOrder) {
+        if (levelOrder == null || levelOrder.length < 1) {
+            return null;
         }
 
-        return isSymmetric(root.left, root.right);
-    }
+        LinkedList<Integer> history = new LinkedList<>();
+        history.addAll(Arrays.asList(levelOrder));
 
-    private boolean isSymmetric(TreeNode left, TreeNode right) {
-        if (left == null && right == null) {
-            return true;
+        TreeNode root;
+        Integer rootVal = history.poll();
+        if (rootVal == null) {
+            root = null;
+        } else {
+            root = new TreeNode(rootVal);
         }
 
-        if (left != null && right != null) {
-            return left.val == right.val
-                    && isSymmetric(left.left, right.right)
-                    && isSymmetric(left.right, right.left);
-        }
+        LinkedList<TreeNode> q = new LinkedList();
+        q.offer(root);
 
-        return false;
-    }
+        while (!q.isEmpty()) {
+            TreeNode node = q.poll();
 
-    public void traverseByLevelOrder(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
-        ArrayList<TreeNode> traverseHistory = new ArrayList<>();
-        queue.offer(root);
-
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
-
-            traverseHistory.add(node);
-
-            if (node.left != null) {
-                queue.offer(node.left);
+            Integer val = history.poll();
+            if (val != null) {
+                TreeNode left = new TreeNode(val);
+                node.left = left;
+                q.offer(left);
             }
 
-            if (node.right != null) {
-                queue.offer(node.right);
+            val = history.poll();
+            if (val != null) {
+                TreeNode right = new TreeNode(val);
+                node.right = right;
+                q.offer(right);
             }
         }
 
-        System.out.println("Level Order: " + Arrays.toString(traverseHistory.toArray()));
+        return root;
     }
 
-    public void traverseByColumnOrder(TreeNode root) {
-        TreeMap<Integer, List<TreeNode>> traverseHistory = new TreeMap();
-        traverseByColumnOrder(root, 0, traverseHistory);
+    public static TreeNode getBinarySearchTree() {
+        TreeNode root = new TreeNode(16);
 
-        System.out.print("Column Order: [");
-        for (Map.Entry<Integer, List<TreeNode>> entry : traverseHistory.entrySet()) {
-            for (TreeNode node : entry.getValue()) {
-                System.out.print(node.val + ", ");
-            }
-        }
-        System.out.println("]");
+        root.left = new TreeNode(8);
+        root.right = new TreeNode(19);
+
+        root.left.left = new TreeNode(7);
+        root.left.right = new TreeNode(13);
+
+        root.left.right.left = new TreeNode(9);
+        root.left.right.right = new TreeNode(15);
+
+        return root;
     }
 
-    private void traverseByColumnOrder(TreeNode node,
-                                       int index,
-                                       TreeMap<Integer, List<TreeNode>> traverseHistory) {
-        if (node != null) {
-            traverseHistory.putIfAbsent(index, new ArrayList<>());
-            traverseHistory.get(index).add(node);
+    public static TreeNode getSymmetricTree() {
+        TreeNode root = new TreeNode(2);
+        root.left = new TreeNode(3);
+        root.right = new TreeNode(3);
 
-            if (node.left != null) {
-                traverseByColumnOrder(node.left, index - 1, traverseHistory);
-            }
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.left.right.left = new TreeNode(8);
+        root.left.right.right = new TreeNode(9);
 
-            if (node.right != null) {
-                traverseByColumnOrder(node.right, index + 1, traverseHistory);
-            }
-        }
+        root.right.left = new TreeNode(5);
+        root.right.right = new TreeNode(4);
+        root.right.left.left = new TreeNode(9);
+        root.right.left.right = new TreeNode(8);
+
+        return root;
     }
+
+    public static TreeNode getFullBinaryTree() {
+        TreeNode root = new TreeNode(1);
+
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        root.left.left.left = new TreeNode(9);
+        root.left.left.right = new TreeNode(10);
+
+        root.left.right.left = new TreeNode(11);
+        root.left.right.right = new TreeNode(12);
+
+        root.right.left.left = new TreeNode(13);
+        root.right.left.right = new TreeNode(14);
+
+        root.right.right.left = new TreeNode(15);
+        root.right.right.right = new TreeNode(16);
+
+        return root;
+    }
+
 
 }

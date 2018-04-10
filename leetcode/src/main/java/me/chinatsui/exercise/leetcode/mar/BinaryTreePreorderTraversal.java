@@ -9,8 +9,8 @@ public enum BinaryTreePreorderTraversal {
     INSTANCE;
 
     public static void main(String[] args) {
-        System.out.println(INSTANCE.traverseRecursively(TreeNode.getBinarySearchTree()));
-        System.out.println(INSTANCE.traverseIteratively(TreeNode.getBinarySearchTree()));
+        System.out.println(INSTANCE.traverseRecursively(BinaryTree.getBinarySearchTree()));
+        System.out.println(INSTANCE.traverseIteratively(BinaryTree.getBinarySearchTree()));
     }
 
     public List<Integer> traverseRecursively(TreeNode root) {
@@ -64,7 +64,7 @@ public enum BinaryTreePreorderTraversal {
             return true;
         }
 
-        return node.isLeaf();
+        return node.left == null && node.right == null;
     }
 
 }

@@ -5,7 +5,7 @@ public enum DeleteNodeInBST {
     INSTANCE;
 
     public static void main(String[] args) {
-        TreeNode bst = TreeNode.getBinarySearchTree();
+        TreeNode bst = BinaryTree.getBinarySearchTree();
         INSTANCE.deleteNode(bst, 16);
     }
 

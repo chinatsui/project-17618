@@ -7,11 +7,13 @@ public enum BinaryTreeSerialization {
 
     INSTANCE;
 
-    private static final String spliter = ",";
+    private static final String SPL = ",";
     private static final String NN = "X";
 
     public static void main(String[] args) {
-        System.out.println(INSTANCE.serialize(TreeNode.getBinarySearchTree()));
+        String data = INSTANCE.serialize(BinaryTree.getBinarySearchTree());
+        System.out.println(data);
+        INSTANCE.deserialize(data);
     }
 
     // Encodes a tree to a single string.
@@ -23,9 +25,9 @@ public enum BinaryTreeSerialization {
 
     private void buildString(TreeNode node, StringBuilder sb) {
         if (node == null) {
-            sb.append(NN).append(spliter);
+            sb.append(NN).append(SPL);
         } else {
-            sb.append(node.val).append(spliter);
+            sb.append(node.val).append(SPL);
             buildString(node.left, sb);
             buildString(node.right, sb);
         }
@@ -34,7 +36,7 @@ public enum BinaryTreeSerialization {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         LinkedList<String> nodes = new LinkedList<>();
-        nodes.addAll(Arrays.asList(data.split(spliter)));
+        nodes.addAll(Arrays.asList(data.split(SPL)));
         return buildTree(nodes);
     }
 

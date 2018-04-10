@@ -9,7 +9,7 @@ public enum BSTSerialization {
     private static final String SPL = ",";
 
     public static void main(String[] args) {
-        String data = INSTANCE.serialize(TreeNode.getBinarySearchTree());
+        String data = INSTANCE.serialize(BinaryTree.getBinarySearchTree());
         TreeNode root = INSTANCE.deserialize(data);
         System.out.println("Finished.");
     }
