@@ -11,7 +11,7 @@ public class QuickUnionUF implements UF {
         size = count;
 
         for (int i = 0; i < size; i++) {
-            components[i] = 0;
+            components[i] = i;
         }
     }
 
@@ -45,7 +45,7 @@ public class QuickUnionUF implements UF {
 
     /*
      * To be finished smarter in the future.
-     * For now, I don't want to iterator the component array which will have duplicate access for the same spot.
+     * For now, I don't want to iterate the component array which will have duplicate access for the same spot.
      */
 
 //    public String toString() {

@@ -2,14 +2,10 @@ package me.chinatsui.research.algorithm.learning.sort;
 
 import java.util.Arrays;
 
-/**
- * Created by chinatsui on 14/01/2018.
- */
 public class HeapSort {
 
     public static void main(String[] args) {
         int[] x = {1, 4, 2, 3, 4, 5, 6, 7, 8, 23, 23, 11, 22, 124, 32, 2346};
-        System.out.println(x.length);
         new HeapSort().sort(x);
         System.out.println(Arrays.toString(x));
     }
@@ -47,7 +43,6 @@ public class HeapSort {
 
         if (rightChild <= bound) {
             int prior = isPriorTo(nums, leftChild, rightChild) ? leftChild : rightChild;
-
             if (isPriorTo(nums, prior, i)) {
                 exchange(nums, i, prior);
                 sink(nums, prior, bound);

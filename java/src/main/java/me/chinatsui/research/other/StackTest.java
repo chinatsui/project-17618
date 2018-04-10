@@ -1,5 +1,6 @@
 package me.chinatsui.research.other;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -32,6 +33,13 @@ public class StackTest {
         for (Integer elem : s) {
             Assert.assertEquals(i++, elem);
         }
+    }
+
+    @Test
+    public void test_copy_to_list() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.addAll(s);
+        System.out.println(list);
     }
 
 }
