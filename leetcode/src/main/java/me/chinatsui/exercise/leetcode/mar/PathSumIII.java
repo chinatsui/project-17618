@@ -6,7 +6,9 @@ public enum PathSumIII {
 
     public static void main(String[] args) {
         // [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8;
-
+        Integer[] levelOrder = {10, 5, -3, 3, 2, null, 11, 3, -2, null, 1};
+        TreeNode root = BinaryTree.deserializeFromLevelOrder(levelOrder);
+        System.out.println(INSTANCE.pathSum(root, 8));
     }
 
     public int pathSum(TreeNode root, int sum) {
@@ -16,14 +18,14 @@ public enum PathSumIII {
     }
 
     private int dfs(TreeNode root, int sum) {
-        int res = 0;
+        int count = 0;
         if (root == null)
-            return res;
+            return count;
         if (sum == root.val)
-            res++;
-        res += dfs(root.left, sum - root.val);
-        res += dfs(root.right, sum - root.val);
-        return res;
+            count++;
+        count += dfs(root.left, sum - root.val);
+        count += dfs(root.right, sum - root.val);
+        return count;
     }
 
 }

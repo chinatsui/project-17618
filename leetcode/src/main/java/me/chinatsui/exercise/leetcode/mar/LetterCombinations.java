@@ -1,6 +1,7 @@
 package me.chinatsui.exercise.leetcode.mar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public enum LetterCombinations {
@@ -55,7 +56,6 @@ public enum LetterCombinations {
                 }
             }
         }
-
         return results;
     }
 
