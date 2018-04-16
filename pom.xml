@@ -25,10 +25,7 @@
     <modules>
         <module>algorithm</module>
         <module>flash</module>
-        <module>hihocoder</module>
         <module>java</module>
-        <module>leetcode</module>
-        <module>pearls</module>
     </modules>
 
     <dependencyManagement>
