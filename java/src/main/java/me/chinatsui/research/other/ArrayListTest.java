@@ -14,6 +14,7 @@ public class ArrayListTest {
         list_1.retainAll(list_2);
         System.out.println(list_1);
         System.out.println(list_1.get(0));
+
     }
 
 }

@@ -33,7 +33,7 @@ public enum PathSumIII {
             count++;
         }
 
-        count+= dfs(node.left, remain) + dfs(node.right, remain);
+        count += dfs(node.left, remain) + dfs(node.right, remain);
 
         return count;
     }

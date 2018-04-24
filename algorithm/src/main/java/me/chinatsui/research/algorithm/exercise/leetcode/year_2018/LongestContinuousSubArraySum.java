@@ -16,15 +16,14 @@ public enum LongestContinuousSubArraySum {
         preSum.put(nums[0], 0);
 
         int curSum = nums[0];
-        int maxLength = 0;
+        int maxLength = nums[0] == target ? 1 : 0;
         for (int i = 1; i < nums.length; i++) {
             curSum += nums[i];
             if (preSum.containsKey(curSum - target)) {
                 int lastIndex = preSum.get(curSum - target);
                 maxLength = Math.max(maxLength, i - lastIndex);
-            } else {
-                preSum.put(curSum, i);
             }
+            preSum.put(curSum, i);
         }
 
         return maxLength;

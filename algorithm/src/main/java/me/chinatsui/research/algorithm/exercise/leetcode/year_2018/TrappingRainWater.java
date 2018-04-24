@@ -1,67 +1,33 @@
 package me.chinatsui.research.algorithm.exercise.leetcode.year_2018;
 
+import java.util.Collections;
+
 public class TrappingRainWater {
 
     public static void main(String[] args) {
-        int[] input = {2, 0, 2};
+        int[] input = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
         System.out.println(new TrappingRainWater().trap(input));
     }
 
     public int trap(int[] height) {
+        int left = 0;
+        int leftWall = 0;
 
-        if (height == null) {
-            return 0;
-        }
+        int right = height.length - 1;
+        int rightWall = 0;
 
         int water = 0;
-        int n = height.length;
-
-        int maxHeight = 0;
-        for (int i = 0; i < n; i++) {
-            if (height[i] > maxHeight) {
-                maxHeight = height[i];
+        while (left < right) {
+            leftWall = Math.max(leftWall, height[left]);
+            rightWall = Math.max(rightWall, height[right]);
+            if (leftWall < rightWall) {
+                water += (leftWall - height[left]);       // leftWall is smaller than rightWall, so the (leftWall-A[a]) water can be stored
+                left++;
+            } else {
+                water += (rightWall - height[right]);
+                right--;
             }
         }
-
-        for (int i = 0; i < maxHeight; i++) {
-            int[] copy = new int[n];
-            System.arraycopy(height, 0, copy, 0, n);
-            for (int j = 0; j < n; j++) {
-                copy[j] = Math.max(0, copy[j] - i);
-            }
-            water += rainLevel(copy);
-        }
-
-        return water;
-    }
-
-    private int rainLevel(int[] level) {
-        int water = 0;
-        int n = level.length;
-
-        int first = -1;
-        int last = -1;
-
-        for (int i = 0; i < n; i++) {
-            if (first == -1 && level[i] > 0) {
-                first = i;
-                break;
-            }
-        }
-
-        for (int i = n - 1; i >= 0; i--) {
-            if (last == -1 && level[i] > 0) {
-                last = i;
-                break;
-            }
-        }
-
-        for (int i = first + 1; i < last; i++) {
-            if (level[i] == 0) {
-                water++;
-            }
-        }
-
         return water;
     }
 

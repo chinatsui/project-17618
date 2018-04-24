@@ -71,4 +71,11 @@ public class RegexTest {
         Assert.assertEquals(input, m.group());
     }
 
+    @Test
+    public void test_non_word_match() {
+        String text = "A man, a plan, a canal: Panama";
+        text = text.replaceAll("\\W", "");
+        Assert.assertEquals("AmanaplanacanalPanama", text);
+    }
+
 }

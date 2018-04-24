@@ -25,4 +25,9 @@ public class StringTest {
         Assert.assertFalse("ABC" == another);
     }
 
+    @Test
+    public void test_compare() {
+        Assert.assertTrue("1".compareTo("2") < 0);
+    }
+
 }

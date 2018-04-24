@@ -6,7 +6,7 @@ package me.chinatsui.research.algorithm.exercise.leetcode.year_2017;
 public class DivideTwoIntegers {
 
     public static void main(String[] args) {
-        System.out.println(new DivideTwoIntegers().divide(2147483647, 2));
+        System.out.println(new DivideTwoIntegers().divide(18, 2));
     }
 
     public int divide(int dividend, int divisor) {

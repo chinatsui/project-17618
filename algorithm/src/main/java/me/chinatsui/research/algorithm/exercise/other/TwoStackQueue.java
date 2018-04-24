@@ -1,54 +1,47 @@
 package me.chinatsui.research.algorithm.exercise.other;
 
-import me.chinatsui.research.algorithm.learning.stack.ArrayStack;
+import java.util.LinkedList;
 
 public class TwoStackQueue<T> {
 
-    ArrayStack<T> s1 = new ArrayStack<>();
-    ArrayStack<T> s2 = new ArrayStack<>();
-
-    int size = 0;
-
-    public void enqueue(T item) {
-        s1.push(item);
-        size++;
-    }
-
-    public T dequeue() {
-        while (!s1.isEmpty()) {
-            s2.push(s1.pop());
-        }
-
-        T item = s2.pop();
-
-        while (!s2.isEmpty()) {
-            s1.push(s2.pop());
-        }
-
-        --size;
-        return item;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
-    }
+    LinkedList<T> s1 = new LinkedList();
+    LinkedList<T> s2 = new LinkedList();
 
     public static void main(String[] args) {
+        TwoStackQueue q = new TwoStackQueue();
+        q.offer(1);
+        q.offer(2);
+        q.offer(3);
 
-        TwoStackQueue tsq = new TwoStackQueue();
-        tsq.enqueue("A");
-        tsq.enqueue("B");
-        tsq.enqueue("C");
-        tsq.enqueue("D");
+        System.out.println(q.poll());
+        q.offer(4);
+        System.out.println(q.poll());
+        q.offer(5);
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+        q.offer(6);
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+    }
 
-        System.out.println(tsq.dequeue());
+    public void offer(T t) {
+        s1.push(t);
+    }
 
-        System.out.println(tsq.dequeue());
-        tsq.enqueue("E");
-        tsq.enqueue("F");
+    public T poll() {
+        if (s2.isEmpty()) {
+            while (s1.size() > 0) {
+                s2.push(s1.pop());
+            }
 
-        while (!tsq.isEmpty()) {
-            System.out.println(tsq.dequeue());
+            if (s2.isEmpty()) {
+                return null;
+            } else {
+                return s2.pop();
+            }
+        } else {
+            return s2.pop();
         }
     }
 

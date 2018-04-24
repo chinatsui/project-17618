@@ -25,4 +25,13 @@ public class ArraysTest {
         Assert.assertEquals(5, Arrays.asList(ch).size());
     }
 
+    @Test
+    public void test_binary_search() {
+        int[] nums = {10, 20, 30, 40, 50};
+        int pos = Arrays.binarySearch(nums, 40);
+        Assert.assertEquals(3, pos);
+        pos = Arrays.binarySearch(nums, 36);  // - insertionPos - 1
+        Assert.assertEquals(3, -pos - 1);
+    }
+
 }

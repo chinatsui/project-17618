@@ -1,8 +1,5 @@
 package me.chinatsui.research.algorithm.exercise.leetcode.year_2017;
 
-/**
- * Created by chinatsui on 14/01/2018.
- */
 public class GreatestCommonDivisor {
 
     public static void main(String[] args) {
