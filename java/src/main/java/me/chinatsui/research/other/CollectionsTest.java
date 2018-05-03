@@ -13,9 +13,7 @@ public class CollectionsTest {
         System.out.println(Collections.binarySearch(list, 5));
         list.add(1);
         list.add(2);
-
         list.add(0, 3);
-        
     }
 
 }
