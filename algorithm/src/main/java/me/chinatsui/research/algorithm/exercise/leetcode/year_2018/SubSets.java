@@ -6,11 +6,10 @@ import java.util.List;
 public enum SubSets {
 
     INSTANCE;
-
-    boolean[] isUsed = new boolean[3];
+    boolean[] isUsed;
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 2};
+        int[] nums = {1, 2, 3, 4, 5, 6};
         List<List<Integer>> subsets = INSTANCE.subsets(nums);
         System.out.println(subsets);
     }
@@ -20,6 +19,7 @@ public enum SubSets {
             return new ArrayList<>();
         }
 
+        isUsed = new boolean[nums.length];
         List<List<Integer>> res = new ArrayList();
         List<Integer> used = new ArrayList();
         track(nums, 0, used, res);
