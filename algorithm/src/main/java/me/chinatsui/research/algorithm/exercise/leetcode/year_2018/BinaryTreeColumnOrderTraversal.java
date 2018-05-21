@@ -2,31 +2,28 @@ package me.chinatsui.research.algorithm.exercise.leetcode.year_2018;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 public enum BinaryTreeColumnOrderTraversal {
 
     INSTANCE;
 
-    public List<Integer> traverse(TreeNode root) {
-        List<Integer> res = new ArrayList();
+    public List<List<Integer>> traverse(TreeNode root) {
+        List<List<Integer>> res = new ArrayList();
         TreeMap<Integer, List<Integer>> history = new TreeMap();
-        traverse(root, history, 0);
-        for (Map.Entry<Integer, List<Integer>> entry : history.entrySet()) {
-            for (Integer val : entry.getValue()) {
-                res.add(val);
-            }
-        }
+        traverse(root, 0, history);
+        history.forEach(((k, v) -> {
+            res.add(v);
+        }));
         return res;
     }
 
-    private void traverse(TreeNode node, TreeMap<Integer, List<Integer>> history, int x) {
+    private void traverse(TreeNode node, int x, TreeMap<Integer, List<Integer>> history) {
         if (node != null) {
             history.putIfAbsent(x, new ArrayList<>());
             history.get(x).add(node.val);
-            traverse(node.left, history, x - 1);
-            traverse(node.right, history, x + 1);
+            traverse(node.left, x - 1, history);
+            traverse(node.right, x + 1, history);
         }
     }
 

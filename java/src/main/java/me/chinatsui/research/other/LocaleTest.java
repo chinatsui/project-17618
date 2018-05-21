@@ -3,9 +3,6 @@ package me.chinatsui.research.other;
 import java.util.Arrays;
 import java.util.Locale;
 
-/**
- * Created by chinatsui on 31/01/2018.
- */
 public class LocaleTest {
 
     public static void main(String[] args) {
