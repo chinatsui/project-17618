@@ -10,76 +10,71 @@ import java.util.concurrent.*;
 
 public class AsyncEchoServer {
 
-    private final int port;
-    private AsynchronousServerSocketChannel assc;
+    public final static int PORT = 8001;
+    public final static String IP = "127.0.0.1";
+
+
+    private AsynchronousServerSocketChannel server = null;
 
     public static void main(String[] args) throws InterruptedException {
-        AsyncEchoServer server = new AsyncEchoServer(8080);
-        server.start();
-        // Below is used to simulate a real server process.
+        new AsyncEchoServer().start();
         new CountDownLatch(1).await();
     }
 
-    public AsyncEchoServer(int port) {
-        this.port = port;
+    public void start() {
+
         try {
-            // bind and listen on the port.
-            assc = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(port));
+            server = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(IP, PORT));
+            System.out.println("Server listen on " + PORT);
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
         }
-    }
 
-    public void start() {
-        System.out.println("Started on " + port);
-        assc.accept(null, new AcceptCompletionHandler(assc));
-        System.out.println("Can do something else.");
-    }
+        // register accept completion handler
+        server.accept(null, new CompletionHandler<AsynchronousSocketChannel, Object>() {
 
-    static class AcceptCompletionHandler implements CompletionHandler<AsynchronousSocketChannel, Object> {
+            final ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-        private AsynchronousServerSocketChannel assc;
+            @Override
+            public void completed(AsynchronousSocketChannel socketChannel, Object attachment) {
 
-        public AcceptCompletionHandler(AsynchronousServerSocketChannel assc) {
-            this.assc = assc;
-        }
+                System.out.println(Thread.currentThread().getName());
+                Future<Integer> toClient = null;
 
-        @Override
-        public void completed(AsynchronousSocketChannel result, Object attachment) {
-            System.out.println(Thread.currentThread().getName());
-            Future<Integer> writeResult = null;
-
-            try {
-                ByteBuffer buffer = ByteBuffer.allocate(1024);
-                result.read(buffer).get(100, TimeUnit.SECONDS);
-
-                System.out.println("In server: " + new String(buffer.array()));
-
-                //write data back to client
-                buffer.flip();
-                writeResult = result.write(buffer);
-            } catch (InterruptedException | ExecutionException | TimeoutException e) {
-                e.printStackTrace();
-            } finally {
-                // handle next request
-                assc.accept(null, this);
                 try {
-                    writeResult.get();
-                    result.close();
-                } catch (InterruptedException | ExecutionException e) {
+                    buffer.clear();
+                    socketChannel.read(buffer).get(100, TimeUnit.SECONDS);
+
+                    System.out.println("In server: " + new String(buffer.array()));
+
+                    // write data back to client
+                    toClient = socketChannel.write(ByteBuffer.wrap("Welcome!".getBytes()));
+                } catch (InterruptedException | ExecutionException | TimeoutException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } finally {
+                    server.accept(null, this);
+                    try {
+                        toClient.get();
+                        // balabala..
+                        socketChannel.close();
+                    } catch (InterruptedException | ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
-        }
 
-        @Override
-        public void failed(Throwable exc, Object attachment) {
-            exc.printStackTrace();
-        }
+            @Override
+            public void failed(Throwable exc, Object attachment) {
+                System.out.println("failed:" + exc);
+            }
 
+        });
+
+        System.out.println("Something else.");
     }
 
 }

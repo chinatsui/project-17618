@@ -8,97 +8,67 @@ import java.nio.channels.CompletionHandler;
 
 public class AsyncEchoClient {
 
-    private String host;
-    private int port;
-    private AsynchronousSocketChannel asc;
+    public static void main(String[] args) throws IOException {
 
-    public static void main(String[] args) throws InterruptedException {
-        AsyncEchoClient client = new AsyncEchoClient("127.0.0.1", 8080);
+        final AsynchronousSocketChannel client = AsynchronousSocketChannel.open();
 
-        client.connect(new InetSocketAddress(client.host, client.port));
-        client.send("Hello");
-    }
+        InetSocketAddress serverAddress = new InetSocketAddress("127.0.0.1", 8001);
 
-    public AsyncEchoClient(String host, int port) {
-        this.host = host;
-        this.port = port;
+        // connect and register completion handler.
+        client.connect(serverAddress, null, new CompletionHandler<Void, Object>() {
+
+            @Override
+            public void completed(Void result, Object attachment) {
+                // write data and register completion handler.
+                client.write(ByteBuffer.wrap("Thank you!".getBytes()), null, new CompletionHandler<Integer, Object>() {
+
+                    @Override
+                    public void completed(Integer result,
+                                          Object attachment) {
+                        final ByteBuffer buffer = ByteBuffer.allocate(1024);
+                        // read data and register completion handler.
+                        client.read(buffer, buffer, new CompletionHandler<Integer, ByteBuffer>() {
+
+                            @Override
+                            public void completed(Integer result,
+                                                  ByteBuffer attachment) {
+                                buffer.flip();
+                                System.out.println("In Client: " + new String(buffer.array()));
+                                try {
+                                    client.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void failed(Throwable exc, ByteBuffer attachment) {
+                                exc.printStackTrace();
+                            }
+
+                        });
+                    }
+
+                    @Override
+                    public void failed(Throwable exc, Object attachment) {
+                        exc.printStackTrace();
+                    }
+
+                });
+            }
+
+            @Override
+            public void failed(Throwable exc, Object attachment) {
+                exc.printStackTrace();
+            }
+
+        });
+
         try {
-            this.asc = AsynchronousSocketChannel.open();
-        } catch (IOException e) {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
             e.printStackTrace();
-            System.exit(1);
         }
-    }
-
-    public void connect(InetSocketAddress address) {
-        asc.connect(address, null, new ConnectCompleteHandler(asc));
-    }
-
-    public void send(String message) {
-        asc.write(ByteBuffer.wrap(message.getBytes()), null, new WriteCompletionHandler(asc));
-    }
-
-    static class ConnectCompleteHandler implements CompletionHandler<Void, Object> {
-
-        private AsynchronousSocketChannel asc;
-
-        public ConnectCompleteHandler(AsynchronousSocketChannel asc) {
-            this.asc = asc;
-        }
-
-        @Override
-        public void completed(Void result, Object attachment) {
-            System.out.println("Connection established...");
-        }
-
-        @Override
-        public void failed(Throwable exc, Object attachment) {
-            exc.printStackTrace();
-        }
-
-    }
-
-    static class WriteCompletionHandler implements CompletionHandler<Integer, Object> {
-
-        private AsynchronousSocketChannel asc;
-
-        public WriteCompletionHandler(AsynchronousSocketChannel asc) {
-            this.asc = asc;
-        }
-
-        @Override
-        public void completed(Integer result, Object attachment) {
-            System.out.println("After write completion...");
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
-            asc.read(buffer, buffer, new ReadCompletionHandler(asc));
-            System.out.println(new String(buffer.array()));
-        }
-
-        @Override
-        public void failed(Throwable exc, Object attachment) {
-            exc.printStackTrace();
-        }
-    }
-
-    static class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
-
-        private AsynchronousSocketChannel asc;
-
-        public ReadCompletionHandler(AsynchronousSocketChannel asc) {
-            this.asc = asc;
-        }
-
-        @Override
-        public void completed(Integer result, ByteBuffer attachment) {
-            System.out.println(new String(attachment.array()));
-            System.out.println("After read completion...");
-        }
-
-        @Override
-        public void failed(Throwable exc, ByteBuffer attachment) {
-            exc.printStackTrace();
-        }
-
     }
 
 }
