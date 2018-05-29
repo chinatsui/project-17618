@@ -5,7 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StreamTest {
@@ -36,8 +38,19 @@ public class StreamTest {
     }
 
     @Test
-    public void test_array_convert_to_map_val_is_key_index_is_value() {
-        int[] arr = {1, 2, 3, 4, 5};
+    public void test_distinct_list_to_linked_hash_set_in_order() {
+        List<String> nums = new ArrayList<>();
+        nums.add("ABC");
+        nums.add("ABCD");
+        nums.add("ABCD");
+        nums.add("BCDEF");
+        nums.add("BCDEF");
+        nums.add("BCDEF");
+        nums.add("XYZ");
+        nums.add("XYZ");
+        nums.add("XYZ");
+        Set<String> set = nums.stream().distinct().collect(Collectors.toCollection(LinkedHashSet::new));
+        System.out.println(set);
     }
 
 }
