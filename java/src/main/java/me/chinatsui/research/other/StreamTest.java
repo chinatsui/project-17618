@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -39,18 +40,40 @@ public class StreamTest {
 
     @Test
     public void test_distinct_list_to_linked_hash_set_in_order() {
-        List<String> nums = new ArrayList<>();
-        nums.add("ABC");
-        nums.add("ABCD");
-        nums.add("ABCD");
-        nums.add("BCDEF");
-        nums.add("BCDEF");
-        nums.add("BCDEF");
-        nums.add("XYZ");
-        nums.add("XYZ");
-        nums.add("XYZ");
-        Set<String> set = nums.stream().distinct().collect(Collectors.toCollection(LinkedHashSet::new));
+        List<Text> list = new ArrayList<>();
+        list.add(new Text("ABC"));
+        list.add(new Text("ABC"));
+        list.add(new Text("ABC"));
+        list.add(new Text("DEF"));
+
+        Set<Text> set = list.stream().distinct().collect(Collectors.toCollection(LinkedHashSet::new));
         System.out.println(set);
+    }
+
+    public static class Text {
+
+        private String str;
+
+        public Text(String str) {
+            this.str = str;
+        }
+
+        public String toString() {
+            return str;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Text text = (Text) o;
+            return Objects.equals(str, text.str);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(str);
+        }
     }
 
 }

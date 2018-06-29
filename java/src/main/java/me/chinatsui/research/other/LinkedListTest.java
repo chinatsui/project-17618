@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 
-import com.sun.deploy.util.ArrayUtil;
 import org.junit.Test;
 
 public class LinkedListTest {
