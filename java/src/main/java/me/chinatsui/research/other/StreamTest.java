@@ -1,15 +1,15 @@
 package me.chinatsui.research.other;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 public class StreamTest {
 
@@ -34,8 +34,12 @@ public class StreamTest {
 
     @Test
     public void test_filter() {
-        data = data.stream().filter(i-> i != 100).collect(Collectors.toList());
+        data.stream().filter(i -> i != 100);
+        Assert.assertEquals(3, data.size());
+        data = data.stream().filter(i -> i != 100).collect(Collectors.toList());
         Assert.assertEquals(2, data.size());
+        data = data.stream().filter(i -> false).collect(Collectors.toList());
+        Assert.assertEquals(0, data.size());
     }
 
     @Test
@@ -49,6 +53,7 @@ public class StreamTest {
         Set<Text> set = list.stream().distinct().collect(Collectors.toCollection(LinkedHashSet::new));
         System.out.println(set);
     }
+
 
     public static class Text {
 

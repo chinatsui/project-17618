@@ -15,7 +15,7 @@ public class OptionalTest {
         Assert.assertEquals("Optional.empty", opId.toString());
 
         String name = "abc";
-        Optional<String> opName = Optional.of(name);
+        Optional<String> opName = Optional.<String>of(name);
         Assert.assertEquals("Optional[abc]", opName.toString());
 
         UUID userId = null;
@@ -45,6 +45,34 @@ public class OptionalTest {
                 .map(Nested::getInner)
                 .map(Inner::getFoo)
                 .ifPresent(f -> System.out.println(f.getName()));
+    }
+
+    @Test
+    public void test_mapper() {
+        Optional.ofNullable("1")
+                .map(e -> null)
+                .map(e -> get999());
+    }
+
+    @Test
+    public void test_orElse() {
+        Optional.ofNullable("1")
+                .map(e -> null)
+                .map(e -> get999())
+                .orElse(get999());
+    }
+
+    @Test
+    public void test_orElseGet() {
+        Optional.ofNullable("10").orElseGet(() -> {
+            get999();
+            return "";
+        });
+    }
+
+    private String get999() {
+        System.out.println("Hello World!");
+        return "999";
     }
 
     static class Outer {

@@ -8,7 +8,7 @@ import org.junit.Test;
 public class ArraysTest {
 
     @Test
-    public void test_asList_given_primitive_type_return_one() {
+    public void test_asList_given_primitive_type_returns_one() {
         int[] nums = {1, 2, 3, 4, 5};
         Assert.assertEquals(1, Arrays.asList(nums).size());
 
@@ -17,7 +17,7 @@ public class ArraysTest {
     }
 
     @Test
-    public void test_asList_given_reference_type_return_exact_size() {
+    public void test_asList_given_reference_type_returns_exact_size() {
         Integer[] nums = {1, 2, 3, 4, 5};
         Assert.assertEquals(5, Arrays.asList(nums).size());
 
@@ -32,6 +32,14 @@ public class ArraysTest {
         Assert.assertEquals(3, pos);
         pos = Arrays.binarySearch(nums, 36);  // - insertionPos - 1
         Assert.assertEquals(3, -pos - 1);
+    }
+
+    @Test
+    public void test_array_copy() {
+        int[] nums = {1, 2, 3, 4};
+        int[] copy = new int[nums.length + 1];
+        System.arraycopy(nums, 0, copy, 1, nums.length);
+        System.out.println(Arrays.toString(copy));
     }
 
 }
