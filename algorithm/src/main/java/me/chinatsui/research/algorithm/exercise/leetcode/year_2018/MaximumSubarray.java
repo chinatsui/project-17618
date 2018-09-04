@@ -15,7 +15,7 @@ public enum MaximumSubarray {
         int global = nums[0];
 
         for (int i = 1; i < nums.length; i++) {
-            local = Math.max(nums[i] + local, nums[i]);
+            local = Math.max(nums[i], nums[i] + local);
             global = Math.max(global, local);
         }
 
