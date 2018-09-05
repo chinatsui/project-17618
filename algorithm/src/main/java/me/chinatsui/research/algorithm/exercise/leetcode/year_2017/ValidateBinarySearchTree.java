@@ -1,43 +1,53 @@
 package me.chinatsui.research.algorithm.exercise.leetcode.year_2017;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by chinatsui on 15/01/2018.
  */
 public class ValidateBinarySearchTree {
 
+    public static void main(String[] args) {
+        TreeNode node1 = new TreeNode(1);
+        TreeNode node2 = new TreeNode(2);
+        TreeNode node3 = new TreeNode(3);
+        node1.right = node2;
+        node2.left = node3;
+        System.out.println(new ValidateBinarySearchTree().isValidBST(node1));
+    }
+
+    private int minValue = Integer.MIN_VALUE;
+    private boolean minAssigned = false;
+
     public boolean isValidBST(TreeNode treeNode) {
         if (treeNode == null) {
-            return false;
+            return true;
         }
 
-        List<TreeNode> nodeList = new ArrayList();
-
-        inOrderTraverse(treeNode, nodeList);
-
-        TreeNode prev = nodeList.get(0);
-        for (int i = 1; i < nodeList.size(); i++) {
-            TreeNode cur = nodeList.get(i);
-            if (prev.val >= cur.val) {
-                return false;
-            }
-            prev = cur;
+        try {
+            inOrderTraverse(treeNode);
+        } catch (RuntimeException e) {
+            return false;
         }
 
         return true;
     }
 
-    private void inOrderTraverse(TreeNode treeNode, List<TreeNode> nodeList) {
+    private void inOrderTraverse(TreeNode treeNode) {
+        // left tree
         if (treeNode.left != null) {
-            inOrderTraverse(treeNode.left, nodeList);
+            inOrderTraverse(treeNode.left);
         }
 
-        nodeList.add(treeNode);
+        // root
+        if (treeNode.val <= minValue && minAssigned) {
+            throw new RuntimeException("");
+        } else {
+            minValue = treeNode.val;
+            minAssigned = true;
+        }
 
+        // right tree
         if (treeNode.right != null) {
-            inOrderTraverse(treeNode.right, nodeList);
+            inOrderTraverse(treeNode.right);
         }
     }
 

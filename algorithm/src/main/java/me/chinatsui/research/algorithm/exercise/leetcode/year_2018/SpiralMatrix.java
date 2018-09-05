@@ -9,8 +9,8 @@ public enum SpiralMatrix {
 
     public static void main(String[] args) {
         int[][] matrix = {{2,3}};
-        List<Integer> history = INSTANCE.spiralOrder(matrix);
-        System.out.println(history);
+        List<Integer> trace = INSTANCE.spiralOrder_2(matrix);
+        System.out.println(trace);
     }
 
     public List<Integer> spiralOrder(int[][] matrix) {
@@ -56,6 +56,57 @@ public enum SpiralMatrix {
         }
 
         return results;
+    }
+
+    public List<Integer> spiralOrder_2(int[][] matrix) {
+        if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
+            return new ArrayList();
+        }
+
+        int m = matrix.length, n = matrix[0].length;
+        int direction = 0; // 0: left to right, 1: top to bottom, 2: right to left, 3: bottom to top;
+        int left = 0, top = 0, right = n - 1, bottom = m - 1;
+        int i = 0, j = 0;
+
+        List<Integer> result = new ArrayList();
+        for (int k = 0; k < m*n; k++) {
+            result.add(matrix[i][j]);
+
+            if (direction == 0) {
+                if (j == right) {
+                    direction++;
+                    top++;
+                    i++;
+                } else {
+                    j++;
+                }
+            } else if (direction == 1) {
+                if (i == bottom) {
+                    direction++;
+                    right--;
+                    j--;
+                } else {
+                    i++;
+                }
+            } else if (direction == 2) {
+                if (j == left) {
+                    direction++;
+                    bottom--;
+                    i--;
+                } else {
+                    j--;
+                }
+            } else {
+                if (i == top) {
+                    direction = 0;
+                    left++;
+                    j++;
+                } else {
+                    i--;
+                }
+            }
+        }
+        return result;
     }
 
 }

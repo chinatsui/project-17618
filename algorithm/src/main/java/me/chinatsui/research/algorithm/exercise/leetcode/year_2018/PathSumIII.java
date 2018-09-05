@@ -1,41 +1,69 @@
 package me.chinatsui.research.algorithm.exercise.leetcode.year_2018;
 
-public enum PathSumIII {
+import java.util.HashMap;
 
-    INSTANCE;
+public class PathSumIII {
 
     public static void main(String[] args) {
         // [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8;
         Integer[] levelOrder = {10, 5, -3, 3, 2, null, 11, 3, -2, null, 1};
         TreeNode root = BinaryTree.deserializeFromLevelOrder(levelOrder);
-        System.out.println(INSTANCE.pathSum(root, 8));
+        System.out.println(Solution.INSTANCE.pathSum(root, 8));
     }
 
-    public int pathSum(TreeNode root, int sum) {
-        if (root == null) {
-            return 0;
+    public enum Solution {
+        INSTANCE;
+
+        public int pathSum(TreeNode root, int sum) {
+            if (root == null) {
+                return 0;
+            }
+
+            return dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
         }
 
-        return dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+        private int dfs(TreeNode node, int remain) {
+            if (node == null) {
+                return 0;
+            }
+
+            int count = 0;
+
+            int val = node.val;
+            remain -= val;
+
+            if (remain == 0) {
+                count++;
+            }
+
+            count += dfs(node.left, remain) + dfs(node.right, remain);
+
+            return count;
+        }
     }
 
-    private int dfs(TreeNode node, int remain) {
-        if (node == null) {
-            return 0;
+    public enum Solution2 {
+        INSTANCE;
+
+        public int pathSum_2(TreeNode root, int sum) {
+            HashMap<Integer, Integer> preSum = new HashMap();
+            preSum.put(0, 1);
+            return dfs_2(root, 0, sum, preSum);
         }
 
-        int count = 0;
+        public int dfs_2(TreeNode root, int currSum, int target, HashMap<Integer, Integer> preSum) {
+            if (root == null) {
+                return 0;
+            }
 
-        int val = node.val;
-        remain -= val;
-
-        if (remain == 0) {
-            count++;
+            currSum += root.val;
+            int res = preSum.getOrDefault(currSum - target, 0);
+            preSum.put(currSum, preSum.getOrDefault(currSum, 0) + 1);
+            res += dfs_2(root.left, currSum, target, preSum) + dfs_2(root.right, currSum, target, preSum);
+            preSum.put(currSum, preSum.get(currSum) - 1);
+            return res;
         }
-
-        count += dfs(node.left, remain) + dfs(node.right, remain);
-
-        return count;
     }
-
 }
+
+

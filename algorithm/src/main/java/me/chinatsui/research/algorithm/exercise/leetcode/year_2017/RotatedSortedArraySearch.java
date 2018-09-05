@@ -3,64 +3,50 @@ package me.chinatsui.research.algorithm.exercise.leetcode.year_2017;
 
 public class RotatedSortedArraySearch {
 
-    public int search(int[] nums, int target) {
+    public static void main(String[] args) {
+        int[] nums = {1, 1};
+        System.out.println(new RotatedSortedArraySearch().search(nums, 0));
+    }
+
+    public boolean search(int[] nums, int target) {
         if (nums.length == 0) {
-            return -1;
+            return false;
         }
 
         return search(nums, 0, nums.length - 1, target);
     }
 
-    public int search(int[] nums, int lo, int hi, int target) {
+    private boolean search(int[] nums, int lo, int hi, int target) {
 
         if (lo == hi) {
-            return nums[lo] == target ? lo : -1;
+            return nums[lo] == target;
         }
 
-        int mi = (lo + hi) / 2;
+        int mid = (lo + hi) / 2;
 
-        int left = nums[lo];
-        int right = nums[hi];
-        int key = nums[mi];
-
-        if (key == target) {
-            return mi;
-        }
-
-        if (left == target) {
-            return lo;
-        }
-
-        if (right == target) {
-            return hi;
-        }
-
-        if (isLeft(left, key, right, target)) {
-            return search(nums, lo, mi, target);
+        if (nums[lo] < nums[mid]) {
+            // left is sorted
+            if (target < nums[lo] || target > nums[mid]) {
+                return search(nums, mid + 1, hi, target);
+            } else {
+                return search(nums, lo, mid, target);
+            }
+        } else if (nums[lo] > nums[mid]) {
+            // right is sorted
+            if (target < nums[mid + 1] || target > nums[hi]) {
+                return search(nums, lo, mid, target);
+            } else {
+                return search(nums, mid + 1, hi, target);
+            }
         } else {
-            return search(nums, mi + 1, hi, target);
+            if (nums[lo] == target) {
+                return true;
+            } else {
+                return search(nums, ++lo, hi, target);
+            }
         }
 
     }
 
-    private boolean isLeft(int left, int key, int right, int target) {
-        if (target < key && target > left && target < right) {
-            return true;
-        }
-
-        if (target > key && target > left && target > right) {
-            return key < right;
-        }
-
-        if (target < key && target < right && target < left) {
-            return key < right;
-        }
-
-        if (target < key && target > left && target > right) {
-            return true;
-        }
-
-        return false;
-    }
 
 }

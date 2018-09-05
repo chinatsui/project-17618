@@ -1,6 +1,5 @@
 package me.chinatsui.research.algorithm.utils;
 
-
 import java.util.Arrays;
 import java.util.Random;
 
