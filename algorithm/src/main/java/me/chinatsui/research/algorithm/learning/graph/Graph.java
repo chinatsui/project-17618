@@ -1,46 +1,40 @@
 package me.chinatsui.research.algorithm.learning.graph;
 
 import java.util.HashSet;
-import java.util.Set;
 
-/**
- * Created by chinatsui on 09/01/2018.
- */
 public class Graph {
+    private final int v;
+    private int e;
+    private final HashSet<Integer>[] adj;
 
-    private final int vCount;
-    private int eCount;
-    private Set<Integer>[] vSets;
-
-    public Graph(int vCount) {
-        this.vCount = vCount;
-        vSets = new Set[this.vCount];
-        for (int i = 0; i < vCount; i++) {
-            vSets[i] = new HashSet<>();
+    public Graph(int v) {
+        this.v = v;
+        adj = new HashSet[this.v];
+        for (int i = 0; i < v; i++) {
+            adj[i] = new HashSet<>();
         }
     }
 
     public boolean addEdge(int v, int w) {
-        if (!vSets[v].contains(w)) {
-            vSets[v].add(w);
-            vSets[w].add(v);
-            eCount++;
+        if (!adj[v].contains(w)) {
+            adj[v].add(w);
+            adj[w].add(v);
+            e++;
             return true;
         } else {
             return false;
         }
     }
 
-    public Set<Integer> adj(int v) {
-        return vSets[v];
+    public HashSet<Integer> adjacentList(int v) {
+        return adj[v];
     }
 
-    public int eCount() {
-        return eCount;
+    public int edgeSize() {
+        return e;
     }
 
-    public int vCount() {
-        return vCount;
+    public int vertexSize() {
+        return v;
     }
-
 }

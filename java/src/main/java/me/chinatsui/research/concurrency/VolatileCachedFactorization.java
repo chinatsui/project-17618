@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum VolatileCachedFactorizer {
-
-    INSTANCE;
+public class VolatileCachedFactorization {
 
     private static final BigInteger ZERO = BigInteger.ZERO;
     private static final BigInteger ONE = BigInteger.ONE;
@@ -51,7 +49,6 @@ public enum VolatileCachedFactorizer {
     }
 
     static class LastOneCache {
-
         private final BigInteger lastNumber;
         private final BigInteger[] factors;
 
@@ -67,7 +64,5 @@ public enum VolatileCachedFactorizer {
 
             return Arrays.copyOf(factors, factors.length);
         }
-
     }
-
 }

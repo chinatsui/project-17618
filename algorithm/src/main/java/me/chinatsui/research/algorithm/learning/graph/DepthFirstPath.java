@@ -1,24 +1,20 @@
 package me.chinatsui.research.algorithm.learning.graph;
 
-
 import java.util.Stack;
 
 public class DepthFirstPath {
-
     private final Graph graph;
     private final int source;
-
     private boolean[] marked;
     private int[] edgeTo;
 
     public DepthFirstPath(Graph g, int s) {
         this.graph = g;
         this.source = s;
-        marked = new boolean[g.vCount()];
-        edgeTo = new int[g.vCount()];
+        marked = new boolean[g.vertexSize()];
+        edgeTo = new int[g.vertexSize()];
         dfs(s);
     }
-
 
     public boolean hasPath(int w) {
         return marked[w];
@@ -27,7 +23,7 @@ public class DepthFirstPath {
     public Stack pathTo(int w) {
         if (hasPath(w)) {
             Stack path = new Stack();
-            for (int i = w; i != source; i = toVertex(i)) {
+            for (int i = w; i != source; i = vertexTo(i)) {
                 path.push(i);
             }
             path.push(source);
@@ -37,14 +33,14 @@ public class DepthFirstPath {
         }
     }
 
-    public int toVertex(int v) {
+    public int vertexTo(int v) {
         return edgeTo[v];
     }
 
     private void dfs(int v) {
         marked[v] = true;
 
-        for (int w : graph.adj(v)) {
+        for (int w : graph.adjacentList(v)) {
             if (!marked[w]) {
                 edgeTo[w] = v;
                 dfs(w);
@@ -67,5 +63,4 @@ public class DepthFirstPath {
             System.out.println(stack.pop());
         }
     }
-
 }

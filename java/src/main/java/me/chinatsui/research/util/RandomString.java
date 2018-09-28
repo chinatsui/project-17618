@@ -1,4 +1,4 @@
-package me.chinatsui.util;
+package me.chinatsui.research.util;
 
 import java.util.concurrent.ThreadLocalRandom;
 

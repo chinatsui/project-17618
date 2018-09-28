@@ -5,10 +5,8 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class BreadthFirstPath {
-
     private Graph graph;
     private int source;
-
     private boolean[] marked;
     private int[] edgeTo;
 
@@ -26,7 +24,7 @@ public class BreadthFirstPath {
             int v = queue.poll();
             marked[v] = true;
 
-            for (int w : graph.adj(v)) {
+            for (int w : graph.adjacentList(v)) {
                 if (!marked[w]) {
                     queue.add(w);
                     edgeTo[w] = v;

@@ -2,12 +2,12 @@ package me.chinatsui.research.concurrency;
 
 import java.util.ArrayList;
 
-public class NestedThreadSynchronizationTest {
+public class NestedThreadSynchronization {
 
     private ArrayList<Integer> list = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        NestedThreadSynchronizationTest instance = new NestedThreadSynchronizationTest();
+        NestedThreadSynchronization instance = new NestedThreadSynchronization();
         new Thread(() -> instance.test(10)).start();
         new Thread(() -> instance.test(20)).start();
         Thread.sleep(2000);

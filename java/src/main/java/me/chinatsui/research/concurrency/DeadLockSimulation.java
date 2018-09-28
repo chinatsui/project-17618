@@ -1,7 +1,7 @@
 package me.chinatsui.research.concurrency;
 
 
-public class DeadLockTest {
+public class DeadLockSimulation {
 
     public static void main(String[] args) {
 
@@ -66,6 +66,4 @@ public class DeadLockTest {
         }
 
     }
-
-
 }
