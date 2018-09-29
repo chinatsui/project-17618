@@ -3,38 +3,50 @@ package me.chinatsui.research.algorithm.learning.graph;
 import java.util.HashSet;
 
 public class Graph {
-    private final int v;
-    private int e;
-    private final HashSet<Integer>[] adj;
+    private boolean isDirected;
+    private final int vertexCount;
+    private int edgeCount = 0;
+    private final HashSet<Integer>[] adjSet;
 
-    public Graph(int v) {
-        this.v = v;
-        adj = new HashSet[this.v];
-        for (int i = 0; i < v; i++) {
-            adj[i] = new HashSet<>();
+    public Graph(int count) {
+        this(count, false);
+    }
+
+    public Graph(int count, boolean isDirected) {
+        this.vertexCount = count;
+        this.isDirected = isDirected;
+        adjSet = new HashSet[count];
+        for (int i = 0; i < count;) {
+            adjSet[i++] = new HashSet<>();
         }
     }
 
-    public boolean addEdge(int v, int w) {
-        if (!adj[v].contains(w)) {
-            adj[v].add(w);
-            adj[w].add(v);
-            e++;
+    public boolean addEdge(int src, int dst) {
+        if (!adjSet[src].contains(dst)) {
+            adjSet[src].add(dst);
+            edgeCount++;
+            if (!isDirected) {
+                adjSet[dst].add(src);
+            }
             return true;
         } else {
             return false;
         }
     }
 
-    public HashSet<Integer> adjacentList(int v) {
-        return adj[v];
+    public boolean isDirected() {
+        return isDirected;
+    }
+
+    public HashSet<Integer> adjacent(int v) {
+        return adjSet[v];
     }
 
     public int edgeSize() {
-        return e;
+        return edgeCount;
     }
 
     public int vertexSize() {
-        return v;
+        return vertexCount;
     }
 }

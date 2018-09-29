@@ -6,13 +6,13 @@ import java.util.Stack;
 
 public class BreadthFirstPath {
     private Graph graph;
-    private int source;
+    private int startVertex;
     private boolean[] marked;
-    private int[] edgeTo;
+    private int[] vertexTo;
 
     public BreadthFirstPath(Graph g, int s) {
         this.graph = g;
-        this.source = s;
+        this.startVertex = s;
         bfs(s);
     }
 
@@ -24,10 +24,10 @@ public class BreadthFirstPath {
             int v = queue.poll();
             marked[v] = true;
 
-            for (int w : graph.adjacentList(v)) {
+            for (int w : graph.adjacent(v)) {
                 if (!marked[w]) {
                     queue.add(w);
-                    edgeTo[w] = v;
+                    vertexTo[w] = v;
                 }
             }
         }
@@ -40,10 +40,10 @@ public class BreadthFirstPath {
     public Stack pathTo(int w) {
         if (hasPathTo(w)) {
             Stack<Integer> stack = new Stack();
-            for (int i = w; i != source; i = edgeTo[i]) {
+            for (int i = w; i != startVertex; i = vertexTo[i]) {
                 stack.push(i);
             }
-            stack.push(source);
+            stack.push(startVertex);
             return stack;
         } else {
             return new Stack();

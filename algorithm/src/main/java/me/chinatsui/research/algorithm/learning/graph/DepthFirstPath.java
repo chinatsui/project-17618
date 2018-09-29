@@ -4,16 +4,20 @@ import java.util.Stack;
 
 public class DepthFirstPath {
     private final Graph graph;
-    private final int source;
+    private final int startVertex;
     private boolean[] marked;
-    private int[] edgeTo;
+    private int[] vertexTo;
 
     public DepthFirstPath(Graph g, int s) {
         this.graph = g;
-        this.source = s;
+        this.startVertex = s;
         marked = new boolean[g.vertexSize()];
-        edgeTo = new int[g.vertexSize()];
+        vertexTo = new int[g.vertexSize()];
         dfs(s);
+    }
+
+    public int getStartVertex() {
+        return startVertex;
     }
 
     public boolean hasPath(int w) {
@@ -23,10 +27,10 @@ public class DepthFirstPath {
     public Stack pathTo(int w) {
         if (hasPath(w)) {
             Stack path = new Stack();
-            for (int i = w; i != source; i = vertexTo(i)) {
+            for (int i = w; i != startVertex; i = vertexTo(i)) {
                 path.push(i);
             }
-            path.push(source);
+            path.push(startVertex);
             return path;
         } else {
             return new Stack();
@@ -34,15 +38,15 @@ public class DepthFirstPath {
     }
 
     public int vertexTo(int v) {
-        return edgeTo[v];
+        return vertexTo[v];
     }
 
     private void dfs(int v) {
         marked[v] = true;
 
-        for (int w : graph.adjacentList(v)) {
+        for (int w : graph.adjacent(v)) {
             if (!marked[w]) {
-                edgeTo[w] = v;
+                vertexTo[w] = v;
                 dfs(w);
             }
         }
