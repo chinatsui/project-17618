@@ -10,7 +10,7 @@ public abstract class Sort {
         return obj1.compareTo(obj2) < 0;
     }
 
-    public void exchange(Comparable[] a, int i, int j) {
+    public static void swap(Comparable[] a, int i, int j) {
         Comparable temp = a[i];
         a[i] = a[j];
         a[j] = temp;

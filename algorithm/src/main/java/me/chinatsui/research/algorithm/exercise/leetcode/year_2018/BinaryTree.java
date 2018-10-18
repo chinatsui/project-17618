@@ -6,26 +6,24 @@ import java.util.LinkedList;
 public class BinaryTree {
 
     public static void main(String[] args) {
-        Integer[] levelOrder = {10, 5, -3, 3, 2, null, 11, 3, -2, null, 1};
-        TreeNode root = deserializeFromLevelOrder(levelOrder);
-
-        System.out.println(root);
+        LinkedList<Integer> q = new LinkedList();
+        System.out.println(q.poll());
     }
 
     public static TreeNode deserializeFromPreorder(Integer[] preorder) {
         LinkedList<Integer> list = new LinkedList();
         list.addAll(Arrays.asList(preorder));
-        return buildTreeFromPreorder(list);
+        return deserializeFromPreorder(list);
     }
 
-    private static TreeNode buildTreeFromPreorder(LinkedList<Integer> linkedList) {
+    private static TreeNode deserializeFromPreorder(LinkedList<Integer> linkedList) {
         Integer val = linkedList.poll();
         if (val == null) {
             return null;
         } else {
             TreeNode root = new TreeNode(val);
-            root.left = buildTreeFromPreorder(linkedList);
-            root.right = buildTreeFromPreorder(linkedList);
+            root.left = deserializeFromPreorder(linkedList);
+            root.right = deserializeFromPreorder(linkedList);
             return root;
         }
     }

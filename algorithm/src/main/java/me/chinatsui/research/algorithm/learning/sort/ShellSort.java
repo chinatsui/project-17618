@@ -14,7 +14,7 @@ public class ShellSort extends Sort {
         while (h >= 1) {
             for (int i = h; i < a.length; i++) {
                 for (int j = i; j >= h && less(a[j], a[j - h]); j -= h) {
-                    exchange(a, j - h, j);
+                    swap(a, j - h, j);
                 }
             }
             h = h / 4;

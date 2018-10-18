@@ -1,7 +1,5 @@
 package me.chinatsui.research.algorithm.learning.sort;
 
-import java.util.Arrays;
-
 // o(n^2)
 public class SelectionSort extends Sort {
 
@@ -14,7 +12,7 @@ public class SelectionSort extends Sort {
                     min = j;
                 }
             }
-            exchange(a, i, min);
+            swap(a, i, min);
         }
     }
 
