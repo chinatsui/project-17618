@@ -52,6 +52,7 @@ public enum BitOperation {
         // -10 >>> 1
         // 1000 ... ... 1010 >>> 0100 ... ... 0101
         System.out.println(-10 >>> 1);
+        System.out.println(5 >>> 1);
     }
 
 }

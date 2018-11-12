@@ -4,67 +4,57 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public enum BinaryTreePreorderTraversal {
-
-    INSTANCE;
+public class BinaryTreePreorderTraversal {
 
     public static void main(String[] args) {
-        System.out.println(INSTANCE.traverseRecursively(BinaryTree.getBinarySearchTree()));
-        System.out.println(INSTANCE.traverseIteratively(BinaryTree.getBinarySearchTree()));
+        System.out.println(Solution1.INSTANCE.traverse(BinaryTree.getBinarySearchTree()));
+        System.out.println(Solution2.INSTANCE.traverse(BinaryTree.getBinarySearchTree()));
     }
 
-    public List<Integer> traverseRecursively(TreeNode root) {
-        List<Integer> history = new ArrayList<>();
-        traverse(root, history);
-        return history;
-    }
+    public enum Solution1 {
+        INSTANCE;
 
-    private void traverse(TreeNode node, List<Integer> history) {
-        if (node != null) {
+        public List<Integer> traverse(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            if (root != null) {
+                traverse(root, res);
+            }
+            return res;
+        }
+
+        private void traverse(TreeNode node, List<Integer> history) {
             history.add(node.val);
-            traverse(node.left, history);
-            traverse(node.right, history);
+
+            if (node.left != null) {
+                traverse(node.left, history);
+            }
+
+            if (node.right != null) {
+                traverse(node.right, history);
+            }
         }
     }
 
-    public List<Integer> traverseIteratively(TreeNode root) {
-        List<Integer> history = new ArrayList();
+    public enum Solution2 {
+        INSTANCE;
 
-        TreeNode cur = root;
-        Stack<TreeNode> s = new Stack();
+        public List<Integer> traverse(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            Stack<TreeNode> stack = new Stack<>();
+            stack.push(root);
+            while (!stack.empty()) {
+                TreeNode node = stack.pop();
+                res.add(node.val);
 
-        while (!s.empty() || cur != null) {
-            // iterate till the first left leaf.
-            while (!isLeaf(cur)) {
-                history.add(cur.val);
-                s.push(cur);
-                cur = cur.left;
+                if (node.right != null) {
+                    stack.push(node.right);
+                }
+
+                if (node.left != null) {
+                    stack.push(node.left);
+                }
             }
-
-            if (cur != null) {
-                history.add(cur.val);
-            }
-
-            while (!s.empty() && cur == s.peek().right) {
-                cur = s.pop();
-            }
-
-            if (s.empty()) {
-                cur = null;
-            } else {
-                cur = s.peek().right;
-            }
+            return res;
         }
-
-        return history;
     }
-
-    private boolean isLeaf(TreeNode node) {
-        if (node == null) {
-            return true;
-        }
-
-        return node.left == null && node.right == null;
-    }
-
 }
