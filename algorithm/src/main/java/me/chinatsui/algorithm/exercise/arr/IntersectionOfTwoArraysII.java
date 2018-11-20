@@ -9,7 +9,7 @@ public class IntersectionOfTwoArraysII {
 
     public static void main(String[] args) {
         int[] nums1 = {1, 1, 2, 3};
-        int[] nums2 = {1, 1, 1, 2, 2, 2, 3, 3};
+        int[] nums2 = {1, 1, 1, 2, 2, 2, 3, 3, 4};
         int[] res = Solution.INSTANCE.intersect(nums1, nums2);
         System.out.println(Arrays.toString(res));
     }
@@ -27,10 +27,12 @@ public class IntersectionOfTwoArraysII {
             });
 
             Arrays.stream(nums2).forEach(e -> {
-                int cnt = map.get(e);
-                if (map.containsKey(e) && cnt > 0) {
-                    res.add(e);
-                    map.put(e, cnt - 1);
+                if (map.containsKey(e)) {
+                    int cnt = map.get(e);
+                    if (cnt > 0) {
+                        res.add(e);
+                        map.put(e, cnt - 1);
+                    }
                 }
             });
 

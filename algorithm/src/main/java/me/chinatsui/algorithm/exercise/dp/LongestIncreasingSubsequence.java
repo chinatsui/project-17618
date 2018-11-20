@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.arr;
+package me.chinatsui.algorithm.exercise.dp;
 
 
 import java.util.ArrayList;
