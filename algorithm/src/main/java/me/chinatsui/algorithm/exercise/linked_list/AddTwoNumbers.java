@@ -2,76 +2,77 @@ package me.chinatsui.algorithm.exercise.linked_list;
 
 import me.chinatsui.algorithm.util.ListNode;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+public class AddTwoNumbers {
+    /*
+     LeetCode-2
 
-public enum AddTwoNumbers {
+     You are given two non-empty linked lists representing two non-negative integers.
+     The digits are stored in reverse order and each of their nodes contain a single digit.
+     Add the two numbers and return it as a linked list.
 
-    INSTANCE;
+     You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
+     Example:
+     Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+     Output: 7 -> 0 -> 8
+     Explanation: 342 + 465 = 807.
+     */
     public static void main(String[] args) {
-        ListNode l1 = new ListNode(1);
-        ListNode l2 = new ListNode(9);
-        l2.next = new ListNode(9);
+        ListNode l1 = new ListNode(2);
+        l1.next = new ListNode(4);
 
-        System.out.println(l1);
-        System.out.println(l2);
-        ListNode result = INSTANCE.addTwoNumbers(l1, l2);
-        System.out.println(result);
-        new ArrayList(new HashSet());
+        ListNode l2 = new ListNode(5);
+        l2.next = new ListNode(6);
+        l2.next.next = new ListNode(4);
+
+        ListNode res = Solution.INSTANCE.addTwoNumbers(l1, l2);
+        System.out.println(res);
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode holder = null;
-        ListNode result = null;
+    public enum Solution {
+        INSTANCE;
 
-        int carry = 0;
-        while (l1 != null && l2 != null) {
-            int l1_val = l1.val;
-            int l2_val = l2.val;
-            int sum = l1_val + l2_val + carry;
-            int r_val = sum % 10;
-            carry = sum / 10;
-
-            l1 = l1.next;
-            l2 = l2.next;
-
-            if (result == null) {
-                result = new ListNode(r_val);
-                holder = result;
-            } else {
-                result.next = new ListNode(r_val);
-                result = result.next;
+        public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+            if (l1 == null) {
+                return l2;
             }
-        }
 
-        if (l1 == null && l2 == null) {
-            result.next = carry > 0 ? new ListNode(carry) : null;
-        } else if (l1 == null) {
-            concat(result, l2, carry);
-        } else if (l2 == null) {
-            concat(result, l1, carry);
-        }
+            if (l2 == null) {
+                return l1;
+            }
 
-        return holder;
+            ListNode dummy = new ListNode(0);
+            ListNode cur = dummy;
+            int sum = 0;
+            while (l1 != null && l2 != null) {
+                int val1 = l1.val;
+                int val2 = l2.val;
+                sum += val1 + val2;
+                ListNode node = new ListNode(sum % 10);
+                cur.next = node;
+                cur = cur.next;
+                sum /= 10;
+                l1 = l1.next;
+                l2 = l2.next;
+            }
+
+            ListNode l3 = l1 != null ? l1 : l2;
+            while (l3 != null) {
+                int val3 = l3.val;
+                sum += val3;
+                ListNode node = new ListNode(sum % 10);
+                cur.next = node;
+                cur = cur.next;
+                sum /= 10;
+                l3 = l3.next;
+            }
+
+            if (sum > 0) {
+                ListNode node = new ListNode(sum);
+                cur.next = node;
+            }
+
+            return dummy.next;
+        }
     }
-
-    private void concat(ListNode result, ListNode node, int carry) {
-        while(node != null && carry > 0) {
-            int val = node.val;
-            int sum = val + carry;
-            int r_val = sum % 10;
-            carry = sum / 10;
-            node = node.next;
-            result.next = new ListNode(r_val);
-            result = result.next;
-        }
-
-        if (node == null && carry > 0) {
-            result.next = new ListNode(carry);
-        } else if (node != null && carry == 0) {
-            result.next = node;
-        }
-    }
-
 }

@@ -11,23 +11,26 @@ public class MaximumSubArray {
 
     public static void main(String[] args) {
         int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        System.out.println(new MaximumSubArray().maxSubArray(nums));
+        System.out.println(Solution.INSTANCE.maxSubArray(nums));
     }
 
-    public int maxSubArray(int[] nums) {
-        if (nums.length == 0) {
-            return 0;
+    public enum Solution {
+        INSTANCE;
+
+        public int maxSubArray(int[] nums) {
+            if (nums.length == 0) {
+                return 0;
+            }
+
+            int tmp = nums[0];
+            int res = nums[0];
+
+            for (int i = 1; i < nums.length; i++) {
+                tmp = Math.max(tmp + nums[i], nums[i]);
+                res = Math.max(res, tmp);
+            }
+
+            return res;
         }
-
-        int local = nums[0];
-        int global = nums[0];
-
-        for (int i = 1; i < nums.length; i++) {
-            local = Math.max(nums[i], local + nums[i]);
-            global = Math.max(global, local);
-        }
-
-        return global;
     }
-
 }

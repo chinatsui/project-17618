@@ -1,8 +1,5 @@
 package me.chinatsui.algorithm.exercise.bit;
 
-/**
- * Created by chinatsui on 13/01/2018.
- */
 public class DivideTwoIntegers {
 
     public static void main(String[] args) {
@@ -77,5 +74,4 @@ public class DivideTwoIntegers {
             return result;
         }
     }
-
 }
