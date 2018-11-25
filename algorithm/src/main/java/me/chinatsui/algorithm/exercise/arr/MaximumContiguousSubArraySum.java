@@ -1,5 +1,8 @@
 package me.chinatsui.algorithm.exercise.arr;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 public class MaximumContiguousSubArraySum {
 
     public static void main(String[] args) {
@@ -11,27 +14,29 @@ public class MaximumContiguousSubArraySum {
         INSTANCE;
 
         public int getMaxLength(int[] nums, int target) {
-            int max = 0;
-            int sum = 0;
-            for (int i = 0, j = 0; i < nums.length; i++) {
-                sum += nums[i];
-                if (sum == target) {
-                    if (max == 0) {
-                        max = i - j + 1;
-                    } else {
-                        max = Math.max(max, i - j + 1);
-                    }
+            if (nums == null || nums.length < 1) {
+                return 0;
+            }
+
+            Map<Integer, Integer> cache = new TreeMap<>();
+            cache.put(0, -1);
+
+            int length = 0;
+            int curSum = 0;
+            for (int i = 0; i < nums.length; i++) {
+                curSum += nums[i];
+
+                int sumDiff = curSum - target;
+                if (cache.containsKey(sumDiff)) {
+                    length = Math.max(i - cache.get(sumDiff), length);
                 }
 
-                while (sum > target) {
-                    sum -= nums[j++];
-                    if (sum == target) {
-                        max = Math.max(max, i - j + 1);
-                    }
+                if (!cache.containsKey(curSum)) {
+                    cache.put(curSum, i);
                 }
             }
 
-            return max;
+            return length;
         }
     }
 }

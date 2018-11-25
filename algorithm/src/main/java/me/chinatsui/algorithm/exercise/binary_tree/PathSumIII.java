@@ -3,6 +3,7 @@ package me.chinatsui.algorithm.exercise.binary_tree;
 import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PathSumIII {
 
@@ -17,53 +18,25 @@ public class PathSumIII {
         INSTANCE;
 
         public int pathSum(TreeNode root, int sum) {
-            if (root == null) {
-                return 0;
-            }
-
-            return dfs(root, sum) + pathSum(root.left, sum) + pathSum(root.right, sum);
+            Map<Integer, Integer> cache = new HashMap<>();
+            cache.put(0, 1);
+            return dfs(root, 0, sum, cache);
         }
 
-        private int dfs(TreeNode node, int remain) {
+        private int dfs(TreeNode node, int curSum, int sum, Map<Integer, Integer> cache) {
             if (node == null) {
                 return 0;
             }
 
-            int count = 0;
+            curSum += node.val;
+            int cnt = cache.getOrDefault(curSum - sum, 0);
 
-            int val = node.val;
-            remain -= val;
+            cache.put(curSum, cache.getOrDefault(curSum, 0) + 1);
+            cnt += dfs(node.left, curSum, sum, cache);
+            cnt += dfs(node.right, curSum, sum, cache);
+            cache.put(curSum, cache.get(curSum) - 1);
 
-            if (remain == 0) {
-                count++;
-            }
-
-            count += dfs(node.left, remain) + dfs(node.right, remain);
-
-            return count;
-        }
-    }
-
-    public enum Solution2 {
-        INSTANCE;
-
-        public int pathSum_2(TreeNode root, int sum) {
-            HashMap<Integer, Integer> preSum = new HashMap();
-            preSum.put(0, 1);
-            return dfs_2(root, 0, sum, preSum);
-        }
-
-        public int dfs_2(TreeNode root, int currSum, int target, HashMap<Integer, Integer> preSum) {
-            if (root == null) {
-                return 0;
-            }
-
-            currSum += root.val;
-            int res = preSum.getOrDefault(currSum - target, 0);
-            preSum.put(currSum, preSum.getOrDefault(currSum, 0) + 1);
-            res += dfs_2(root.left, currSum, target, preSum) + dfs_2(root.right, currSum, target, preSum);
-            preSum.put(currSum, preSum.get(currSum) - 1);
-            return res;
+            return cnt;
         }
     }
 }

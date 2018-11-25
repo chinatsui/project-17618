@@ -4,59 +4,59 @@ import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
+/*
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
+Note: A leaf is a node with no children.
+
+Example:
+
+Given the below binary tree and sum = 22,
+
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \    / \
+7    2  5   1
+Return:
+
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]
+*/
 public class PathSumII {
 
-    public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> res = new ArrayList();
-        if (root == null) {
+    public enum Solution {
+        INSTANCE;
+
+        public List<List<Integer>> pathSum(TreeNode root, int sum) {
+            List<List<Integer>> res = new ArrayList<>();
+            this.dfs(root, sum, new ArrayList<>(), res);
             return res;
         }
 
-        int total = 0;
-        Stack<TreeNode> s = new Stack();
-        while (!s.empty() || root != null) {
-            while (!isLeaf(root)) {
-                total += root.val;
-                s.push(root);
-                root = root.left;
+        private void dfs(TreeNode node, int sum, List<Integer> cur, List<List<Integer>> res) {
+            if (node == null) {
+                return;
             }
 
-            if (root != null) {
-                total += root.val;
-                if (total == sum) {
-                    ArrayList<Integer> list = new ArrayList();
-                    for (TreeNode n : s) {
-                        list.add(n.val);
-                    }
-                    list.add(root.val);
-                    res.add(list);
+            if (node.left == null && node.right == null) {
+                if (node.val == sum) {
+                    List<Integer> tmp = new ArrayList<>(cur);
+                    tmp.add(node.val);
+                    res.add(tmp);
                 }
+                return;
             }
 
-            while (!s.empty() && root == s.peek().right) {
-                if (root != null) {
-                    total -= root.val;
-                }
-                root = s.pop();
-            }
-
-            if (s.empty()) {
-                root = null;
-            } else {
-                if (root != null) {
-                    total -= root.val;
-                }
-                root = s.peek().right;
-            }
+            List<Integer> tmp = new ArrayList<>(cur);
+            tmp.add(node.val);
+            dfs(node.left, sum - node.val, tmp, res);
+            dfs(node.right, sum - node.val, tmp, res);
         }
-
-        return res;
     }
-
-    private boolean isLeaf(TreeNode node) {
-        return node == null ? true : node.left == null && node.right == null;
-    }
-
 }

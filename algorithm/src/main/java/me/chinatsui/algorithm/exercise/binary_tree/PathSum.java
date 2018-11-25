@@ -4,9 +4,27 @@ import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.Stack;
 
-public enum PathSum {
-
-    INSTANCE;
+/**
+ * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that
+ * adding up all the values along the path equals the given sum.
+ *
+ * Note: A leaf is a node with no children.
+ *
+ * Example:
+ *
+ * Given the below binary tree and sum = 22,
+ *
+ *       5
+ *      / \
+ *     4   8
+ *    /   / \
+ *   11  13  4
+ *  /  \      \
+ * 7    2      1
+ *
+ * return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
+ */
+public class PathSum {
 
     public static void main(String[] args) {
         TreeNode root = new TreeNode(5);
@@ -20,56 +38,35 @@ public enum PathSum {
         root.right.right = new TreeNode(4);
         root.right.right.right = new TreeNode(1);
 
-        System.out.println(INSTANCE.hasPathSum(root, 22));
+        System.out.println(Solution.INSTANCE.hasPathSum(root, 22));
     }
 
-    public boolean hasPathSum(TreeNode root, int sum) {
-        if (root == null) {
+    public enum Solution {
+        INSTANCE;
+
+        public boolean hasPathSum(TreeNode root, int sum) {
+            if (root == null) {
+                return false;
+            }
+
+            if (isLeaf(root)) {
+                return root.val == sum;
+            }
+
+            return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+        }
+
+        private boolean isLeaf(TreeNode node) {
+            if (node == null) {
+                return true;
+            }
+
+            if (node.left == null && node.right == null) {
+                return true;
+            }
+
             return false;
         }
-
-        int curSum = 0;
-        Stack<TreeNode> s = new Stack();
-        while (!s.empty() || root != null) {
-            while (!isLeaf(root)) {
-                curSum += root.val;
-                if (curSum == sum) {
-                    return true;
-                }
-                s.push(root);
-                root = root.left;
-            }
-
-            if (root != null) {
-                curSum += root.val;
-                if (curSum == sum) {
-                    return true;
-                }
-            }
-
-            while (!s.empty() && root == s.peek().right) {
-                if (root != null) {
-                    curSum -= root.val;
-                }
-                root = s.pop();
-            }
-
-            if (s.empty()) {
-                root = null;
-            } else {
-                if (root != null) {
-                    curSum -= root.val;
-                }
-                root = s.peek().right;
-            }
-
-        }
-
-        return false;
-    }
-
-    private boolean isLeaf(TreeNode node) {
-        return node == null ? true : node.left == null && node.right == null;
     }
 
 }
