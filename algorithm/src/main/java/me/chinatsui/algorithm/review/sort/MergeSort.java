@@ -9,95 +9,93 @@ public class MergeSort extends Sort {
     public static void main(String[] args) {
         Integer[] a = DataUtils.getRandomIntegerArray(20);
         System.out.println(Arrays.toString(a));
-        System.out.println("----");
         new MergeSort().sort(a);
-        System.out.println("----");
         System.out.println(Arrays.toString(a));
     }
 
     @Override
-    void sort(Comparable[] a) {
-        Solution1.INSTANCE.sort(a);
+    void sort(Comparable[] data) {
+        Solution2.INSTANCE.sort(data);
     }
 
     public enum Solution1 {
         INSTANCE;
 
-        private Comparable[] aux;
+        public void sort(Comparable[] data) {
+            if (data == null || data.length < 1) {
+                return;
+            }
 
-        public void sort(Comparable[] a) {
-            aux = new Comparable[a.length];
-            sort(a, 0, a.length - 1);
+            int lo = 0, hi = data.length - 1;
+            mergeSort(data, lo, hi);
         }
 
-        private void sort(Comparable[] a, int lo, int hi) {
+        private void mergeSort(Comparable[] data, int lo, int hi) {
             if (lo >= hi) {
                 return;
             }
 
             int mid = (lo + hi) / 2;
-            sort(a, lo, mid);
-            sort(a, mid + 1, hi);
-
-            merge(a, lo, mid, hi);
+            mergeSort(data, lo, mid);
+            mergeSort(data, mid + 1, hi);
+            merge(data, lo, mid, hi);
         }
 
-        private void merge(Comparable[] a, int lo, int mid, int hi) {
-            for (int k = lo; k <= hi; k++) {
-                aux[k] = a[k];
-            }
+        private void merge(Comparable[] data, int lo, int mid, int hi) {
+            Comparable[] aux = Arrays.stream(data).toArray(Comparable[]::new);
 
-            for (int k = lo, i = lo, j = mid + 1; k <= hi; k++) {
+            int i = lo, j = mid + 1;
+            for (int k = lo; k <= hi; k++) {
                 if (i > mid) {
-                    a[k] = aux[j++]; // Left is over
+                    data[k] = aux[j++];
                 } else if (j > hi) {
-                    a[k] = aux[i++]; // Right is over
+                    data[k] = aux[i++];
                 } else if (aux[i].compareTo(aux[j]) < 0) {
-                    a[k] = aux[i++];
+                    data[k] = aux[i++];
                 } else {
-                    a[k] = aux[j++];
+                    data[k] = aux[j++];
                 }
             }
         }
     }
 
-    private enum Solution2 {
+    public enum Solution2 {
         INSTANCE;
 
-        Comparable[] aux;
+        public void sort(Comparable[] data) {
+            if (data == null || data.length < 1) {
+                return;
+            }
 
-        void sort(Comparable[] a) {
-            int n = a.length;
-            aux = new Comparable[n];
-
-            for (int i = 1; i < n; i *= 2) {
-                for (int lo = 0; lo + i - 1 < n; lo += 2 * i) {
+            int i = 1, n = data.length;
+            while (i <= n) {
+                int lo = 0;
+                while (lo + i - 1 < n) {
                     int mid = lo + i - 1;
                     int hi = mid + i;
                     if (hi > n - 1) {
                         hi = n - 1;
                     }
-                    merge(a, lo, mid, hi);
+                    merge(data, lo, mid, hi);
+                    lo = hi + 1;
                 }
+                i *= 2;
             }
         }
 
-        private void merge(Comparable[] nums, int lo, int mi, int hi) {
-            for (int i = lo; i <= hi; i++) {
-                aux[i] = nums[i];
-            }
+        private void merge(Comparable[] data, int lo, int mid, int hi) {
+            Comparable[] aux = Arrays.stream(data).toArray(Comparable[]::new);
 
-            int left = lo;
-            int right = mi + 1;
-            for (int i = lo; i <= hi; i++) {
-                if (left > mi) {
-                    nums[i] = aux[right++];
-                } else if (right > hi) {
-                    nums[i] = aux[left++];
-                } else if (aux[left].compareTo(aux[right]) < 0) {
-                    nums[i] = aux[left++];
+            int i = lo, j = mid + 1;
+            for (int k = lo; k <= hi; k++) {
+                if (i > mid) {
+                    data[k] = aux[j++];
+                } else if (j > hi) {
+                    data[k] = aux[i++];
+                } else if (aux[i].compareTo(aux[j]) < 0) {
+                    data[k] = aux[i++];
                 } else {
-                    nums[i] = aux[right++];
+                    data[k] = aux[j++];
                 }
             }
         }

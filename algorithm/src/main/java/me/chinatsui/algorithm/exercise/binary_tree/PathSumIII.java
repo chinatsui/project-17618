@@ -1,5 +1,6 @@
 package me.chinatsui.algorithm.exercise.binary_tree;
 
+import me.chinatsui.algorithm.util.BinaryTree;
 import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ public class PathSumIII {
     public static void main(String[] args) {
         // [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8;
         Integer[] levelOrder = {10, 5, -3, 3, 2, null, 11, 3, -2, null, 1};
-        TreeNode root = BinaryTree.deserializeFromLevelOrder(levelOrder);
+        TreeNode root = BinaryTree.deserialize(levelOrder);
         System.out.println(Solution.INSTANCE.pathSum(root, 8));
     }
 

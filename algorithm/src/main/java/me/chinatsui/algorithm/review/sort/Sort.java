@@ -4,7 +4,7 @@ import me.chinatsui.algorithm.util.DataUtils;
 
 public abstract class Sort {
 
-    abstract void sort(Comparable[] a);
+    abstract void sort(Comparable[] data);
 
     public boolean less(Comparable obj1, Comparable obj2) {
         return obj1.compareTo(obj2) < 0;

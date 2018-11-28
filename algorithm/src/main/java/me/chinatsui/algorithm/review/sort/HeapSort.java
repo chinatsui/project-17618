@@ -2,60 +2,67 @@ package me.chinatsui.algorithm.review.sort;
 
 import java.util.Arrays;
 
-public class HeapSort {
+public class HeapSort extends Sort {
 
     public static void main(String[] args) {
-        int[] x = {1, 4, 2, 3, 4, 5, 6, 7, 8, 23, 23, 11, 22, 124, 32, 2346};
-        new HeapSort().sort(x);
-        System.out.println(Arrays.toString(x));
+        int[] arr = {1, 4, 2, 3, 4, 5, 6, 7, 8, 23, 23, 11, 22, 124, 32, 2346};
+        Integer[] data = Arrays.stream(arr).boxed().toArray(Integer[]::new);
+        new HeapSort().sort(data);
+        System.out.println(Arrays.toString(data));
     }
 
-    public void sort(int[] nums) {
-        // parent -> left child: (i+1)*2 - 1
-        // parent -> right child: (i+1)*2
-        // child -> parent: (i-1) / 2
-
-        int n = nums.length;
-
-        // construct heap
-        for (int i = n / 2; i >= 0; i--) {
-            sink(nums, i, n - 1);
-        }
-
-        // sink sorting
-        while (n > 0) {
-            exchange(nums, 0, n - 1);
-            n--;
-            sink(nums, 0, n - 1);
-        }
-
+    @Override
+    void sort(Comparable[] data) {
+        Solution.INSTANCE.sort(data);
     }
 
-    private void exchange(int[] nums, int src, int dst) {
-        int temp = nums[src];
-        nums[src] = nums[dst];
-        nums[dst] = temp;
-    }
+    public enum Solution {
+        INSTANCE;
 
-    private void sink(int[] nums, int i, int bound) {
-        int leftChild = (i + 1) * 2 - 1;
-        int rightChild = (i + 1) * 2;
-
-        if (rightChild <= bound) {
-            int prior = isPriorTo(nums, leftChild, rightChild) ? leftChild : rightChild;
-            if (isPriorTo(nums, prior, i)) {
-                exchange(nums, i, prior);
-                sink(nums, prior, bound);
+        public void sort(Comparable[] data) {
+            if (data == null || data.length < 1) {
+                return;
             }
-        } else if (leftChild <= bound) {
-            if (isPriorTo(nums, leftChild, i)) {
-                exchange(nums, i, leftChild);
+
+            heapify(data);
+
+            int i = data.length - 1;
+            while (i > 0) {
+                swap(data, 0, i);
+                sink(data, 0, i - 1);
+                i--;
             }
         }
-    }
 
-    private boolean isPriorTo(int[] nums, int src, int dst) {
-        return nums[src] > nums[dst];
-    }
+        private void heapify(Comparable[] data) {
+            int n = data.length;
+            int m = n / 2;
+            while (m >= 0) {
+                sink(data, m, n - 1);
+                m--;
+            }
+        }
 
+        private void sink(Comparable[] data, int i, int bound) {
+            int left = (i + 1) * 2 - 1;
+            int right = (i + 1) * 2;
+
+            if (bound < left) {
+                return;
+            } else if (bound < right) {
+                if (data[left].compareTo(data[i]) > 0) {
+                    swap(data, i, left);
+                    sink(data, left, bound);
+                }
+            } else {
+                if (data[left].compareTo(data[right]) > 0 && data[left].compareTo(data[i]) > 0) {
+                    swap(data, i, left);
+                    sink(data, left, bound);
+                } else if (data[left].compareTo(data[right]) <= 0 && data[right].compareTo(data[i]) > 0) {
+                    swap(data, i, right);
+                    sink(data, right, bound);
+                }
+            }
+        }
+    }
 }

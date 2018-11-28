@@ -11,7 +11,6 @@ public class SortTest {
 
         executor.submit(new SortTestTask(new MergeSort()));
         executor.submit(new SortTestTask(new ShellSort()));
-        executor.submit(new SortTestTask(new SystemArraySort()));
         executor.submit(new SortTestTask(new InsertionSort()));
         executor.submit(new SortTestTask(new SelectionSort()));
         executor.submit(new SortTestTask(new QuickSort()));

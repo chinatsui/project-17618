@@ -4,15 +4,14 @@ public class CountingSort {
 
     public static void main(String args[]) {
         CountingSort ob = new CountingSort();
-        char arr[] = {'g', 'e', 'e', 'k', 's', 'f', 'o',
-                'r', 'g', 'e', 'e', 'k', 's'
-        };
+        char arr[] = {'g', 'e', 'e', 'k', 's', 'f', 'o', 'r', 'g', 'e', 'e', 'k', 's'};
 
         ob.sort(arr);
 
         System.out.print("Sorted character array is ");
-        for (int i = 0; i < arr.length; ++i)
+        for (int i = 0; i < arr.length; ++i) {
             System.out.print(arr[i]);
+        }
     }
 
     /*
@@ -80,5 +79,4 @@ public class CountingSort {
         for (int i = 0; i < n; ++i)
             arr[i] = output[i];
     }
-
 }

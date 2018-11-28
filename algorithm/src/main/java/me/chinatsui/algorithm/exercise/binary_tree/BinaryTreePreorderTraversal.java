@@ -1,5 +1,6 @@
 package me.chinatsui.algorithm.exercise.binary_tree;
 
+import me.chinatsui.algorithm.util.BinaryTree;
 import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.ArrayList;
@@ -41,9 +42,14 @@ public class BinaryTreePreorderTraversal {
         INSTANCE;
 
         public List<Integer> traverse(TreeNode root) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+
             List<Integer> res = new ArrayList<>();
             Stack<TreeNode> stack = new Stack<>();
             stack.push(root);
+
             while (!stack.empty()) {
                 TreeNode node = stack.pop();
                 res.add(node.val);
@@ -56,6 +62,7 @@ public class BinaryTreePreorderTraversal {
                     stack.push(node.left);
                 }
             }
+
             return res;
         }
     }

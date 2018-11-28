@@ -1,5 +1,6 @@
 package me.chinatsui.algorithm.exercise.binary_tree;
 
+import me.chinatsui.algorithm.util.BinaryTree;
 import me.chinatsui.algorithm.util.TreeNode;
 
 import java.util.ArrayList;
@@ -36,24 +37,29 @@ public class BinaryTreeInorderTraversal {
         INSTANCE;
 
         public List<Integer> traverse(TreeNode root) {
+            if (root == null) {
+                return new ArrayList<>();
+            }
+
             List<Integer> res = new ArrayList<>();
             Stack<TreeNode> stack = new Stack<>();
-            while (root != null) {
-                stack.add(root);
-                root = root.left;
-            }
+            pushNodes(stack, root);
 
             while (!stack.empty()) {
                 TreeNode node = stack.pop();
                 res.add(node.val);
-
-                TreeNode cur = node.right;
-                while (cur != null) {
-                    stack.add(cur);
-                    cur = cur.left;
-                }
+                node = node.right;
+                pushNodes(stack, node);
             }
+
             return res;
+        }
+
+        private void pushNodes(Stack<TreeNode> stack, TreeNode node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
+            }
         }
     }
 }

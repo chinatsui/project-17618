@@ -1,36 +1,33 @@
-package me.chinatsui.algorithm.exercise.binary_tree;
+package me.chinatsui.algorithm.util;
 
 import me.chinatsui.algorithm.util.TreeNode;
 
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 
 public class BinaryTree {
 
-    public static void main(String[] args) {
-        LinkedList<Integer> q = new LinkedList();
-        System.out.println(q.poll());
-    }
+    public static List<Integer> serialize(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
 
-    public static TreeNode deserializeFromPreorder(Integer[] preorder) {
-        LinkedList<Integer> list = new LinkedList();
-        list.addAll(Arrays.asList(preorder));
-        return deserializeFromPreorder(list);
-    }
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
 
-    private static TreeNode deserializeFromPreorder(LinkedList<Integer> linkedList) {
-        Integer val = linkedList.poll();
-        if (val == null) {
-            return null;
-        } else {
-            TreeNode root = new TreeNode(val);
-            root.left = deserializeFromPreorder(linkedList);
-            root.right = deserializeFromPreorder(linkedList);
-            return root;
+            if (node == null) {
+                res.add(null);
+                continue;
+            }
+
+            res.add(node.val);
+            queue.offer(node.left);
+            queue.offer(node.right);
         }
+
+        return res;
     }
 
-    public static TreeNode deserializeFromLevelOrder(Integer[] levelOrder) {
+    public static TreeNode deserialize(Integer[] levelOrder) {
         if (levelOrder == null || levelOrder.length < 1) {
             return null;
         }
@@ -129,6 +126,4 @@ public class BinaryTree {
 
         return root;
     }
-
-
 }

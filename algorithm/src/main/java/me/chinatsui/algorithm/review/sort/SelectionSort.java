@@ -4,15 +4,15 @@ package me.chinatsui.algorithm.review.sort;
 public class SelectionSort extends Sort {
 
     @Override
-    void sort(Comparable[] a) {
-        for (int i = 0; i < a.length; i++) {
+    void sort(Comparable[] data) {
+        for (int i = 0; i < data.length; i++) {
             int min = i;
-            for (int j = i + 1; j < a.length; j++) {
-                if (less(a[j], a[min])) {
+            for (int j = i + 1; j < data.length; j++) {
+                if (less(data[j], data[min])) {
                     min = j;
                 }
             }
-            swap(a, i, min);
+            swap(data, i, min);
         }
     }
 

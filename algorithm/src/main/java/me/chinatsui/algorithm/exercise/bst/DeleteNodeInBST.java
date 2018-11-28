@@ -1,6 +1,6 @@
 package me.chinatsui.algorithm.exercise.bst;
 
-import me.chinatsui.algorithm.exercise.binary_tree.BinaryTree;
+import me.chinatsui.algorithm.util.BinaryTree;
 import me.chinatsui.algorithm.util.TreeNode;
 
 public enum DeleteNodeInBST {
