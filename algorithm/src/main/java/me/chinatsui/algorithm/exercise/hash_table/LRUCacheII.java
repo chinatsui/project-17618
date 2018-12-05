@@ -2,6 +2,9 @@ package me.chinatsui.algorithm.exercise.hash_table;
 
 import java.util.HashMap;
 
+/*
+ * Be aware of that Java built-in "LinkedHashMap" is also a LRU cache implementation.
+ */
 public class LRUCacheII {
 
     private Entry head, tail;
@@ -76,5 +79,4 @@ public class LRUCacheII {
             this.value = value;
         }
     }
-
 }

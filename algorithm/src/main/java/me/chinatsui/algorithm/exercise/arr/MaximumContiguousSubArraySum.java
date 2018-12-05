@@ -1,12 +1,12 @@
 package me.chinatsui.algorithm.exercise.arr;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class MaximumContiguousSubArraySum {
 
     public static void main(String[] args) {
-        int[] nums = {4, 3, 2, 4, 1, 1, 2, 3, -4, 7, 9, 15, 16};
+        int[] nums = {4, 3, 2, 4, 1, 1, 2, 3, 1, -1, -4, 7, 9, 15, 16, 1, -1};
         System.out.println(Solution.INSTANCE.getMaxLength(nums, 9));
     }
 
@@ -18,7 +18,7 @@ public class MaximumContiguousSubArraySum {
                 return 0;
             }
 
-            Map<Integer, Integer> cache = new TreeMap<>();
+            Map<Integer, Integer> cache = new HashMap<>();
             cache.put(0, -1);
 
             int length = 0;
