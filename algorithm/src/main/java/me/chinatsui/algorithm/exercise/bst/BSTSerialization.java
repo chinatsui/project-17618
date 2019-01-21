@@ -13,7 +13,7 @@ public enum BSTSerialization {
 
     public static void main(String[] args) {
         String data = INSTANCE.serialize(BinaryTree.getBinarySearchTree());
-        TreeNode root = INSTANCE.deserialize(data);
+        INSTANCE.deserialize(data);
         System.out.println("Finished.");
     }
 
@@ -24,7 +24,7 @@ public enum BSTSerialization {
         }
 
         StringBuilder res = new StringBuilder("");
-        Stack<TreeNode> s = new Stack();
+        Stack<TreeNode> s = new Stack<>();
 
         while (!s.empty() || root != null) {
             while (!isLeaf(root)) {

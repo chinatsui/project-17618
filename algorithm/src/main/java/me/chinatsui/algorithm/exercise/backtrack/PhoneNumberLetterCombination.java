@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class PhoneNumberLetterCombination {
 
-    private static Map<String, List<String>> phoneNumberLetters = new HashMap();
+    private static Map<String, List<String>> phoneNumberLetters = new HashMap<>();
 
     static {
         List<String> one_Letters = new ArrayList<>();

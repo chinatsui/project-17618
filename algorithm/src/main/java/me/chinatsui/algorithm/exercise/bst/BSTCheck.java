@@ -20,7 +20,7 @@ public enum BSTCheck {
         }
 
         int min = Integer.MIN_VALUE;
-        Stack<TreeNode> s = new Stack();
+        Stack<TreeNode> s = new Stack<>();
         while (!s.empty() || root != null) {
             while (!isLeaf(root)) {
                 s.push(root);

@@ -16,13 +16,13 @@ public class Permutations {
 
         public List<List<Integer>> permute(int[] nums) {
             List<List<Integer>> res = new ArrayList<>();
-            backtrack(new ArrayList(), res, nums, new boolean[nums.length]);
+            backtrack(new ArrayList<>(), res, nums, new boolean[nums.length]);
             return res;
         }
 
         private void backtrack(ArrayList<Integer> cur, List<List<Integer>> res, int[] nums, boolean[] isUsed) {
             if (cur.size() == nums.length) {
-                res.add(new ArrayList(cur));
+                res.add(new ArrayList<>(cur));
             } else {
                 for (int i = 0; i < nums.length; i++) {
                     if (!isUsed[i]) {

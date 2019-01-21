@@ -19,8 +19,8 @@ public class BinaryTreeColumnOrderTraversal {
         INSTANCE;
 
         public List<List<Integer>> traverse(TreeNode root) {
-            List<List<Integer>> res = new ArrayList();
-            TreeMap<Integer, List<Integer>> history = new TreeMap();
+            List<List<Integer>> res = new ArrayList<>();
+            TreeMap<Integer, List<Integer>> history = new TreeMap<>();
             traverse(root, 0, history);
             history.forEach(((k, v) -> {
                 res.add(v);

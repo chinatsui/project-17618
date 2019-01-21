@@ -47,7 +47,7 @@ public class LongestIncreasingSubsequence {
                 return 0;
             }
 
-            ArrayList tails = new ArrayList<>();
+            ArrayList<Integer> tails = new ArrayList<>();
 
             for (int n : nums) {
                 int idx = binarySearch(tails, n);

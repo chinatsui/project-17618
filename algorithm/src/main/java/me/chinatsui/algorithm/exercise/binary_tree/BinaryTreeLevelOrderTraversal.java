@@ -18,9 +18,9 @@ public class BinaryTreeLevelOrderTraversal {
         INSTANCE;
 
         public List<Integer> traverse(TreeNode root) {
-            List<Integer> history = new ArrayList();
+            List<Integer> history = new ArrayList<>();
 
-            Queue<TreeNode> q = new LinkedList();
+            Queue<TreeNode> q = new LinkedList<>();
             q.offer(root);
 
             while (!q.isEmpty()) {

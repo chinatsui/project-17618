@@ -18,7 +18,7 @@ public class IntersectionOfTwoArraysII {
         INSTANCE;
 
         public int[] intersect(int[] nums1, int[] nums2) {
-            List<Integer> res = new ArrayList();
+            List<Integer> res = new ArrayList<>();
 
             HashMap<Integer, Integer> map = new HashMap<>();
             Arrays.stream(nums1).forEach(e -> {

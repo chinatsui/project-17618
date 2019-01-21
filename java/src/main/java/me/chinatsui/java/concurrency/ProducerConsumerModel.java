@@ -6,7 +6,7 @@ import java.util.Queue;
 public class ProducerConsumerModel {
 
     public static void main(String[] args) {
-        LinkedList q = new LinkedList();
+        LinkedList<String> q = new LinkedList<>();
 
         Producer p1 = new Producer(q);
         Producer p2 = new Producer(q);

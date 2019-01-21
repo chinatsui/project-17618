@@ -26,7 +26,8 @@ public class PSet<T> implements Iterable<T> {
         return this;
     }
 
-    public PSet<T> plus(T... elements) {
+    @SafeVarargs
+    public final PSet<T> plus(T... elements) {
         v.addAll(Arrays.asList(elements));
         return this;
     }
@@ -41,7 +42,8 @@ public class PSet<T> implements Iterable<T> {
         return this;
     }
 
-    public PSet<T> minus(T... elements) {
+    @SafeVarargs
+    public final PSet<T> minus(T... elements) {
         v.removeAll(Arrays.asList(elements));
         return this;
     }
@@ -74,7 +76,7 @@ public class PSet<T> implements Iterable<T> {
     }
 
     static <T> PSet<T> wrap(Set<T> set) {
-        return new PSet(set);
+        return new PSet<>(set);
     }
 
     private PSet(Set<T> v) {

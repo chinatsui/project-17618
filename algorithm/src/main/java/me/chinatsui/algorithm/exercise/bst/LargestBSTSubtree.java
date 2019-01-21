@@ -36,7 +36,7 @@ public class LargestBSTSubtree {
     private int isBST(TreeNode node) {
         int min = Integer.MIN_VALUE;
         int size = 0;
-        Stack<TreeNode> s = new Stack();
+        Stack<TreeNode> s = new Stack<>();
         while(!s.empty() || node != null) {
             while(!isLeaf(node)) {
                 s.push(node);

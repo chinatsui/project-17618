@@ -9,8 +9,8 @@ import java.util.Set;
 
 public class CloneGraph {
 
-    private Set<UndirectedGraphNode> visited = new HashSet();
-    private Map<UndirectedGraphNode, UndirectedGraphNode> copyMap = new HashMap();
+    private Set<UndirectedGraphNode> visited = new HashSet<>();
+    private Map<UndirectedGraphNode, UndirectedGraphNode> copyMap = new HashMap<>();
 
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
         if (node == null) {
@@ -50,7 +50,4 @@ public class CloneGraph {
             neighbors = new ArrayList<UndirectedGraphNode>();
         }
     }
-
-    ;
-
 }

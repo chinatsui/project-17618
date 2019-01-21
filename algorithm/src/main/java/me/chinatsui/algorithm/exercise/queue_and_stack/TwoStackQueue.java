@@ -4,26 +4,8 @@ import java.util.LinkedList;
 
 public class TwoStackQueue<T> {
 
-    LinkedList<T> s1 = new LinkedList();
-    LinkedList<T> s2 = new LinkedList();
-
-    public static void main(String[] args) {
-        TwoStackQueue q = new TwoStackQueue();
-        q.offer(1);
-        q.offer(2);
-        q.offer(3);
-
-        System.out.println(q.poll());
-        q.offer(4);
-        System.out.println(q.poll());
-        q.offer(5);
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-        q.offer(6);
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-        System.out.println(q.poll());
-    }
+    LinkedList<T> s1 = new LinkedList<>();
+    LinkedList<T> s2 = new LinkedList<>();
 
     public void offer(T t) {
         s1.push(t);

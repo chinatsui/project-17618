@@ -33,7 +33,7 @@ public class MergeKLinkedList {
                 return null;
             }
 
-            Queue<ListNode> queue = new LinkedList(Arrays.asList(lists));
+            Queue<ListNode> queue = new LinkedList<>(Arrays.asList(lists));
             while (queue.size() > 1) {
                 ListNode head1 = queue.poll();
                 ListNode head2 = queue.poll();

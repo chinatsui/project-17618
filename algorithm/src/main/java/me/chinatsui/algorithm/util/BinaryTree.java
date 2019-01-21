@@ -43,7 +43,7 @@ public class BinaryTree {
             root = new TreeNode(rootVal);
         }
 
-        LinkedList<TreeNode> q = new LinkedList();
+        LinkedList<TreeNode> q = new LinkedList<>();
         q.offer(root);
 
         while (!q.isEmpty()) {

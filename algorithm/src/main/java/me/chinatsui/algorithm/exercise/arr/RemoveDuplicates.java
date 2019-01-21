@@ -13,9 +13,9 @@ public enum RemoveDuplicates {
         int[] x = {1, 2, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 5, 5, 6, 7};
 //        System.out.println(INSTANCE.removeDuplicates(x));
         System.out.println(Arrays.toString(x));
-        List list = Arrays.stream(x).boxed().collect(Collectors.toList());
+        List<Integer> list = Arrays.stream(x).boxed().collect(Collectors.toList());
         System.out.println(list.size());
-        HashSet<Integer> set = new HashSet(list);
+        HashSet<Integer> set = new HashSet<>(list);
         System.out.println(set.size());
     }
 

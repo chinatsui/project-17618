@@ -60,7 +60,7 @@ public enum SpiralMatrix {
 
     public List<Integer> spiralOrder_2(int[][] matrix) {
         if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
-            return new ArrayList();
+            return new ArrayList<>();
         }
 
         int m = matrix.length, n = matrix[0].length;
@@ -68,7 +68,7 @@ public enum SpiralMatrix {
         int left = 0, top = 0, right = n - 1, bottom = m - 1;
         int i = 0, j = 0;
 
-        List<Integer> result = new ArrayList();
+        List<Integer> result = new ArrayList<>();
         for (int k = 0; k < m*n; k++) {
             result.add(matrix[i][j]);
 

@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class CourseSchedule {
 
-    private Map<Integer, List<Integer>> preMap = new HashMap();
+    private Map<Integer, List<Integer>> preMap = new HashMap<>();
 
     public static void main(String[] args) {
         int[][] prerequisites = {{0, 1}, {3, 1}, {1, 3}, {3, 2}};
@@ -19,7 +19,7 @@ public class CourseSchedule {
         init(prerequisites);
 
         for (int i = 0; i < numCourses; i++) {
-            HashSet<Integer> seen = new HashSet();
+            HashSet<Integer> seen = new HashSet<>();
             seen.add(i);
             boolean hasCycle = checkCycle(i, seen);
             if (hasCycle) {
@@ -41,7 +41,7 @@ public class CourseSchedule {
         }
 
         for (int p : preList) {
-            HashSet<Integer> clone = (HashSet)seen.clone();
+            HashSet<Integer> clone = new HashSet<>(seen);
             clone.add(p);
             if (checkCycle(p, clone)) {
                 return true;
@@ -74,5 +74,4 @@ public class CourseSchedule {
         }
         return false;
     }
-
 }

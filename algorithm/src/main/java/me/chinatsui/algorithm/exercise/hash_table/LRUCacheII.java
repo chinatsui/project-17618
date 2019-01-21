@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class LRUCacheII {
 
     private Entry head, tail;
-    private HashMap<Integer, Entry> map = new HashMap();
+    private HashMap<Integer, Entry> map = new HashMap<>();
     private int size;
     private int capacity;
 

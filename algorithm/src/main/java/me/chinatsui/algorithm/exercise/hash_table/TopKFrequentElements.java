@@ -27,6 +27,7 @@ public class TopKFrequentElements {
         }
 
         // o(n)
+        @SuppressWarnings("unchecked")
         List<Integer>[] bucket = new List[nums.length + 1];
         for (int num : frequencyMap.keySet()) {
             int frequency = frequencyMap.get(num);
@@ -57,7 +58,7 @@ public class TopKFrequentElements {
      * My first solution.
      */
     public List<Integer> topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> numCountMap = new HashMap();
+        Map<Integer, Integer> numCountMap = new HashMap<>();
 
         //o(n)
         for (int num : nums) {

@@ -29,13 +29,13 @@ public enum ValidParentheses {
             return false;
         }
 
-        Stack stack = new Stack();
+        Stack<Character> stack = new Stack<>();
 
         for (int i = 0; i < n; i++) {
             if (stack.isEmpty()) {
                 stack.push(ch[i]);
             } else {
-                char prev = (char)stack.pop();
+                char prev = (char) stack.pop();
                 if (prev == '(' && ch[i] == ')') {
                     continue;
                 } else if (prev == '{' && ch[i] == '}') {

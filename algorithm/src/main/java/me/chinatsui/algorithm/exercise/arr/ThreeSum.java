@@ -14,7 +14,7 @@ public enum ThreeSum {
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
-        List<List<Integer>> res = new ArrayList();
+        List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
 
         for (int i = 0; i < nums.length - 2; i++) {
@@ -28,7 +28,7 @@ public enum ThreeSum {
                 int twoSum = nums[i] + nums[j];
                 int comp = Arrays.binarySearch(nums, j + 1, nums.length, -twoSum);
                 if (comp > j) {
-                    List<Integer> cur = new ArrayList();
+                    List<Integer> cur = new ArrayList<>();
                     cur.add(nums[i]);
                     cur.add(nums[j]);
                     cur.add(nums[comp]);

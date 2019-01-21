@@ -17,7 +17,7 @@ public class CombinationSum {
         INSTANCE;
 
         public List<List<Integer>> combinationSum(int[] candidates, int target) {
-            List<Integer> cur = new ArrayList();
+            List<Integer> cur = new ArrayList<>();
             List<List<Integer>> res = new ArrayList<>();
 
             track(candidates, 0, target, cur, res);

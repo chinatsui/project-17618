@@ -15,12 +15,12 @@ public class PascalTriangleII {
         INSTANCE;
 
         public List<Integer> getRow(int rowIndex) {
-            List<List<Integer>> pt = new ArrayList();
+            List<List<Integer>> pt = new ArrayList<>();
             pt.add(Arrays.asList(1));
 
             for (int i = 1; i <= rowIndex; i++) {
                 int y = i;
-                List<Integer> row = new ArrayList();
+                List<Integer> row = new ArrayList<>();
                 row.add(1);
                 for (int x = -i + 2; x <= i - 2; x += 2) {
                     Integer leftAbove = getElement(pt, x - 1, y - 1);

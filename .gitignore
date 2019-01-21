@@ -4,3 +4,7 @@ auditlog/
 .idea/
 .DS_Store
 tmp.*
+.settings
+.classpath
+.project
+.vscode

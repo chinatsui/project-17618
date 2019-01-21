@@ -20,8 +20,8 @@ public enum SubSets {
         }
 
         isUsed = new boolean[nums.length];
-        List<List<Integer>> res = new ArrayList();
-        List<Integer> used = new ArrayList();
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> used = new ArrayList<>();
         track(nums, 0, used, res);
         return res;
     }

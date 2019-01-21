@@ -14,6 +14,7 @@ public class ForkJoinSample {
 
     private static class FactorialSquareTask extends RecursiveTask<Integer> {
 
+        private static final long serialVersionUID = 1L;
         private Integer num;
 
         public FactorialSquareTask(Integer num) {

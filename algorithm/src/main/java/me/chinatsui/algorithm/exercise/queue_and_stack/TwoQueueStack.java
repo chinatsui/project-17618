@@ -4,18 +4,8 @@ import java.util.LinkedList;
 
 public class TwoQueueStack<T> {
 
-    LinkedList<T> q1 = new LinkedList();
-    LinkedList<T> q2 = new LinkedList();
-
-    public static void main(String[] args) {
-        TwoQueueStack s = new TwoQueueStack();
-        s.push(1);
-        s.push(2);
-        s.push(3);
-        System.out.println(s.pop());
-        s.push(4);
-        System.out.println(s.pop());
-    }
+    LinkedList<T> q1 = new LinkedList<>();
+    LinkedList<T> q2 = new LinkedList<>();
 
     public void push(T t) {
         if (q1.isEmpty()) {
@@ -38,5 +28,4 @@ public class TwoQueueStack<T> {
             return q1.poll();
         }
     }
-
 }

@@ -31,7 +31,7 @@ public enum LetterCombinations {
             return null;
         }
 
-        List<String> results = new ArrayList();
+        List<String> results = new ArrayList<>();
 
         char[] ch = digits.toCharArray();
 
@@ -44,7 +44,7 @@ public enum LetterCombinations {
                         results.add("" + l);
                     }
                 } else {
-                    List<String> tmp = new ArrayList();
+                    List<String> tmp = new ArrayList<>();
                     for (String prefix : results) {
                         for (char l : letters) {
                             tmp.add(prefix + l);

@@ -26,7 +26,7 @@ public class LowestCommonAncestorBT {
         INSTANCE;
 
         private TreeNode root;
-        private Map<TreeNode, TreeNode> toFrom = new HashMap();
+        private Map<TreeNode, TreeNode> toFrom = new HashMap<>();
 
         public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
             if (root == null) {
@@ -59,7 +59,7 @@ public class LowestCommonAncestorBT {
         }
 
         private ArrayList<TreeNode> getPathTo(TreeNode node) {
-            ArrayList<TreeNode> pathTo = new ArrayList();
+            ArrayList<TreeNode> pathTo = new ArrayList<>();
 
             pathTo.add(node);
             while (node != root) {
