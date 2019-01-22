@@ -25,7 +25,6 @@ public class ProducerConsumerModel {
     }
 
     static class Producer implements Runnable {
-
         Queue<String> queue;
 
         public Producer(Queue<String> queue) {
@@ -57,11 +56,9 @@ public class ProducerConsumerModel {
                 e.printStackTrace();
             }
         }
-
     }
 
     static class Consumer implements Runnable {
-
         Queue<String> queue;
 
         public Consumer(Queue<String> queue) {
@@ -93,6 +90,5 @@ public class ProducerConsumerModel {
                 e.printStackTrace();
             }
         }
-
     }
 }

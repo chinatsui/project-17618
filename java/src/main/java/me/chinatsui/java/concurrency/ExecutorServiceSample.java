@@ -13,10 +13,10 @@ public class ExecutorServiceSample {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        instance.practiseScheduleExecutorService();
+        instance.scheduleExecutorService();
     }
 
-    public void practiseStopExecutorService() {
+    public void stopExecutorService() {
         int processors = Runtime.getRuntime().availableProcessors();
         ExecutorService executorService = Executors.newFixedThreadPool(processors);
 
@@ -33,7 +33,7 @@ public class ExecutorServiceSample {
      * 3. shutdown() would immediately terminate the ScheduleExecutorService pool.
      *
      */
-    public void practiseScheduleExecutorService() throws InterruptedException {
+    public void scheduleExecutorService() throws InterruptedException {
         int processors = Runtime.getRuntime().availableProcessors();
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(processors);
         scheduledExecutorService.scheduleAtFixedRate(new Task(1000), 0, 100, TimeUnit.MILLISECONDS);

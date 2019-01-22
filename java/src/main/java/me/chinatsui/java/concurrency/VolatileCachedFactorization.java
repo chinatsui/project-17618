@@ -4,14 +4,33 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class VolatileCachedFactorization {
 
-    private static final BigInteger ZERO = BigInteger.ZERO;
-    private static final BigInteger ONE = BigInteger.ONE;
-    private static final BigInteger TWO = BigInteger.valueOf(2);
-
+    private static final VolatileCachedFactorization instance = new VolatileCachedFactorization();
     private volatile LastOneCache cache = new LastOneCache(null, null);
+
+    private VolatileCachedFactorization() {
+    }
+
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        CompletableFuture future1 = CompletableFuture.supplyAsync(() -> instance.getFactors(BigInteger.valueOf(12)));
+        CompletableFuture future2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(2000L);
+                return instance.getFactors(BigInteger.valueOf(24));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        BigInteger[] arr1 = (BigInteger[]) future1.get();
+        BigInteger[] arr2 = (BigInteger[]) future2.get();
+        System.out.println(Arrays.toString(arr1));
+        System.out.println(Arrays.toString(arr2));
+    }
 
     public BigInteger[] getFactors(BigInteger i) {
         BigInteger[] factors = cache.getFactors(i);
@@ -27,21 +46,23 @@ public class VolatileCachedFactorization {
     private BigInteger[] factor(BigInteger i) {
         List<BigInteger> results = new ArrayList<>();
 
-//        while (!i.equals(ONE)) {
-//            for (BigInteger factor = TWO; true; factor = factor.add(ONE)) {
-//                if (i.mod(factor).equals(ZERO)) {
-//                    results.add(factor);
-//                    i = i.divide(factor);
-//                    break;
-//                }
-//            }
-//        }
+        BigInteger factor = BigInteger.valueOf(2);
+        while (!i.equals(BigInteger.ONE)) {
+            BigInteger[] factors = cache.getFactors(i);
+            if (factors != null) {
+                BigInteger[] arr1 = results.toArray(new BigInteger[0]);
+                BigInteger[] arr2 = factors;
+                BigInteger[] res = new BigInteger[arr1.length + arr2.length];
+                System.arraycopy(arr1, 0, res, 0, arr1.length);
+                System.arraycopy(arr2, 0, res, arr1.length, arr2.length);
+                return res;
+            }
 
-        for (BigInteger f = TWO; f.compareTo(i) <= 0; f = f.add(ONE)) {
-            if (i.mod(f).equals(ZERO)) {
-                results.add(f);
-                i = i.divide(f);
-                f = f.subtract(ONE);
+            if (i.mod(factor).equals(BigInteger.ZERO)) {
+                results.add(factor);
+                i = i.divide(factor);
+            } else {
+                factor = factor.add(BigInteger.ONE);
             }
         }
 
