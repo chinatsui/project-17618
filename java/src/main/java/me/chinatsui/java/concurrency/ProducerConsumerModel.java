@@ -7,21 +7,12 @@ public class ProducerConsumerModel {
 
     public static void main(String[] args) {
         LinkedList<String> q = new LinkedList<>();
-
-        Producer p1 = new Producer(q);
-        Producer p2 = new Producer(q);
-        Producer p3 = new Producer(q);
-        Producer p4 = new Producer(q);
-
-        Consumer c1 = new Consumer(q);
-        Consumer c2 = new Consumer(q);
-
-        new Thread(p1).start();
-        new Thread(p2).start();
-        new Thread(p3).start();
-        new Thread(p4).start();
-        new Thread(c1).start();
-        new Thread(c2).start();
+        new Thread(new Producer(q)).start();
+        new Thread(new Producer(q)).start();
+        new Thread(new Producer(q)).start();
+        new Thread(new Producer(q)).start();
+        new Thread(new Consumer(q)).start();
+        new Thread(new Consumer(q)).start();
     }
 
     static class Producer implements Runnable {
@@ -75,13 +66,13 @@ public class ProducerConsumerModel {
                             System.out.println(threadName + ", wait.");
                             queue.wait();
                         } else {
-                            System.out.println(threadName + ", Start consuming...");
+                            System.out.println(threadName + ", start consuming...");
                             while (queue.size() > 0) {
                                 System.out.println(threadName + ", consuming one.");
                                 Thread.sleep(100L);
                                 queue.poll();
                             }
-                            System.out.println(threadName + ", Stop consuming...");
+                            System.out.println(threadName + ", stop consuming...");
                             queue.notifyAll();
                         }
                     }

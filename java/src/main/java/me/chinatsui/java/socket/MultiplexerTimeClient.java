@@ -1,4 +1,4 @@
-package me.chinatsui.java.nio;
+package me.chinatsui.java.socket;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

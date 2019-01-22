@@ -1,69 +1,52 @@
 package me.chinatsui.java.concurrency;
 
+import me.chinatsui.java.commons.Account;
+import me.chinatsui.java.commons.ThreadUtils;
 
 public class DeadLockSimulation {
 
+    private static final DeadLockSimulation instance = new DeadLockSimulation();
+
+    private DeadLockSimulation() {
+    }
+
     public static void main(String[] args) {
-
-        Object o1 = new Object();
-        Object o2 = new Object();
-
-        Thread t1 = new Thread(new Task1(o1, o2));
-        Thread t2 = new Thread(new Task2(o1, o2));
-
-        t1.start();
-        t2.start();
+        instance.simulateDeadLock();
     }
 
-    static class Task1 implements Runnable {
+    public void simulateDeadLock() {
+        Account acc1 = new Account("acc1", 102.3f);
+        Account acc2 = new Account("acc2", 120.0f);
 
-        private Object o1;
-        private Object o2;
+        new Thread(() -> transferMoneyWithSync(acc1, acc2, 23.3f)).start();
+        new Thread(() -> transferMoneyWithSync(acc2, acc1, 23.3f)).start();
+    }
 
-        public Task1(Object o1, Object o2) {
-            this.o1 = o1;
-            this.o2 = o2;
-        }
+    private void transferMoneyWithSync(Account src, Account dst, float amount) {
+        String srcName = src.getName();
+        String dstName = dst.getName();
 
-        public void run() {
-            synchronized (o1) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " o1...");
-                    Thread.sleep(2000);
-                    synchronized (o2) {
-                        System.out.println(Thread.currentThread().getName() + " o2...");
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        System.out.println(String.format(
+                "%s: Start transferring dollars from %s to %s...",
+                Thread.currentThread().getName(),
+                srcName,
+                dstName));
+
+        synchronized (src) {
+            ThreadUtils.sleep(100);
+            synchronized (dst) {
+                if (src.getBalance() > amount) {
+                    src.debit(amount);
+                    dst.credit(amount);
+                    System.out.println(
+                            String.format("Finished %s dollars transferred from %s to %s.",
+                                    amount,
+                                    srcName,
+                                    dstName));
+                } else {
+                    throw new RuntimeException("Insufficient Amount Exception.");
                 }
             }
         }
-
-    }
-
-    static class Task2 implements Runnable {
-
-        private Object o1;
-        private Object o2;
-
-        public Task2(Object o1, Object o2) {
-            this.o1 = o1;
-            this.o2 = o2;
-        }
-
-        public void run() {
-            synchronized (o2) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " o2...");
-                    Thread.sleep(2000);
-                    synchronized (o1) {
-                        System.out.println(Thread.currentThread().getName() + " o1...");
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
     }
 }

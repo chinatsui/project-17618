@@ -1,7 +1,7 @@
-package me.chinatsui.java.singleton;
+package me.chinatsui.java.pattern;
 
 /*
- * An easier way to create a thread-safe singleton class is to make the global access method synchronized,
+ * An easier way to create a thread-safe pattern class is to make the global access method synchronized,
  * so that only one thread can execute this method at a time, but it reduces the performance because of cost
  * associated with the synchronized method, although we need it only for the first few threads who might create
  * the separate instances.

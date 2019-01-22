@@ -49,6 +49,8 @@ public class VolatileCachedFactorization {
         BigInteger factor = BigInteger.valueOf(2);
         while (!i.equals(BigInteger.ONE)) {
             BigInteger[] factors = cache.getFactors(i);
+
+            // cache found, so return factors + cache as result
             if (factors != null) {
                 BigInteger[] arr1 = results.toArray(new BigInteger[0]);
                 BigInteger[] arr2 = factors;
@@ -58,6 +60,7 @@ public class VolatileCachedFactorization {
                 return res;
             }
 
+            // cache not found, proceed.
             if (i.mod(factor).equals(BigInteger.ZERO)) {
                 results.add(factor);
                 i = i.divide(factor);

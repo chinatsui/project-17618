@@ -1,4 +1,4 @@
-package me.chinatsui.java.singleton;
+package me.chinatsui.java.pattern;
 
 /*
  * Static block initialization implementation is similar to eager initialization,

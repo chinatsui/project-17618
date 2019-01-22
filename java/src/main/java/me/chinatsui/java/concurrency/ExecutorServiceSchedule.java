@@ -5,25 +5,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class ExecutorServiceSample {
+import me.chinatsui.java.commons.ThreadUtils;
 
-    private final static ExecutorServiceSample instance = new ExecutorServiceSample();
+public class ExecutorServiceSchedule {
 
-    private ExecutorServiceSample() {
+    private final static ExecutorServiceSchedule instance = new ExecutorServiceSchedule();
+
+    private ExecutorServiceSchedule() {
     }
 
     public static void main(String[] args) throws InterruptedException {
         instance.scheduleExecutorService();
-    }
-
-    public void stopExecutorService() {
-        int processors = Runtime.getRuntime().availableProcessors();
-        ExecutorService executorService = Executors.newFixedThreadPool(processors);
-
-        executorService.submit(new Task());
-        executorService.submit(new Task());
-
-        shutdownExecutorService(executorService);
     }
 
     /**
@@ -36,9 +28,9 @@ public class ExecutorServiceSample {
     public void scheduleExecutorService() throws InterruptedException {
         int processors = Runtime.getRuntime().availableProcessors();
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(processors);
-        scheduledExecutorService.scheduleAtFixedRate(new Task(1000), 0, 100, TimeUnit.MILLISECONDS);
-        scheduledExecutorService.scheduleAtFixedRate(new Task(20000), 0, 100, TimeUnit.MILLISECONDS);
-        Thread.sleep(5000);
+        scheduledExecutorService.scheduleAtFixedRate(new Task("Task1"), 0, 100, TimeUnit.MILLISECONDS);
+        scheduledExecutorService.scheduleAtFixedRate(new Task("Task2"), 0, 100, TimeUnit.MILLISECONDS);
+        Thread.sleep(3000);
         shutdownExecutorService(scheduledExecutorService);
     }
 
@@ -54,29 +46,17 @@ public class ExecutorServiceSample {
     }
 
     private static class Task implements Runnable {
-        private static int count = 0;
         private String name;
-        private Long time;
 
-        public Task() {
-            this(1000L);
-        }
-
-        public Task(long time) {
-            this.name = "Task" + count;
-            this.time = time;
-            count++;
+        public Task(String name) {
+            this.name = name;
         }
 
         @Override
         public void run() {
-            try {
-                String msg = String.format(Thread.currentThread().getName() + ": %s executed.", this.name);
-                System.out.println(msg);
-                Thread.sleep(this.time);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            String msg = String.format(Thread.currentThread().getName() + ": %s executed.", this.name);
+            System.out.println(msg);
+            ThreadUtils.sleep(300);
         }
     }
 }

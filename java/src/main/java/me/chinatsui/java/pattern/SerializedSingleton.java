@@ -1,4 +1,4 @@
-package me.chinatsui.java.singleton;
+package me.chinatsui.java.pattern;
 
 import java.io.*;
 
