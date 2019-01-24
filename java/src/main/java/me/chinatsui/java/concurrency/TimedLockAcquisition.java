@@ -1,5 +1,8 @@
 package me.chinatsui.java.concurrency;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.locks.Lock;
 
 import me.chinatsui.java.commons.Account;
@@ -8,6 +11,9 @@ import static me.chinatsui.java.commons.ThreadUtils.sleep;
 public class TimedLockAcquisition {
 
     private static final TimedLockAcquisition INSTANCE = new TimedLockAcquisition();
+
+    // ChronoUnit.SECONDS
+    private int timeSpan = 3;
 
     private TimedLockAcquisition() {
     }
@@ -25,15 +31,16 @@ public class TimedLockAcquisition {
     }
 
     private void transferMoneyWithTryLock(Account src, Account dst, float amount) {
+        System.out.println(String.format("Start transferring money from %s to %s", src.getName(), dst.getName()));
+
         Lock lock1 = src.getLock();
         Lock lock2 = dst.getLock();
 
-        System.out.println(String.format("Start transferring money from %s to %s", src.getName(), dst.getName()));
-        long stopTime = System.currentTimeMillis() + 5000L;
+        Instant start = Instant.now();
         while (true) {
             if (lock1.tryLock()) {
                 try {
-                    sleep(200);
+                    sleep(ThreadLocalRandom.current().nextInt(200));
                     if (lock2.tryLock()) {
                         try {
                             if (src.getBalance() > amount) {
@@ -58,12 +65,14 @@ public class TimedLockAcquisition {
                 }
             }
 
-            if (System.currentTimeMillis() > stopTime) {
+            Instant now = Instant.now();
+            if (start.until(now, ChronoUnit.SECONDS) >= timeSpan) {
                 System.out.println(String.format(
-                        "Stop one simultaneous transaction, src: %s, dst: %s",
+                        "Pause one simultaneous transaction, src: %s, dst: %s, so another one could complete soon",
                         src.getName(),
                         dst.getName()));
-                break;
+                sleep(500);
+                start = Instant.now();
             }
         }
     }
