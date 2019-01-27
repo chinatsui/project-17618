@@ -9,7 +9,7 @@ public class ThreadUtils {
         try {
             Thread.sleep(time);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
     }
 }
