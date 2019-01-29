@@ -6,9 +6,12 @@ import java.util.concurrent.CountDownLatch;
 
 import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
-public class LatchPractice {
+/**
+ * Make use of CountDownLatch to time multi-tasking.
+ */
+public class TimeTasks {
 
-    private static final LatchPractice INSTANCE = new LatchPractice();
+    private static final TimeTasks INSTANCE = new TimeTasks();
 
     private static final int N_THREADS = 10;
     private final CountDownLatch BEGIN_GATE = new CountDownLatch(1);

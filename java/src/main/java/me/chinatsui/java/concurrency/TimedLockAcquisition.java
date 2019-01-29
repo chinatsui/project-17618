@@ -8,11 +8,13 @@ import java.util.concurrent.locks.Lock;
 import me.chinatsui.java.commons.Account;
 import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
+/**
+ * Use TimedLock to address dead lock issue.
+ */
 public class TimedLockAcquisition {
 
     private static final TimedLockAcquisition INSTANCE = new TimedLockAcquisition();
 
-    // ChronoUnit.SECONDS
     private int timeSpan = 3;
 
     private TimedLockAcquisition() {

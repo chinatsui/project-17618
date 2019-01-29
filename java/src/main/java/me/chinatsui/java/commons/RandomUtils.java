@@ -21,4 +21,8 @@ public class RandomUtils {
         }
         return str.toString();
     }
+
+    public static int getRandomInt(int origin, int bound) {
+        return ThreadLocalRandom.current().nextInt(origin, bound);
+    }
 }

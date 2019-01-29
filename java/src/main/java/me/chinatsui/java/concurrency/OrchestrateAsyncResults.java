@@ -5,6 +5,9 @@ import java.util.concurrent.ExecutionException;
 
 import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
+/**
+ * As class name describes, multiple async results could be orchestrated in a way.
+ */
 public class OrchestrateAsyncResults {
 
     private static final OrchestrateAsyncResults instance = new OrchestrateAsyncResults();

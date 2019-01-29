@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * The key point is "Copy", it can guarantee the value inside would not be changed.
+ */
 public class VolatileCachedFactorization {
 
     private static final VolatileCachedFactorization instance = new VolatileCachedFactorization();

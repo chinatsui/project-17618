@@ -8,7 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
 /**
- * A sample of making use of blocking queue to simulate producer and consumer.
+ * A sample of making use of Java native BlockingQueue to simulate producer and consumer.
  * <p>
  * The FileCrawler scan each file under the specified root directory, and put qualified file into the queue.
  * On the contrary, the FileIndexer takes the file from the queue to do indexing.
