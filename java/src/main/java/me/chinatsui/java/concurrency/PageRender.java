@@ -25,7 +25,7 @@ public class PageRender {
         List<ImageInfo> infoList = scanForImageInfo();
         CompletionService completionService = new ExecutorCompletionService(executor);
         for (ImageInfo info : infoList) {
-            completionService.submit(() -> info.download());
+            completionService.submit(info::download);
         }
 
         renderText();
