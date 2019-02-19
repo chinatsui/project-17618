@@ -7,6 +7,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,8 +16,6 @@ public class MultiplexerTimeServer implements Runnable {
 
     private Selector selector;
 
-    private ServerSocketChannel serverSocketChannel;
-
     private volatile boolean stop;
 
     public static void main(String[] args) {
@@ -24,10 +23,10 @@ public class MultiplexerTimeServer implements Runnable {
         new Thread(server, "MultiplexerTimeServer-001").start();
     }
 
-    public MultiplexerTimeServer(int port) {
+    private MultiplexerTimeServer(int port) {
         try {
             selector = Selector.open();
-            serverSocketChannel = ServerSocketChannel.open();
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.socket().bind(new InetSocketAddress(port), 1024);
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
@@ -55,11 +54,9 @@ public class MultiplexerTimeServer implements Runnable {
                     try {
                         handleInput(key);
                     } catch (IOException ioe) {
-                        if (key != null) {
-                            key.cancel();
-                            if (key.channel() != null) {
-                                key.channel().close();
-                            }
+                        key.cancel();
+                        if (key.channel() != null) {
+                            key.channel().close();
                         }
                     }
                 }
@@ -91,7 +88,7 @@ public class MultiplexerTimeServer implements Runnable {
                     readBuffer.flip();
                     byte[] bytes = new byte[readBuffer.remaining()];
                     readBuffer.get(bytes);
-                    String body = new String(bytes, "UTF-8");
+                    String body = new String(bytes, StandardCharsets.UTF_8);
                     System.out.println("The time server receives command: " + body);
                     String response = "TIME".equalsIgnoreCase(body) ? LocalDateTime.now().toString() : "BAD COMMAND";
                     doWrite(sc, response);
@@ -113,5 +110,4 @@ public class MultiplexerTimeServer implements Runnable {
             sc.write(writeBuffer);
         }
     }
-
 }

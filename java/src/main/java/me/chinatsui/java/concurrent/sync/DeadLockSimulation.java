@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.sync;
 
 import me.chinatsui.java.commons.Account;
 import me.chinatsui.java.commons.ThreadUtils;
@@ -14,7 +14,7 @@ public class DeadLockSimulation {
         instance.simulateDeadLock();
     }
 
-    public void simulateDeadLock() {
+    private void simulateDeadLock() {
         Account acc1 = new Account("acc1", 102.3f);
         Account acc2 = new Account("acc2", 120.0f);
 

@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.sync;
 
 import me.chinatsui.java.commons.RandomUtils;
 
@@ -31,7 +31,7 @@ public class ItemPool<E> {
         }
     }
 
-    public ItemPool(Object[] items) {
+    private ItemPool(Object[] items) {
         if (items == null) {
             throw new NullPointerException();
         }
@@ -40,7 +40,7 @@ public class ItemPool<E> {
         available = new Semaphore(items.length, true);
     }
 
-    public E get() {
+    private E get() {
         try {
             available.acquire();
         } catch (InterruptedException e) {
@@ -49,12 +49,13 @@ public class ItemPool<E> {
         return getNextAvailable();
     }
 
-    public void putBack(E item) {
+    private void putBack(E item) {
         if (markAsUnused(item)) {
             available.release();
         }
     }
 
+    @SuppressWarnings("unchecked")
     private synchronized E getNextAvailable() {
         for (int i = 0; i < items.length; i++) {
             if (!used[i]) {

@@ -6,9 +6,11 @@ import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 
+import static me.chinatsui.java.commons.ThreadUtils.sleep;
+
 public class AsyncEchoClient {
 
-    public static void main2(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         final AsynchronousSocketChannel client = AsynchronousSocketChannel.open();
 
@@ -64,11 +66,7 @@ public class AsyncEchoClient {
 
         });
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        sleep(1000);
     }
 
 }

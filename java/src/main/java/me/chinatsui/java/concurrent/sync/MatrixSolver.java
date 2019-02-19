@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.sync;
 
 import me.chinatsui.java.commons.RandomUtils;
 
@@ -13,9 +13,9 @@ import static me.chinatsui.java.commons.ThreadUtils.sleep;
  */
 public class MatrixSolver {
 
-    final int N;
-    final int[][] data;
-    final CyclicBarrier barrier;
+    private final int N;
+    private final int[][] data;
+    private final CyclicBarrier barrier;
 
     public static void main(String[] args) {
         int[][] data = {
@@ -27,7 +27,7 @@ public class MatrixSolver {
         solver.solve();
     }
 
-    public MatrixSolver(int[][] data) {
+    private MatrixSolver(int[][] data) {
         this.N = data.length;
         this.data = data;
         this.barrier = new CyclicBarrier(N, () -> {
@@ -42,7 +42,7 @@ public class MatrixSolver {
         });
     }
 
-    public void solve() {
+    private void solve() {
         for (int i = 0; i < this.N; i++) {
             final int row = i;
             new Thread(() -> {

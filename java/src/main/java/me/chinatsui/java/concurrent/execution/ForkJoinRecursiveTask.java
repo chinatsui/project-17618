@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.execution;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
@@ -22,7 +22,7 @@ public class ForkJoinRecursiveTask {
         private static final long serialVersionUID = 1L;
         private Integer num;
 
-        public FactorialSquareSumTask(Integer num) {
+        FactorialSquareSumTask(Integer num) {
             this.num = num;
         }
 

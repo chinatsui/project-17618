@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.blocking;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -20,7 +20,7 @@ public class FileCrawlAndIndex {
 
     public static void main(String[] args) {
         BlockingQueue<File> fileQueue = new ArrayBlockingQueue<>(BOUND);
-        FileFilter fileFilter = pathname -> pathname.isDirectory() ? true : pathname.getName().trim().endsWith("java");
+        FileFilter fileFilter = pathname -> pathname.isDirectory() || pathname.getName().trim().endsWith("java");
         File[] roots = {
                 new File("/home/yaohua/Projects/project-17618/algorithm"),
                 new File("/home/yaohua/Projects/project-17618/flash"),
@@ -41,9 +41,9 @@ public class FileCrawlAndIndex {
         private final FileFilter fileFilter;
         private final File root;
 
-        public FileCrawler(BlockingQueue<File> fileQueue,
-                           FileFilter fileFilter,
-                           File root) {
+        FileCrawler(BlockingQueue<File> fileQueue,
+                    FileFilter fileFilter,
+                    File root) {
             this.fileQueue = fileQueue;
             this.fileFilter = fileFilter;
             this.root = root;
@@ -82,7 +82,7 @@ public class FileCrawlAndIndex {
     static class FileIndexer implements Runnable {
         private final BlockingQueue<File> fileQueue;
 
-        public FileIndexer(BlockingQueue<File> fileQueue) {
+        FileIndexer(BlockingQueue<File> fileQueue) {
             this.fileQueue = fileQueue;
         }
 

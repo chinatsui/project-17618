@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class MultiplexerTimeClient implements Runnable {
         new Thread(new MultiplexerTimeClient("127.0.0.1", 8080), "MultiplexerTimeClient-001").start();
     }
 
-    public MultiplexerTimeClient(String host, int port) {
+    private MultiplexerTimeClient(String host, int port) {
         this.host = host;
         this.port = port;
         try {
@@ -64,7 +65,7 @@ public class MultiplexerTimeClient implements Runnable {
                         }
                     }
                 }
-            } catch (IOException ioe) {
+            } catch (IOException ignored) {
 
             }
         }
@@ -120,7 +121,7 @@ public class MultiplexerTimeClient implements Runnable {
                 readBuffer.flip();
                 byte[] bytes = new byte[readBuffer.remaining()];
                 readBuffer.get(bytes);
-                String body = new String(bytes, "UTF-8");
+                String body = new String(bytes, StandardCharsets.UTF_8);
                 System.out.println("Now is: " + body);
                 this.stop = true;
             } else if (readBytes < 0) {

@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.sync;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -23,7 +23,7 @@ public class TimeTasks {
         System.out.println(String.format("All finished, cost time: %sms", time));
     }
 
-    public long timeTasks() throws InterruptedException {
+    private long timeTasks() throws InterruptedException {
         for (int i = 0; i < N_THREADS; i++) {
             new Thread(() -> {
                 try {

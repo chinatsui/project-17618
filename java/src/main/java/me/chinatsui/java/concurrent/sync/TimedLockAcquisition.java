@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.sync;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -15,8 +15,6 @@ public class TimedLockAcquisition {
 
     private static final TimedLockAcquisition INSTANCE = new TimedLockAcquisition();
 
-    private int timeSpan = 3;
-
     private TimedLockAcquisition() {
     }
 
@@ -24,7 +22,7 @@ public class TimedLockAcquisition {
         INSTANCE.simulateTimedLockAcquisition();
     }
 
-    public void simulateTimedLockAcquisition() {
+    private void simulateTimedLockAcquisition() {
         Account acc1 = new Account("acc1", 102.3f);
         Account acc2 = new Account("acc2", 120.0f);
 
@@ -68,6 +66,7 @@ public class TimedLockAcquisition {
             }
 
             Instant now = Instant.now();
+            int timeSpan = 3;
             if (start.until(now, ChronoUnit.SECONDS) >= timeSpan) {
                 System.out.println(String.format(
                         "Pause one simultaneous transaction, src: %s, dst: %s, so another one could complete soon",

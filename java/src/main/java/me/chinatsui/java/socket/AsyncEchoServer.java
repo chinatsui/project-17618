@@ -10,8 +10,8 @@ import java.util.concurrent.*;
 
 public class AsyncEchoServer {
 
-    public final static int PORT = 8001;
-    public final static String IP = "127.0.0.1";
+    private final static int PORT = 8001;
+    private final static String IP = "127.0.0.1";
 
 
     private AsynchronousServerSocketChannel server = null;
@@ -55,12 +55,12 @@ public class AsyncEchoServer {
                 } finally {
                     server.accept(null, this);
                     try {
-                        toClient.get();
+                        if (toClient != null) {
+                            toClient.get();
+                        }
                         // balabala..
                         socketChannel.close();
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (InterruptedException | ExecutionException | IOException e) {
                         e.printStackTrace();
                     }
                 }

@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.execution;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -10,17 +10,17 @@ import static me.chinatsui.java.commons.ThreadUtils.sleep;
  */
 public class OrchestrateAsyncResults {
 
-    private static final OrchestrateAsyncResults instance = new OrchestrateAsyncResults();
-
     private OrchestrateAsyncResults() {
     }
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        OrchestrateAsyncResults instance = new OrchestrateAsyncResults();
         instance.chainAsyncComputations();
         instance.combineAsyncComputations();
     }
 
-    public void chainAsyncComputations() throws ExecutionException, InterruptedException {
+    @SuppressWarnings("unchecked")
+    private void chainAsyncComputations() throws ExecutionException, InterruptedException {
         CompletableFuture supply = CompletableFuture.supplyAsync(() -> {
             System.out.println(Thread.currentThread().getName() + ": supplyAsync");
             sleep(200);
@@ -50,7 +50,7 @@ public class OrchestrateAsyncResults {
         run.get();
     }
 
-    public void combineAsyncComputations() throws ExecutionException, InterruptedException {
+    private void combineAsyncComputations() throws ExecutionException, InterruptedException {
         CompletableFuture<String> supply1 = CompletableFuture.supplyAsync(() -> {
             System.out.println(Thread.currentThread().getName() + ": supplyAsync1");
             sleep(400);

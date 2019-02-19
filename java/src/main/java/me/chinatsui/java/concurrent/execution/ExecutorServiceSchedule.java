@@ -1,21 +1,19 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.execution;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import me.chinatsui.java.commons.ThreadUtils;
+import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
 public class ExecutorServiceSchedule {
-
-    private final static ExecutorServiceSchedule instance = new ExecutorServiceSchedule();
 
     private ExecutorServiceSchedule() {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        instance.scheduleExecutorService();
+        new ExecutorServiceSchedule().scheduleExecutorService();
     }
 
     /**
@@ -25,12 +23,12 @@ public class ExecutorServiceSchedule {
      * 3. shutdown() would immediately terminate the ScheduleExecutorService pool.
      *
      */
-    public void scheduleExecutorService() throws InterruptedException {
+    private void scheduleExecutorService() {
         int processors = Runtime.getRuntime().availableProcessors();
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(processors);
         scheduledExecutorService.scheduleAtFixedRate(new Task("Task1"), 0, 100, TimeUnit.MILLISECONDS);
         scheduledExecutorService.scheduleAtFixedRate(new Task("Task2"), 0, 100, TimeUnit.MILLISECONDS);
-        Thread.sleep(3000);
+        sleep(3000);
         shutdownExecutorService(scheduledExecutorService);
     }
 
@@ -48,7 +46,7 @@ public class ExecutorServiceSchedule {
     private static class Task implements Runnable {
         private String name;
 
-        public Task(String name) {
+        Task(String name) {
             this.name = name;
         }
 
@@ -56,7 +54,7 @@ public class ExecutorServiceSchedule {
         public void run() {
             String msg = String.format(Thread.currentThread().getName() + ": %s executed.", this.name);
             System.out.println(msg);
-            ThreadUtils.sleep(300);
+            sleep(300);
         }
     }
 }

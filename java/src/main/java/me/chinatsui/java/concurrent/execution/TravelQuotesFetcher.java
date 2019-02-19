@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.execution;
 
 import me.chinatsui.java.commons.RandomUtils;
 
@@ -22,7 +22,7 @@ public class TravelQuotesFetcher {
         fetcher.executor.shutdown();
     }
 
-    public List<TravelQuote> getTravelQuotes() throws InterruptedException {
+    private List<TravelQuote> getTravelQuotes() throws InterruptedException {
         List<TravelQuoteTask> tasks = new ArrayList<>();
 
         int taskCount = 8;
@@ -49,7 +49,7 @@ public class TravelQuotesFetcher {
 
         private int id;
 
-        public TravelQuoteTask(int id) {
+        TravelQuoteTask(int id) {
             this.id = id;
         }
 
@@ -59,7 +59,7 @@ public class TravelQuotesFetcher {
             return new TravelQuote(String.valueOf(this.id));
         }
 
-        public int getId() {
+        int getId() {
             return id;
         }
     }
@@ -67,11 +67,11 @@ public class TravelQuotesFetcher {
     class TravelQuote {
         private String value;
 
-        public TravelQuote(String src) {
+        TravelQuote(String src) {
             this.value = src + ":" + RandomUtils.getRandomString(10);
         }
 
-        public String getValue() {
+        String getValue() {
             return value;
         }
     }

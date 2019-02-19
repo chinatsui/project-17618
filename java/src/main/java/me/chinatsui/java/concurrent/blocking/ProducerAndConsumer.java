@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.blocking;
 
 import static me.chinatsui.java.commons.ThreadUtils.sleep;
 
@@ -31,14 +31,14 @@ public class ProducerAndConsumer {
         private int putIndex;
         private int takeIndex;
 
-        public SimpleArrayBlockingQueue(int capacity) {
+        SimpleArrayBlockingQueue(int capacity) {
             items = new Object[capacity];
             lock = new ReentrantLock(false);
             notEmpty = lock.newCondition();
             notFull = lock.newCondition();
         }
 
-        public void enqueue(E item) throws InterruptedException {
+        void enqueue(E item) throws InterruptedException {
             final ReentrantLock lock = this.lock;
             lock.lockInterruptibly();
             try {
@@ -56,7 +56,8 @@ public class ProducerAndConsumer {
             }
         }
 
-        public E dequeue() throws InterruptedException {
+        @SuppressWarnings("unchecked")
+        E dequeue() throws InterruptedException {
             final ReentrantLock lock = this.lock;
             lock.lockInterruptibly();
             try {
@@ -80,7 +81,7 @@ public class ProducerAndConsumer {
 
         private SimpleArrayBlockingQueue<String> queue;
 
-        public Producer(SimpleArrayBlockingQueue<String> queue) {
+        Producer(SimpleArrayBlockingQueue<String> queue) {
             this.queue = queue;
         }
 
@@ -102,7 +103,7 @@ public class ProducerAndConsumer {
     static class Consumer implements Runnable {
         private SimpleArrayBlockingQueue<String> queue;
 
-        public Consumer(SimpleArrayBlockingQueue<String> queue) {
+        Consumer(SimpleArrayBlockingQueue<String> queue) {
             this.queue = queue;
         }
 

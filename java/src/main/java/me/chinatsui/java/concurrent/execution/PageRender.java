@@ -1,4 +1,4 @@
-package me.chinatsui.java.concurrency;
+package me.chinatsui.java.concurrent.execution;
 
 import me.chinatsui.java.commons.RandomUtils;
 
@@ -12,7 +12,7 @@ public class PageRender {
 
     private final ExecutorService executor;
 
-    public PageRender(ExecutorService executor) {
+    private PageRender(ExecutorService executor) {
         this.executor = executor;
     }
 
@@ -21,7 +21,8 @@ public class PageRender {
         instance.render();
     }
 
-    public void render() {
+    @SuppressWarnings("unchecked")
+    private void render() {
         List<ImageInfo> infoList = scanForImageInfo();
         CompletionService completionService = new ExecutorCompletionService(executor);
         for (ImageInfo info : infoList) {
@@ -45,7 +46,7 @@ public class PageRender {
         done();
     }
 
-    public void done() {
+    private void done() {
         this.executor.shutdown();
     }
 
@@ -63,7 +64,7 @@ public class PageRender {
 
     class ImageInfo {
 
-        public ImageData download() {
+        ImageData download() {
             sleep(RandomUtils.getRandomInt(300, 3000));
             return new ImageData(RandomUtils.getRandomString(10));
         }
@@ -73,11 +74,11 @@ public class PageRender {
 
         private String data;
 
-        public ImageData(String data) {
+        ImageData(String data) {
             this.data = data;
         }
 
-        public String getData() {
+        String getData() {
             return data;
         }
     }
