@@ -1,77 +1,90 @@
 package me.chinatsui.algorithm.exercise.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 public class CourseSchedule {
 
-    private Map<Integer, List<Integer>> preMap = new HashMap<>();
-
     public static void main(String[] args) {
-        int[][] prerequisites = {{0, 1}, {3, 1}, {1, 3}, {3, 2}};
-        System.out.println(new CourseSchedule().canFinish(4, prerequisites));
+        int[][] prerequisites = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
+        System.out.println(Solution.INSTANCE.canFinish(4, prerequisites));
     }
 
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        init(prerequisites);
+    enum Solution {
+        INSTANCE;
 
-        for (int i = 0; i < numCourses; i++) {
-            HashSet<Integer> seen = new HashSet<>();
-            seen.add(i);
-            boolean hasCycle = checkCycle(i, seen);
+        public boolean canFinish(int numCourses, int[][] prerequisites) {
+            DirectedGraph graph = new DirectedGraph(numCourses);
+            for (int[] entry : prerequisites) {
+                graph.addEdge(entry[1], entry[0]);
+            }
+            DirectedGraphCycleCheck cycleCheck = new DirectedGraphCycleCheck(graph);
+            return !cycleCheck.hasCycle;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    static class DirectedGraph {
+        int N;
+        Set<Integer>[] adjacent;
+
+        DirectedGraph(int n) {
+            N = n;
+            adjacent = new Set[N];
+            for (int i = 0; i < N; i++) {
+                adjacent[i] = new HashSet<>();
+            }
+        }
+
+        void addEdge(int v, int w) {
+            adjacent[v].add(w);
+        }
+
+        Set<Integer> getAdjSet(int v) {
+            return adjacent[v];
+        }
+
+        int getVertexCount() {
+            return N;
+        }
+    }
+
+    static class DirectedGraphCycleCheck {
+        DirectedGraph graph;
+        boolean hasCycle;
+        Set<Integer> visited = new HashSet<>();
+        Stack<Integer> trace = new Stack<>();
+
+        DirectedGraphCycleCheck(DirectedGraph graph) {
+            this.graph = graph;
+            int cnt = this.graph.getVertexCount();
+            for (int i = 0; i < cnt; i++) {
+                if (!visited.contains(i)) {
+                    dfs(i);
+                    trace.clear();
+                }
+            }
+        }
+
+        void dfs(int v) {
             if (hasCycle) {
-                return false;
+                return;
             }
-        }
 
-        return true;
-    }
+            visited.add(v);
+            trace.push(v);
 
-    private boolean checkCycle(int c, HashSet<Integer> seen) {
-        List<Integer> preList = getPrerequisites(c);
-        if (preList == null || preList.size() < 1) {
-            return false;
-        }
-
-        if (hasIntersection(preList, seen)) {
-            return true;
-        }
-
-        for (int p : preList) {
-            HashSet<Integer> clone = new HashSet<>(seen);
-            clone.add(p);
-            if (checkCycle(p, clone)) {
-                return true;
+            for (Integer w : graph.getAdjSet(v)) {
+                if (!visited.contains(w)) {
+                    dfs(w);
+                } else if (trace.contains(w)) {
+                    hasCycle = true;
+                    return;
+                }
             }
+
+            trace.pop();
         }
-
-        return false;
-    }
-
-    private void init(int[][] prerequisites) {
-        for (int i = 0; i < prerequisites.length; i++) {
-            int[] pArray = prerequisites[i];
-            int key = pArray[0];
-            for (int j = 1; j < pArray.length; j++) {
-                preMap.putIfAbsent(key, new ArrayList<>());
-                preMap.get(key).add(pArray[j]);
-            }
-        }
-    }
-
-    private List<Integer> getPrerequisites(int c) {
-        return preMap.get(c);
-    }
-
-    private boolean hasIntersection(List<Integer> prerequisites, HashSet<Integer> seen) {
-        for (int p : prerequisites) {
-            if (seen.contains(p)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
