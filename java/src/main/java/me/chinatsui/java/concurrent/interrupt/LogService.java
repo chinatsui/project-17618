@@ -1,19 +1,20 @@
 package me.chinatsui.java.concurrent.interrupt;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * LogService is made up of a msg producer and msg consumer. The msg producers are those threads that
- * call LogService#log() method which pushes msg into a blocking queue; The msg consumer is the LoggerThread
- * which always take the msg from blocking queue and output it to console.
+ * LogService is made up of a message producer and consumer. The producers are those threads that
+ * call LogService#log() method which pushes message into a blocking queue; The consumer is the LoggerThread
+ * which always take the message from blocking queue and output it to console.
  * <p>
- * When try to stop the LogService, we should guarantee no any msg producer keep being in a blocking state, and
- * msg consumer (a.k.a LoggerThread) is interrupted.
+ * When try to stop the LogService, we should guarantee no producers keep being in a blocking state, and
+ * consumer (a.k.a LoggerThread) is interrupted. Also, after stop() is called, those messages stashed in
+ * blocking queue must be consumed eventually.
  */
 public class LogService {
 
-    private BlockingQueue<String> queue = new LinkedBlockingDeque<>();
+    private BlockingQueue<String> queue = new ArrayBlockingQueue<>(10);
     private boolean isShutdown;
     private int reservation;
     private final LoggerThread loggerThread = new LoggerThread();
@@ -21,11 +22,10 @@ public class LogService {
     void log(String msg) throws InterruptedException {
         synchronized (this) {
             if (isShutdown) {
-                throw new RuntimeException("LogService is shutdown.");
+                return;
             }
             reservation++;
         }
-
         queue.put(msg);
     }
 
@@ -38,6 +38,13 @@ public class LogService {
         loggerThread.interrupt();
     }
 
+    void await(long timeout) throws InterruptedException {
+        loggerThread.join(timeout);
+    }
+
+    BlockingQueue<String> queue() {
+        return queue;
+    }
 
     class LoggerThread extends Thread {
 
@@ -46,7 +53,7 @@ public class LogService {
             while (true) {
                 synchronized (LogService.this) {
                     if (isShutdown && reservation == 0) {
-                        break;
+                        return;
                     }
                 }
 
@@ -55,10 +62,9 @@ public class LogService {
                     synchronized (LogService.this) {
                         reservation--;
                     }
-                    System.out.println("[INFO] " + msg);
+//                    System.out.println("[INFO] " + msg);
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    break;
+                    run();
                 }
             }
         }
