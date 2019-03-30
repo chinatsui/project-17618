@@ -1,10 +1,11 @@
 package me.chinatsui.algorithm.core.graph;
 
-import net.jcip.annotations.NotThreadSafe;
-
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.stream.IntStream;
+
+import net.jcip.annotations.NotThreadSafe;
 
 @NotThreadSafe
 public class DirectedGraphCycleCheck {
@@ -26,7 +27,11 @@ public class DirectedGraphCycleCheck {
             edgeTo[i] = i;
         }
 
-        dfs(0);
+        for (int v = 0; v < graph.size(); v++) {
+            if (!this.visited.contains(v)) {
+                dfs(v);
+            }
+        }
     }
 
     private void dfs(int v) {
@@ -39,8 +44,8 @@ public class DirectedGraphCycleCheck {
             }
 
             if (!visited.contains(w)) {
-                dfs(w);
                 edgeTo[w] = v;
+                dfs(w);
             } else if (track.contains(w)) {
                 cycleFound = true;
                 cycle = new LinkedList<>();
@@ -62,7 +67,11 @@ public class DirectedGraphCycleCheck {
         return cycleFound;
     }
 
-    public LinkedList<Integer> getCycle() {
-        return cycle;
+    public int[] getCycle() {
+        if (cycle == null) {
+            return new int[0];
+        }
+        int n = cycle.size();
+        return IntStream.range(0, n).map(i -> cycle.get(i)).toArray();
     }
 }
