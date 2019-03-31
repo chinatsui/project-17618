@@ -5,12 +5,12 @@ import java.util.Random;
 
 public class DataUtils {
 
-    public static Integer[] getRandomIntegerArray(int size) {
+    public static int[] getRandomIntegerArray(int size) {
         return getRandomIntegerArray(size, size);
     }
 
-    public static Integer[] getRandomIntegerArray(int size, int scope) {
-        Integer[] array = new Integer[size];
+    public static int[] getRandomIntegerArray(int size, int scope) {
+        int[] array = new int[size];
 
         Random random = new Random();
 
@@ -21,12 +21,12 @@ public class DataUtils {
         return array;
     }
 
-    public static Integer[] getSortedRandomIntegerArray(int size) {
+    public static int[] getSortedRandomIntegerArray(int size) {
         return getSortedRandomIntegerArray(size, size);
     }
 
-    public static Integer[] getSortedRandomIntegerArray(int size, int scope) {
-        Integer[] array = getRandomIntegerArray(size, scope);
+    public static int[] getSortedRandomIntegerArray(int size, int scope) {
+        int[] array = getRandomIntegerArray(size, scope);
         Arrays.sort(array);
         return array;
     }
@@ -37,5 +37,4 @@ public class DataUtils {
         System.out.println(Arrays.toString(getSortedRandomIntegerArray(10)));
         System.out.println(Arrays.toString(getSortedRandomIntegerArray(10, 100)));
     }
-
 }
