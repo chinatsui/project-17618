@@ -1,4 +1,4 @@
-package me.chinatsui.flash.distinct;
+package me.chinatsui.algorithm.core.bit;
 
 import java.util.BitSet;
 
