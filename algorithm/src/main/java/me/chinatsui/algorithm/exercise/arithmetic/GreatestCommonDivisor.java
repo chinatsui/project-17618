@@ -3,7 +3,8 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 public class GreatestCommonDivisor {
 
     public static void main(String[] args) {
-        System.out.println(Solution2.INSTANCE.gct(36, 30));
+        String str1 = "abcdef";
+        String str2 = "abcdef".replace("abc", "111");
     }
 
     public enum Solution {
