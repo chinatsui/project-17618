@@ -5,27 +5,20 @@ import java.util.List;
 
 public class PrimeFactorization {
 
-    public static void main(String[] args) {
-        System.out.println(Solution.INSTANCE.getFactors(1024));
-    }
+    public int[] getPrimeFactors(int num) {
+        int prime = 2;
+        int cur = num;
+        List<Integer> factors = new ArrayList<>();
 
-    public enum Solution {
-        INSTANCE;
-
-        public List<Integer> getFactors(int num) {
-            int factor = 2;
-            List<Integer> factors = new ArrayList<>();
-
-            while (num != 1) {
-                if (num % factor == 0) {
-                    factors.add(factor);
-                    num /= factor;
-                } else {
-                    factor++;
-                }
+        while (cur > 1 && prime < num) {
+            if (cur % prime == 0) {
+                factors.add(prime);
+                cur /= prime;
+            } else {
+                prime++;
             }
-
-            return factors;
         }
+
+        return factors.stream().mapToInt(i -> i).toArray();
     }
 }
