@@ -1,14 +1,14 @@
 package me.chinatsui.algorithm.exercise.bst;
 
-import me.chinatsui.algorithm.util.BinaryTree;
-import me.chinatsui.algorithm.util.TreeNode;
+import me.chinatsui.algorithm.util.TreeNodes;
+import me.chinatsui.algorithm.entity.TreeNode;
 
 public enum DeleteNodeInBST {
 
     INSTANCE;
 
     public static void main(String[] args) {
-        TreeNode bst = BinaryTree.getBinarySearchTree();
+        TreeNode bst = TreeNodes.getBinarySearchTree();
         INSTANCE.deleteNode(bst, 16);
     }
 

@@ -1,6 +1,6 @@
 package me.chinatsui.algorithm.exercise.bst;
 
-import me.chinatsui.algorithm.util.TreeNode;
+import me.chinatsui.algorithm.entity.TreeNode;
 
 public enum LowestCommonAncestorBST {
 

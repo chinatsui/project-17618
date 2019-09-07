@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.bst;
 
-import me.chinatsui.algorithm.util.BinaryTree;
-import me.chinatsui.algorithm.util.TreeNode;
+import me.chinatsui.algorithm.util.TreeNodes;
+import me.chinatsui.algorithm.entity.TreeNode;
 
 import java.util.Stack;
 
@@ -12,7 +12,7 @@ public enum BSTSerialization {
     private static final String SPL = ",";
 
     public static void main(String[] args) {
-        String data = INSTANCE.serialize(BinaryTree.getBinarySearchTree());
+        String data = INSTANCE.serialize(TreeNodes.getBinarySearchTree());
         INSTANCE.deserialize(data);
         System.out.println("Finished.");
     }

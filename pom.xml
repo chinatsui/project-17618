@@ -25,7 +25,6 @@
 
     <modules>
         <module>algorithm</module>
-        <module>flash</module>
         <module>java</module>
     </modules>
 

@@ -1,37 +1,32 @@
 package me.chinatsui.algorithm.exercise.hash;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
- * No.1,  [2, 7, 11, 15] 9 -> 0,1
+/**
+ * LeetCode-1
+ * <p>
+ * Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+ * <p>
+ * You may assume that each input would have exactly one solution, and you may not use the same element twice.
+ * <p>
+ * Example:
+ * <p>
+ * Given nums = [2, 7, 11, 15], target = 9,
+ * <p>
+ * Because nums[0] + nums[1] = 2 + 7 = 9, return [0, 1].
  */
 public class TwoSum {
 
-    public static void main(String[] args) {
-        int[] input = {2, 7, 11, 15};
-        int[] result = new TwoSum().twoSum(input, 18);
-        System.out.println(Arrays.toString(result));
-    }
-
     public int[] twoSum(int[] nums, int target) {
-        int[] result = new int[2];
-
-        Map<Integer, Integer> map = new HashMap<>();
-
+        Map<Integer, Integer> cache = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i])) {
-                result[0] = map.get(nums[i]);
-                result[1] = i;
-                break;
+            if (cache.containsKey(nums[i])) {
+                return new int[]{cache.get(nums[i]), i};
             } else {
-                int sub = target - nums[i];
-                map.put(sub, i);
+                cache.putIfAbsent(target - nums[i], i);
             }
         }
-
-        return result;
+        return null;
     }
-
 }

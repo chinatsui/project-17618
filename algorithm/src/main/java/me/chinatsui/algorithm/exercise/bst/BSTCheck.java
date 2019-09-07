@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.bst;
 
-import me.chinatsui.algorithm.util.BinaryTree;
-import me.chinatsui.algorithm.util.TreeNode;
+import me.chinatsui.algorithm.util.TreeNodes;
+import me.chinatsui.algorithm.entity.TreeNode;
 
 import java.util.Stack;
 
@@ -10,8 +10,8 @@ public enum BSTCheck {
     INSTANCE;
 
     public static void main(String[] args) {
-        System.out.println(INSTANCE.isBST(BinaryTree.getBinarySearchTree()));
-        System.out.println(INSTANCE.isBST(BinaryTree.getFullBinaryTree()));
+        System.out.println(INSTANCE.isBST(TreeNodes.getBinarySearchTree()));
+        System.out.println(INSTANCE.isBST(TreeNodes.getFullBinaryTree()));
     }
 
     public boolean isBST(TreeNode root) {
