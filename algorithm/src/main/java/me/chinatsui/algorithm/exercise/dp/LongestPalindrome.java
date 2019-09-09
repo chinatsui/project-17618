@@ -1,48 +1,52 @@
 package me.chinatsui.algorithm.exercise.dp;
 
-public enum LongestPalindrome {
+/**
+ * Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+ * <p>
+ * Example 1:
+ * <p>
+ * Input: "babad"
+ * Output: "bab"
+ * Note: "aba" is also a valid answer.
+ * <p>
+ * Example 2:
+ * <p>
+ * Input: "cbbd"
+ * Output: "bb"
+ */
+public class LongestPalindrome {
 
-    INSTANCE;
-
-    public static void main(String[] args) {
-        System.out.println(INSTANCE.longestPalindrome("bb"));
-    }
-
-    public String longestPalindrome(String s) {
-        // ch[i][j] -> ch[i] + ch[i+1][j-1] + ch[j];
-
+    public String resolve(String s) {
         if (s == null) {
             return null;
         }
 
-        if (s.length() == 0) {
+        if (s.length() < 1) {
             return "";
         }
 
         int n = s.length();
+        boolean[][] dp = new boolean[n][n];
 
-        int[][] state = new int[n][n];
         for (int i = 0; i < n; i++) {
-            state[i][i] = 1;
+            dp[i][i] = true;
         }
 
-        String result = s.substring(0,1);
-
+        String res = s.substring(0, 1);
         for (int i = 1; i < n; i++) {
-            for (int j = 0; j < i; j ++) {
-                if (j + 1 <= i - 1) {
-                    state[j][i] = s.charAt(j) == s.charAt(i) && state[j+1][i-1] == 1 ? 1 : 0;
+            for (int j = 0; j < i; j++) {
+                if (j + 1 < i - 1) {
+                    dp[j][i] = s.charAt(j) == s.charAt(i) && dp[j + 1][i - 1];
                 } else {
-                    state[j][i] = s.charAt(j) == s.charAt(i) ? 1 : 0;
+                    dp[j][i] = s.charAt(j) == s.charAt(i);
                 }
 
-                if (state[j][i] == 1 && i - j + 1 > result.length()) {
-                    result = s.substring(j, i + 1);
+                if (dp[j][i]) {
+                    res = res.length() < i - j + 1 ? s.substring(j, i + 1) : res;
                 }
             }
         }
 
-        return result;
+        return res;
     }
-
 }
