@@ -5,12 +5,12 @@ import org.junit.Test;
 
 public class TwoSumTest {
 
-    private TwoSum twoSum = new TwoSum();
+    private TwoSum ts = new TwoSum();
 
     @Test
     public void test_01() {
         int[] nums = {2, 7, 11, 15};
         int target = 18;
-        Assert.assertArrayEquals(new int[]{1, 2}, twoSum.twoSum(nums, target));
+        Assert.assertArrayEquals(new int[]{1, 2}, ts.twoSum(nums, target));
     }
 }

@@ -5,12 +5,12 @@ import org.junit.Test;
 
 public class ReverseIntegerAndDeduplicateTest {
 
-    private ReverseIntegerAndDeduplicate piad = new ReverseIntegerAndDeduplicate();
+    private ReverseIntegerAndDeduplicate riad = new ReverseIntegerAndDeduplicate();
 
     @Test
     public void test_solution_works_as_expected() {
-        Assert.assertEquals(1234567, piad.resolve(7654321));
-        Assert.assertEquals(37689, piad.resolve(9876673));
-        Assert.assertEquals(68, piad.resolve(888886666));
+        Assert.assertEquals(1234567, riad.resolve(7654321));
+        Assert.assertEquals(37689, riad.resolve(9876673));
+        Assert.assertEquals(68, riad.resolve(888886666));
     }
 }
