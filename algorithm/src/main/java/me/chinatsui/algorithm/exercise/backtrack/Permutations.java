@@ -1,37 +1,50 @@
 package me.chinatsui.algorithm.exercise.backtrack;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+/**
+ * LeetCode-46
+ * <p>
+ * Given a collection of distinct integers, return all possible permutations.
+ * <p>
+ * Example:
+ * Input: [1,2,3]
+ * Output:
+ * [
+ * [1,2,3],
+ * [1,3,2],
+ * [2,1,3],
+ * [2,3,1],
+ * [3,1,2],
+ * [3,2,1]
+ * ]
+ */
 public class Permutations {
 
-    public static void main(String[] args) {
-        int[] nums = {1, 2, 3};
-        List<List<Integer>> res = Solution.INSTANCE.permute(nums);
-        System.out.println(res);
-    }
-
-    public enum Solution {
-        INSTANCE;
-
-        public List<List<Integer>> permute(int[] nums) {
-            List<List<Integer>> res = new ArrayList<>();
-            backtrack(new ArrayList<>(), res, nums, new boolean[nums.length]);
-            return res;
+    public List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length < 1) {
+            return new ArrayList<>();
         }
 
-        private void backtrack(ArrayList<Integer> cur, List<List<Integer>> res, int[] nums, boolean[] isUsed) {
-            if (cur.size() == nums.length) {
-                res.add(new ArrayList<>(cur));
-            } else {
-                for (int i = 0; i < nums.length; i++) {
-                    if (!isUsed[i]) {
-                        cur.add(nums[i]);
-                        isUsed[i] = true;
-                        backtrack(cur, res, nums, isUsed);
-                        isUsed[i] = false;
-                        cur.remove(cur.size() - 1);
-                    }
+        List<List<Integer>> res = new ArrayList<>();
+        permute(nums, res, new ArrayList<>(), new HashSet<>());
+        return res;
+    }
+
+    private void permute(int[] nums, List<List<Integer>> res, List<Integer> cur, Set<Integer> visited) {
+        if (cur.size() == nums.length) {
+            res.add(new ArrayList<>(cur));
+        } else {
+            for (int num : nums) {
+                if (!visited.contains(num)) {
+                    cur.add(num);
+                    visited.add(num);
+                    permute(nums, res, cur, visited);
+                    visited.remove(num);
+                    cur.remove(cur.size() - 1);
                 }
             }
         }

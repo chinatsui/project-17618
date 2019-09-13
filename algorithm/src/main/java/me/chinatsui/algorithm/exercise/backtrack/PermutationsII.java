@@ -4,39 +4,49 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * LeetCode-47
+ * <p>
+ * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+ * <p>
+ * Example:
+ * <p>
+ * Input: [1,1,2]
+ * Output:
+ * [
+ * [1,1,2],
+ * [1,2,1],
+ * [2,1,1]
+ * ]
+ */
 public class PermutationsII {
 
-    public static void main(String[] args) {
-        int[] nums = {3, 3, 0, 3};
-        List<List<Integer>> res = Solution.INSTANCE.permuteUnique(nums);
-        System.out.println(res);
-    }
-
-    public enum Solution {
-        INSTANCE;
-
-        public List<List<Integer>> permuteUnique(int[] nums) {
-            List<List<Integer>> res = new ArrayList<>();
-            Arrays.sort(nums); // Don't forget this, it is necessary
-            backtrack(res, new ArrayList<>(), nums, new boolean[nums.length]);
-            return res;
+    public List<List<Integer>> permute(int[] nums) {
+        if (nums == null || nums.length < 1) {
+            return new ArrayList<>();
         }
 
-        private void backtrack(List<List<Integer>> res, List<Integer> cur, int[] nums, boolean[] isUsed) {
-            if (cur.size() == nums.length) {
-                res.add(new ArrayList<>(cur));
-                return;
-            }
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
+        permute(nums, res, new ArrayList<>(), visited);
+        return res;
+    }
 
+    private void permute(int[] nums, List<List<Integer>> res, List<Integer> cur, boolean[] visited) {
+        if (cur.size() == nums.length) {
+            res.add(new ArrayList<>(cur));
+        } else {
             for (int i = 0; i < nums.length; i++) {
-                if (isUsed[i] || i > 0 && nums[i - 1] == nums[i] && !isUsed[i - 1]) {
+                if (visited[i] || i > 0 && nums[i - 1] == nums[i] && !visited[i - 1]) {
                     continue;
                 }
-                isUsed[i] = true;
+
                 cur.add(nums[i]);
-                backtrack(res, cur, nums, isUsed);
+                visited[i] = true;
+                permute(nums, res, cur, visited);
+                visited[i] = false;
                 cur.remove(cur.size() - 1);
-                isUsed[i] = false;
             }
         }
     }
