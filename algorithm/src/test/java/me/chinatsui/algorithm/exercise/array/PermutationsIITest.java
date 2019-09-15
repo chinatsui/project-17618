@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class PermutationsIITest {
 
-    PermutationsII p = new PermutationsII();
+    private PermutationsII p = new PermutationsII();
 
     @Test
     public void test() {

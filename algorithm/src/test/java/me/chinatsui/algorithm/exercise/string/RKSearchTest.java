@@ -3,9 +3,9 @@ package me.chinatsui.algorithm.exercise.string;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class RabinKarpTest {
+public class RKSearchTest {
 
-    private RabinKarp rk = new RabinKarp();
+    private RKSearch rk = new RKSearch();
 
     @Test
     public void test_search_when_text_contains_pattern() {

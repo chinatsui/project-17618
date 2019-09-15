@@ -1,13 +1,13 @@
 package me.chinatsui.algorithm.exercise.string;
 
 /**
- * For easy understanding, we assume text and pattern only supports character between a...z.
- * This solution makes use of 26-scale to form a hash value.
+ * Rabin Karp algorithm.
  * <p>
- * To detect if text contains pattern, we only compares hash value
- * for each comparision between text's substring and pattern.
+ * For easy understanding, we assume text and pattern only supports character between a...z.
+ * We makes use of 26-scale to form a hash value for each substring of text.
+ * To detect if text contains pattern, we only compares hash value between text's substring and pattern.
  */
-public class RabinKarp extends StringSearch {
+public class RKSearch extends StringSearch {
 
     public int search(char[] text, char[] pattern) {
         validate(text, pattern);
@@ -40,12 +40,11 @@ public class RabinKarp extends StringSearch {
         return -1;
     }
 
-    protected boolean containsUnsupportedChar(char[] str) {
+    void checkUnsupportedChar(char[] str) {
         for (int i = 0; i < str.length; i++) {
             if (str[i] < 'a' || str[i] > 'z') {
-                return true;
+                throw new IllegalArgumentException();
             }
         }
-        return false;
     }
 }

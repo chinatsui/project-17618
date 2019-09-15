@@ -5,8 +5,9 @@ public abstract class StringSearch {
     protected void validate(char[] text, char[] pattern) {
         assert text != null && pattern != null;
         assert text.length > pattern.length;
-        assert !containsUnsupportedChar(text) && !containsUnsupportedChar(pattern);
+        checkUnsupportedChar(text);
+        checkUnsupportedChar(pattern);
     }
 
-    abstract boolean containsUnsupportedChar(char[] seq);
+    abstract void checkUnsupportedChar(char[] seq);
 }

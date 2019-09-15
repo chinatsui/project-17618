@@ -1,6 +1,9 @@
 package me.chinatsui.algorithm.exercise.string;
 
-public class BoyerMoore extends StringSearch {
+/**
+ * Boyer Moore algorithm.
+ */
+public class BMSearch extends StringSearch {
 
     public int search(char[] text, char[] pattern) {
         validate(text, pattern);
@@ -88,12 +91,11 @@ public class BoyerMoore extends StringSearch {
     }
 
     @Override
-    boolean containsUnsupportedChar(char[] seq) {
+    void checkUnsupportedChar(char[] seq) {
         for (int i = 0; i < seq.length; i++) {
             if (((int) seq[i]) > 127) {
-                return true;
+                throw new IllegalArgumentException();
             }
         }
-        return false;
     }
 }
