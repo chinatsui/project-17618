@@ -3,110 +3,66 @@ package me.chinatsui.algorithm.exercise.matrix;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum SpiralMatrix {
+/**
+ * LeetCode-54
+ * <p>
+ * Given a matrix of m x n elements (m rows, n columns), return all elements of the matrix in spiral order.
+ * <p>
+ * Example 1:
+ * Input:
+ * [
+ * [ 1, 2, 3 ],
+ * [ 4, 5, 6 ],
+ * [ 7, 8, 9 ]
+ * ]
+ * Output: [1,2,3,6,9,8,7,4,5]
+ * <p>
+ * Example 2:
+ * Input:
+ * [
+ * [1, 2, 3, 4],
+ * [5, 6, 7, 8],
+ * [9,10,11,12]
+ * ]
+ * Output: [1,2,3,4,8,12,11,10,9,5,6,7]
+ */
+public class SpiralMatrix {
 
-    INSTANCE;
-
-    public static void main(String[] args) {
-        int[][] matrix = {{2,3}};
-        List<Integer> trace = INSTANCE.spiralOrder_2(matrix);
-        System.out.println(trace);
-    }
-
-    public List<Integer> spiralOrder(int[][] matrix) {
-
-        if (matrix == null || matrix.length == 0) {
+    public List<Integer> order(int[][] matrix) {
+        if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
             return new ArrayList<>();
         }
 
-        List<Integer> results = new ArrayList<>();
-
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        int rowStart = 0;
-        int rowEnd = m - 1;
-        int columnStart = 0;
-        int columnEnd = n - 1;
-
+        int rowStart = 0, rowEnd = matrix.length - 1, columnStart = 0, columnEnd = matrix[0].length - 1;
+        List<Integer> res = new ArrayList<>();
         while (rowStart <= rowEnd && columnStart <= columnEnd) {
-            for (int j = columnStart; j <= columnEnd; j++) {
-                results.add(matrix[rowStart][j]);
+            for (int k = columnStart; k <= columnEnd; k++) {
+                res.add(matrix[rowStart][k]);
             }
             rowStart++;
 
-            for (int i = rowStart; i <= rowEnd; i++) {
-                results.add(matrix[i][columnEnd]);
+            for (int k = rowStart; k <= rowEnd; k++) {
+                res.add(matrix[k][columnEnd]);
             }
             columnEnd--;
 
+
             if (rowStart <= rowEnd) {
-                for (int j = columnEnd; j >= columnStart; j--) {
-                    results.add(matrix[rowEnd][j]);
+                for (int k = columnEnd; k >= columnStart; k--) {
+                    res.add(matrix[rowEnd][k]);
                 }
                 rowEnd--;
             }
 
+
             if (columnStart <= columnEnd) {
-                for (int i = rowEnd; i >= rowStart; i--) {
-                    results.add(matrix[i][columnStart]);
+                for (int k = rowEnd; k >= rowStart; k--) {
+                    res.add(matrix[k][columnStart]);
                 }
                 columnStart++;
             }
         }
 
-        return results;
+        return res;
     }
-
-    public List<Integer> spiralOrder_2(int[][] matrix) {
-        if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
-            return new ArrayList<>();
-        }
-
-        int m = matrix.length, n = matrix[0].length;
-        int direction = 0; // 0: left to right, 1: top to bottom, 2: right to left, 3: bottom to top;
-        int left = 0, top = 0, right = n - 1, bottom = m - 1;
-        int i = 0, j = 0;
-
-        List<Integer> result = new ArrayList<>();
-        for (int k = 0; k < m*n; k++) {
-            result.add(matrix[i][j]);
-
-            if (direction == 0) {
-                if (j == right) {
-                    direction++;
-                    top++;
-                    i++;
-                } else {
-                    j++;
-                }
-            } else if (direction == 1) {
-                if (i == bottom) {
-                    direction++;
-                    right--;
-                    j--;
-                } else {
-                    i++;
-                }
-            } else if (direction == 2) {
-                if (j == left) {
-                    direction++;
-                    bottom--;
-                    i--;
-                } else {
-                    j--;
-                }
-            } else {
-                if (i == top) {
-                    direction = 0;
-                    left++;
-                    j++;
-                } else {
-                    i--;
-                }
-            }
-        }
-        return result;
-    }
-
 }
