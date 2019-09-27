@@ -33,4 +33,18 @@ public class Nums {
         Arrays.sort(array);
         return array;
     }
+
+    public static boolean isAscending(int[] nums) {
+        if (nums == null) {
+            return false;
+        }
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] < nums[i - 1]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

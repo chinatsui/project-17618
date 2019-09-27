@@ -1,72 +1,49 @@
 package me.chinatsui.algorithm.exercise.binarytree;
 
-import me.chinatsui.algorithm.util.TreeNodes;
-import me.chinatsui.algorithm.entity.TreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import me.chinatsui.algorithm.entity.TreeNode;
+
+/**
+ * LeetCode-145
+ * <p>
+ * Given a binary tree, return the postorder traversal of its nodes' values.
+ * <p>
+ * Example:
+ * <p>
+ * Input: [1,null,2,3]
+ *    1
+ *     \
+ *      2
+ *     /
+ *    3
+ * <p>
+ * Output: [3,2,1]
+ */
 public class BinaryTreePostorderTraversal {
 
+    public List<Integer> traverse(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        pushNodes(stack, root);
 
-    public static void main(String[] args) {
-        System.out.println(Solution1.INSTANCE.traverse(TreeNodes.getBinarySearchTree()));
-        System.out.println(Solution2.INSTANCE.traverse(TreeNodes.getBinarySearchTree()));
+        while (!stack.isEmpty()) {
+            TreeNode cur = stack.pop();
+            res.add(cur.val);
+            if (!stack.isEmpty() && stack.peek().right != cur) {
+                pushNodes(stack, stack.peek().right);
+            }
+        }
+
+        return res;
     }
 
-    public enum Solution1 {
-        INSTANCE;
-
-        public List<Integer> traverse(TreeNode root) {
-            List<Integer> res = new ArrayList<>();
-            traverse(root, res);
-            return res;
-        }
-
-        private void traverse(TreeNode node, List<Integer> history) {
-            if (node == null) {
-                return;
-            }
-
-            traverse(node.left, history);
-            traverse(node.right, history);
-            history.add(node.val);
-        }
-    }
-
-    public enum Solution2 {
-        INSTANCE;
-
-        public List<Integer> traverse(TreeNode root) {
-            if (root == null) {
-                return new ArrayList<>();
-            }
-
-            List<Integer> res = new ArrayList<>();
-            Stack<TreeNode> stack = new Stack<>();
-            pushNodes(stack, root);
-
-            while (!stack.empty()) {
-                TreeNode node = stack.pop();
-                res.add(node.val);
-                if (!stack.empty() && stack.peek().left == node) {
-                    TreeNode cur = stack.peek().right;
-                    pushNodes(stack, cur);
-                }
-            }
-            return res;
-        }
-
-        private void pushNodes(Stack<TreeNode> stack, TreeNode node) {
-            while (node != null) {
-                stack.push(node);
-                if (node.left != null) {
-                    node = node.left;
-                } else {
-                    node = node.right;
-                }
-            }
+    private void pushNodes(Stack<TreeNode> stack, TreeNode node) {
+        while (node != null) {
+            stack.push(node);
+            node = node.left != null ? node.left : node.right;
         }
     }
 }
