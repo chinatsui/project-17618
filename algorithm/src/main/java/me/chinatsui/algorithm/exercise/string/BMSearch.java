@@ -1,5 +1,8 @@
 package me.chinatsui.algorithm.exercise.string;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Boyer Moore algorithm.
  */
@@ -10,7 +13,7 @@ public class BMSearch extends StringSearch {
         int n = text.length, m = pattern.length;
 
         // used for "Bad character rule"
-        int[] positions = hashPattern(pattern);
+        Map<Character, Integer> bcMap = hashPattern(pattern);
 
         // used for "Good suffix rule"
         boolean[] prefix = new boolean[m];
@@ -30,7 +33,7 @@ public class BMSearch extends StringSearch {
                 return i; // Pattern matched, so return search.
             }
 
-            int bcMove = j - positions[(int) text[i + j]]; // the move steps of bad character rule.
+            int bcMove = j - bcMap.getOrDefault(text[i + j], -1); // the move steps of bad character rule.
 
             int gsMove = 0; // the move steps of good suffix rule.
             if (j < m - 1) {
@@ -43,23 +46,18 @@ public class BMSearch extends StringSearch {
         return -1;
     }
 
-    private int[] hashPattern(char[] pattern) {
-        int[] pos = new int[128]; // Let's only consider ASCII characters.
-        for (int i = 0; i < pos.length; i++) {
-            pos[i] = -1;
-        }
-
+    private Map<Character, Integer> hashPattern(char[] pattern) {
+        Map<Character, Integer> bcMap = new HashMap<>();
         for (int i = 0; i < pattern.length; i++) {
-            pos[(int) pattern[i]] = i;
+            bcMap.put(pattern[i], i);
         }
 
-        return pos;
+        return bcMap;
     }
 
     private void populatePrefixSuffix(char[] pattern, boolean[] prefix, int[] suffix) {
         int m = pattern.length;
         for (int i = 0; i < m; i++) {
-            prefix[i] = false;
             suffix[i] = -1;
         }
 
@@ -78,16 +76,21 @@ public class BMSearch extends StringSearch {
 
     private int getMoveByGS(int j, int m, boolean[] prefix, int[] suffix) {
         int k = m - 1 - j;
+
+        // find another suffix
         if (suffix[k] != -1) {
             return j - suffix[k] + 1;
-        } else {
-            for (int r = j + 2; r < m - 1; r++) {
-                if (prefix[m - r]) {
-                    return r;
-                }
-            }
-            return m;
         }
+
+        // find prefix
+        for (int r = j + 2; r < m - 1; r++) {
+            if (prefix[m - r]) {
+                return r;
+            }
+        }
+
+        // has neither suffix nor prefix
+        return m;
     }
 
     @Override
