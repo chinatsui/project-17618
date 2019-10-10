@@ -33,7 +33,7 @@ public class LongestIncreasingSubsequence {
         len = 3   :    [4,5,6]                   => min: 6, tails[2] = 6
         And, we can easily prove that the "tails" is an increasing ArrayList also.
 
-        For each time we access the number in nums, we just binary search it in tails,
+        For each time we access the number in nums, we just binary contains it in tails,
         if it is larger than any existent tail, then append it to the tails,
         otherwise we update it in the corresponding position.
 

@@ -23,16 +23,17 @@ import me.chinatsui.algorithm.entity.TreeNode;
  * <p>
  * Output: [1,2,3]
  */
-public class BinaryTreePreorderTraversal {
+public class PreorderTraversal {
 
     public List<Integer> traverse(TreeNode root) {
-        if (root == null) {
-            return new ArrayList<>();
-        }
         List<Integer> res = new ArrayList<>();
+
+        if (root == null) {
+            return res;
+        }
+
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
-
         while (!stack.isEmpty()) {
             TreeNode cur = stack.pop();
             res.add(cur.val);

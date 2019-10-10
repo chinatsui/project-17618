@@ -30,7 +30,7 @@ public class BMSearch extends StringSearch {
             }
 
             if (j < 0) {
-                return i; // Pattern matched, so return search.
+                return i; // Pattern matched, so return contains.
             }
 
             int bcMove = j - bcMap.getOrDefault(text[i + j], -1); // the move steps of bad character rule.

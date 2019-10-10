@@ -21,13 +21,17 @@ import me.chinatsui.algorithm.entity.TreeNode;
  *    3
  * Output: [1,3,2]
  */
-public class BinaryTreeInorderTraversal {
+public class InorderTraversal {
 
     public List<Integer> traverse(TreeNode root) {
         List<Integer> res = new ArrayList<>();
+
+        if (root == null) {
+            return res;
+        }
+
         Stack<TreeNode> stack = new Stack<>();
         pushNodes(stack, root);
-
         while (!stack.isEmpty()) {
             TreeNode cur = stack.pop();
             res.add(cur.val);

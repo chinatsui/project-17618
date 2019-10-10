@@ -7,14 +7,14 @@ import me.chinatsui.algorithm.util.TreeNodes;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class BinaryTreePostorderTraversalTest {
+public class InorderTraversalTest {
 
-    private BinaryTreePostorderTraversal btpt = new BinaryTreePostorderTraversal();
+    private InorderTraversal btir = new InorderTraversal();
 
     @Test
     public void test() {
         TreeNode root = TreeNodes.deserializeByLevelTraversal(new Integer[]{1, 2, 3, 4, null, null, 5});
-        List<Integer> history = btpt.traverse(root);
-        Assert.assertArrayEquals(new int[]{4, 2, 5, 3, 1}, history.stream().mapToInt(i -> i).toArray());
+        List<Integer> history = btir.traverse(root);
+        Assert.assertArrayEquals(new int[]{4, 2, 1, 3, 5}, history.stream().mapToInt(i -> i).toArray());
     }
 }

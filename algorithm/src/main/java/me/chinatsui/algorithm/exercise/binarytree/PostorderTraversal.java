@@ -22,13 +22,17 @@ import me.chinatsui.algorithm.entity.TreeNode;
  * <p>
  * Output: [3,2,1]
  */
-public class BinaryTreePostorderTraversal {
+public class PostorderTraversal {
 
     public List<Integer> traverse(TreeNode root) {
         List<Integer> res = new ArrayList<>();
+
+        if (root == null) {
+            return res;
+        }
+
         Stack<TreeNode> stack = new Stack<>();
         pushNodes(stack, root);
-
         while (!stack.isEmpty()) {
             TreeNode cur = stack.pop();
             res.add(cur.val);
