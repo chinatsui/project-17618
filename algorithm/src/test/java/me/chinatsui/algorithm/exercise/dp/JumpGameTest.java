@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.array;
+package me.chinatsui.algorithm.exercise.dp;
 
 import org.junit.Assert;
 import org.junit.Test;

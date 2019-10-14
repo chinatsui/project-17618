@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.array;
+package me.chinatsui.algorithm.exercise.dp;
 
 /**
  * LeetCode-55
@@ -27,35 +27,20 @@ public class JumpGame {
             throw new IllegalArgumentException();
         }
 
-        int reachable = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i > reachable) {
-                return false;
+        // dp[i] = OR (dp[j] && j + nums[i] >= i), 0 <= i < n
+        int n = nums.length;
+        boolean[] dp = new boolean[n];
+        dp[0] = true;
+        for (int i = 1; i < n; i++) {
+            dp[i] = false;
+            for (int j = 0; j < i; j++) {
+                if (dp[j] && j + nums[j] >= i) {
+                    dp[i] = true;
+                    break;
+                }
             }
-            reachable = Math.max(reachable, i + nums[i]);
         }
 
-        return true;
+        return dp[n - 1];
     }
-
-//    public boolean canJump(int[] nums) {
-//        if (nums == null || nums.length < 1) {
-//            throw new IllegalArgumentException();
-//        }
-//
-//        int n = nums.length;
-//        boolean[] dp = new boolean[n];
-//        dp[0] = true;
-//        for (int i = 0; i < n; i++) {
-//            if (!dp[i]) {
-//                continue;
-//            }
-//
-//            for (int j = 1; j <= nums[i] && i + j < n; j++) {
-//                dp[i + j] = true;
-//            }
-//        }
-//
-//        return dp[n - 1];
-//    }
 }

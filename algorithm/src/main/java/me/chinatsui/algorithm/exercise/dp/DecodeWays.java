@@ -23,6 +23,10 @@ package me.chinatsui.algorithm.exercise.dp;
  */
 public class DecodeWays {
 
+    /**
+     * dp[i] = dp[i - 1], s.substring(i, i + 1) > 0
+     *      += dp[i - 2], 10 <= s.substring(i-1, i + 1) <= 26
+     */
     public int decodeWays(String s) {
         if (s == null || s.length() < 1) {
             return 0;
