@@ -13,7 +13,7 @@ public class TreeNodes {
     }
 
     public static Integer[] serialize(TreeNode root) {
-        List<Integer> traversal = new ArrayList<>();
+        List<Integer> values = new ArrayList<>();
         LinkedList<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
 
@@ -21,19 +21,26 @@ public class TreeNodes {
             TreeNode node = queue.poll();
 
             if (node == null) {
-                traversal.add(null);
-                continue;
+                values.add(null);
+            } else {
+                values.add(node.val);
+                queue.offer(node.left);
+                queue.offer(node.right);
             }
-
-            traversal.add(node.val);
-            queue.offer(node.left);
-            queue.offer(node.right);
         }
 
-        return traversal.toArray(new Integer[0]);
+        int size = values.size();
+        for (int i = values.size() - 1; i >= 0; i--) {
+            if (values.get(i) != null) {
+                size = i + 1;
+                break;
+            }
+        }
+
+        return Arrays.copyOf(values.toArray(new Integer[0]), size);
     }
 
-    public static TreeNode deserializeByLevelTraversal(Integer[] data) {
+    public static TreeNode deserialize(Integer[] data) {
         if (data == null || data.length < 1) {
             return null;
         }

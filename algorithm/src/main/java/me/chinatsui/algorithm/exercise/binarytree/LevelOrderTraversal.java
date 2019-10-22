@@ -1,9 +1,9 @@
 package me.chinatsui.algorithm.exercise.binarytree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Queue;
 
 import me.chinatsui.algorithm.entity.TreeNode;
 
@@ -29,29 +29,22 @@ import me.chinatsui.algorithm.entity.TreeNode;
 public class LevelOrderTraversal {
 
     public List<Integer> traverse(TreeNode root) {
-        Map<Integer, List<Integer>> traceMap = new TreeMap<>();
-        traverse(root, traceMap, 0);
-        List<Integer> res = new ArrayList<>();
-        traceMap.forEach((k,v) -> res.addAll(v));
-        return res;
-    }
+        List<Integer> trace = new ArrayList<>();
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        while (q.size() > 0) {
+            TreeNode node = q.poll();
+            trace.add(node.val);
 
-    private void traverse(TreeNode node, Map<Integer, List<Integer>> traceMap, int row) {
-        if (node == null) {
-            return;
+            if (node.left != null) {
+                q.offer(node.left);
+            }
+
+            if (node.right != null) {
+                q.offer(node.right);
+            }
         }
 
-        List<Integer> trace;
-        if (traceMap.containsKey(row)) {
-            trace = traceMap.get(row);
-            trace.add(node.val);
-        } else {
-            trace = new ArrayList<>();
-            trace.add(node.val);
-            traceMap.put(row, trace);
-        }
-
-        traverse(node.left, traceMap, row + 1);
-        traverse(node.right, traceMap, row + 1);
+        return trace;
     }
 }

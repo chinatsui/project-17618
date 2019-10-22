@@ -14,7 +14,7 @@ public class ColumnOrderTraversalTest {
 
     @Test
     public void test() {
-        TreeNode root = TreeNodes.deserializeByLevelTraversal(new Integer[]{3, 9, 20, null, null, 15, 7});
+        TreeNode root = TreeNodes.deserialize(new Integer[]{3, 9, 20, null, null, 15, 7});
         List<Integer> trace = cot.traverse(root);
         Integer[] expected = new Integer[]{9, 3, 15, 20, 7};
         Assert.assertArrayEquals(expected, trace.toArray());
