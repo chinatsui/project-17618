@@ -1,56 +1,53 @@
 package me.chinatsui.algorithm.exercise.dp;
 
-
+/**
+ * LeetCode - 256
+ * <p>
+ * There are a row of n houses, each house can be painted with one of the three colors: red, blue or green.
+ * The cost of painting each house with a certain color is different.
+ * You have to paint all the houses such that no two adjacent houses have the same color.
+ * <p>
+ * The cost of painting each house with a certain color is represented by a n x 3 cost matrix.
+ * <p>
+ * For example, costs[0][0] is the cost of painting house 0 with color red;
+ * costs[1][2] is the cost of painting house 1 with color green, and so on...
+ * <p>
+ * Find the minimum cost to paint all houses.
+ * <p>
+ * Note:
+ * All costs are positive integers.
+ */
 public class PaintHouse {
 
-    /*
-     [
-      [14,2,11],
-      [11,14,5],
-      [14,3,10]
-     ]
-
-       n: house id  0 - (n-1)
-       k: color 0, 1, 2
-
-       dp(n, 0) = value(n,0) + Math.min(dp(n-1, 1), dp(n-1, 2));
-       dp(n, 1) = value(n,1) + Math.min(dp(n-1, 0), dp(n-1, 2));
-       dp(n, 2) = value(n,2) + Math.min(dp(n-1, 0), dp(n-1, 1));
-       dp(n) = Math.min(dp(n, 0), dp(n, 1), dp(n, 2));
-     */
-
-    public static void main(String[] args) {
-        int[][] input = {{14, 2, 11}, {11, 14, 5}, {14, 3, 10}};
-        System.out.println(new PaintHouse().minCost(input));
-    }
-
     public int minCost(int[][] costs) {
-        // write your code here
-        if (costs == null || costs.length == 0) {
+        if (costs == null || costs.length < 1 || costs[0].length < 1) {
             return 0;
         }
 
+        /**
+         * dp[i][0] = min(dp[i-1][1] + costs[i-1][0], dp[i-1][2] + costs[i-1][0])
+         * dp[i][0] means the min cost of first i houses and the last house (i-1) is painted with color red.
+         */
         int n = costs.length;
+        int[][] dp = new int[n + 1][3];
+        dp[0][0] = dp[0][1] = dp[0][2] = 0;
 
-        int[][] cdp = new int[n][3];
+        // init
+        for (int i = 1; i <= n; i++) {
+            // j is the color painted to the last house handled in dp[i][j]
+            for (int j = 0; j < 3; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
 
-        // initialize first house cost
-        cdp[0][0] = costs[0][0];
-        cdp[0][1] = costs[0][1];
-        cdp[0][2] = costs[0][2];
-
-        int[] dp = new int[n];
-        dp[0] = Math.min(cdp[0][0], Math.min(cdp[0][1], cdp[0][2]));
-
-        // iterate 1 ~ n
-        for (int i = 1; i < n; i++) {
-            cdp[i][0] = costs[i][0] + Math.min(cdp[i - 1][1], cdp[i - 1][2]);
-            cdp[i][1] = costs[i][1] + Math.min(cdp[i - 1][0], cdp[i - 1][2]);
-            cdp[i][2] = costs[i][2] + Math.min(cdp[i - 1][0], cdp[i - 1][1]);
-            dp[i] = Math.min(cdp[i][0], Math.min(cdp[i][1], cdp[i][2]));
+                // k is the color painted to the last house handled in dp[i-1][k]
+                for (int k = 0; k < 3; k++) {
+                    if (j == k) {
+                        continue;
+                    }
+                    dp[i][j] = Math.min(dp[i][j], dp[i - 1][k] + costs[i - 1][j]);
+                }
+            }
         }
 
-        return dp[n - 1];
+        return Math.min(Math.min(dp[n][0], dp[n][1]), dp[n][2]);
     }
-
 }

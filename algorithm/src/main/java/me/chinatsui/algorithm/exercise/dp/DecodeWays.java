@@ -23,29 +23,34 @@ package me.chinatsui.algorithm.exercise.dp;
  */
 public class DecodeWays {
 
-    /**
-     * dp[i] = dp[i - 1], s.substring(i, i + 1) > 0
-     *      += dp[i - 2], 10 <= s.substring(i-1, i + 1) <= 26
-     */
     public int decodeWays(String s) {
         if (s == null || s.length() < 1) {
             return 0;
         }
 
         int n = s.length();
-        int[] dp = new int[n];
-        dp[0] = s.charAt(0) == '0' ? 0 : 1;
-        for (int i = 1; i < n; i++) {
-            int num1 = Integer.valueOf(s.substring(i, i + 1));
-            if (num1 > 0) {
-                dp[i] = dp[i - 1];
+        char[] ch = s.toCharArray();
+
+        // dp[i] means the ways of decoding first i digits that is 0...i-1
+        int[] dp = new int[n + 1];
+        dp[0] = 1; // first 0 digits cannot be decoded, this should be regarded as one way.
+
+        for (int i = 1; i <= n; i++) {
+            // last digit
+            int num1 = ch[i - 1] - '0';
+            if (num1 >= 1 && num1 <= 9) {
+                dp[i] += dp[i - 1];
             }
-            int num2 = Integer.valueOf(s.substring(i - 1, i + 1));
-            if (num2 >= 10 && num2 <= 26) {
-                dp[i] += i >= 2 ? dp[i - 2] : 1;
+
+            // last two digits
+            if (i > 1) {
+                int num2 = (ch[i - 2] - '0') * 10 + ch[i - 1] - '0';
+                if (num2 >= 10 && num2 <= 26) {
+                    dp[i] += dp[i - 2];
+                }
             }
         }
 
-        return dp[n - 1];
+        return dp[n];
     }
 }
