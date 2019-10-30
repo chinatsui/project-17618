@@ -2,10 +2,6 @@ package me.chinatsui.algorithm.exercise.string;
 
 public class ReverseWordsII {
 
-    public static void main(String[] args) {
-        System.out.println(Solution.INSTANCE.reverseWords("Let's take LeetCode contest"));
-    }
-
     public enum Solution {
         INSTANCE;
 
@@ -38,5 +34,4 @@ public class ReverseWordsII {
             }
         }
     }
-
 }

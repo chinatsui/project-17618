@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.string;
 
 /**
- * LeetCode - 125
+ * LeetCode-125
  *
  * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
  *

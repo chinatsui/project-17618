@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.dp;
 
 /**
- * LeetCode - 256
+ * LeetCode-256
  * <p>
  * There are a row of n houses, each house can be painted with one of the three colors: red, blue or green.
  * The cost of painting each house with a certain color is different.

@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.dp;
 
 /**
- * LeetCode - 338
+ * LeetCode-338
  *
  * Given a non negative integer number num.
  * For every numbers i in the range 0 ≤ i ≤ num calculate the number of 1's

@@ -3,18 +3,20 @@ package me.chinatsui.algorithm.exercise.dp;
 
 import java.util.ArrayList;
 
-/*
-LeetCode-300
-Given an unsorted array of integers, find the length of longest increasing sub sequence.
-Input: [10,9,2,5,3,7,101,18]
-Output: 4
-Explanation: The longest increasing sub sequence is [2,3,7,101], therefore the length is 4.
-
-Note:
-There may be more than one LIS combination, it is only necessary for you to return the length.
-Your algorithm should run in O(n2) complexity.
-Follow up: Could you improve it to O(n log n) time complexity?
-*/
+/**
+ * LeetCode-300
+ *
+ * Given an unsorted array of integers, find the length of longest increasing sub sequence.
+ * Input: [10,9,2,5,3,7,101,18]
+ * Output: 4
+ * Explanation: The longest increasing sub sequence is [2,3,7,101], therefore the length is 4.
+ *
+ * Note:
+ * There may be more than one LIS combination, it is only necessary for you to return the length.
+ * Your algorithm should run in O(n2) complexity.
+ *
+ * Follow up: Could you improve it to O(n log n) time complexity?
+ */
 public class LongestIncreasingSubsequence {
 
     public static void main(String[] args) {

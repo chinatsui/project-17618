@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.binarytree;
 
 /**
- * LeetCode - 116
+ * LeetCode-116
  *
  * Given a binary tree
  *

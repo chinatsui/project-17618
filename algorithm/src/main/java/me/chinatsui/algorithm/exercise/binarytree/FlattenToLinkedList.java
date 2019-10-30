@@ -1,10 +1,9 @@
 package me.chinatsui.algorithm.exercise.binarytree;
 
 import me.chinatsui.algorithm.entity.TreeNode;
-import me.chinatsui.algorithm.util.TreeNodes;
 
 /**
- * LeetCode - 114
+ * LeetCode-114
  *
  * Given a binary tree, flatten it to a linked list in-place.
  *

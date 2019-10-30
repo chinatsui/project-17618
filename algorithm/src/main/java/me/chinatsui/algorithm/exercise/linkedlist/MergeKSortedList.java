@@ -4,7 +4,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode - 23
+ * LeetCode-23
  * <p>
  * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
  * <p>

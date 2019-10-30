@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.binarytree;
+package me.chinatsui.algorithm.exercise.bst;
 
 import org.junit.Assert;
 import org.junit.Test;
