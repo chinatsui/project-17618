@@ -29,15 +29,23 @@ public class MedianOfTwoSortedArrays {
             return resolve(nums2, nums1);
         }
 
-        int i = 0, j = 0; // select i elements from nums1 and j elements from nums2 to first half.
+        // select i elements from nums1 and j elements from nums2 to first half.
+        int i = 0, j = 0;
+
+        /* iMin refers to minimum count of elements we can select from nums1,
+         * iMax refers to maximum count of elements we can select from nums1.
+         * So use iMin and iMax to find the target i to select elements from nums1.
+         */
         int iMin = 0, iMax = n;
-        double maxLeft = 0;
+        double maxLeft = Double.NaN;
         while (iMin <= iMax) {
-            i = (iMin + iMax + 1) / 2;
-            j = (n + m + 1) / 2 - i;
+            i = iMin + ((iMax + 1 - iMin) >> 1);
+            j = n + ((m + 1 - n) >> 1) - i;
             if (j > 0 && i < n && nums2[j - 1] > nums1[i]) {
+                // should select more elements from nums1, "i" should be bigger
                 iMin = i + 1;
             } else if (i > 0 && j < m && nums1[i - 1] > nums2[j]) {
+                // should select more elements from nums2, "i" should be smaller
                 iMax = i - 1;
             } else {
                 if (i == 0) {

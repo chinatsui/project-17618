@@ -30,9 +30,8 @@ public class SkipList {
             while (cur.forwards[i] != null && cur.forwards[i].val < node.val) {
                 cur = cur.forwards[i];
             }
-            Node forward = cur.forwards[i];
+            node.forwards[i] = cur.forwards[i];
             cur.forwards[i] = node;
-            node.forwards[i] = forward;
         }
 
         levels = Math.max(levels, level);
@@ -45,10 +44,12 @@ public class SkipList {
                 cur = cur.forwards[i];
             }
 
+            // found node, so delete it by up bottom.
             if (cur.forwards[i] != null && cur.forwards[i].val == val) {
-                for (int j = i; j >= 0; j--) { // found node, so delete it by up bottom.
+                for (int j = i; j >= 0; j--) {
                     Node forward = cur.forwards[j];
-                    while (forward.forwards[i].val == val) { // loop for nodes with same values.
+                    // loop for nodes with same values on the current level.
+                    while (forward.forwards[i].val == val) {
                         forward = forward.forwards[j];
                     }
                     cur.forwards[j] = forward.forwards[j];
@@ -57,14 +58,14 @@ public class SkipList {
             }
         }
 
-        while (levels > 1 && head.forwards[levels] == null) {
+        while (levels > 0 && head.forwards[levels] == null) {
             levels--;
         }
     }
 
     private static int random() {
         int level = 1;
-        while (Math.random() < PROBABILITY && level < MAX_LEVEL) {
+        while (Math.random() < PROBABILITY && level <= MAX_LEVEL) {
             level++;
         }
         return level;
