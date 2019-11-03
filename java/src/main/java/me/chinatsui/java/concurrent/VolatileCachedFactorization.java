@@ -21,8 +21,8 @@ public class VolatileCachedFactorization {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         VolatileCachedFactorization instance = new VolatileCachedFactorization();
-        CompletableFuture future1 = CompletableFuture.supplyAsync(() -> instance.getFactors(BigInteger.valueOf(12)));
-        CompletableFuture future2 = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<BigInteger[]> future1 = CompletableFuture.supplyAsync(() -> instance.getFactors(BigInteger.valueOf(12)));
+        CompletableFuture<BigInteger[]> future2 = CompletableFuture.supplyAsync(() -> {
             sleep(2000);
             return instance.getFactors(BigInteger.valueOf(24));
         });

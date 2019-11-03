@@ -19,28 +19,27 @@ public class OrchestrateAsyncResults {
         instance.combineAsyncComputations();
     }
 
-    @SuppressWarnings("unchecked")
     private void chainAsyncComputations() throws ExecutionException, InterruptedException {
-        CompletableFuture supply = CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<String> supply = CompletableFuture.supplyAsync(() -> {
             System.out.println(Thread.currentThread().getName() + ": supplyAsync");
             sleep(200);
             return "Hello";
         });
 
         // Chain Two, supply -> run
-        CompletableFuture run = supply.thenRunAsync(() -> {
+        CompletableFuture<Void> run = supply.thenRunAsync(() -> {
             System.out.println(Thread.currentThread().getName() + ": thenRunAsync");
             sleep(500);
         });
 
         // Chain One, supply -> apply -> accept
-        CompletableFuture apply = supply.thenApplyAsync(s -> {
+        CompletableFuture<String> apply = supply.thenApplyAsync(s -> {
                     System.out.println(Thread.currentThread().getName() + ": thenApplyAsync");
                     sleep(300);
                     return s + " World";
                 }
         );
-        CompletableFuture accept = apply.thenAcceptAsync(s -> {
+        CompletableFuture<Void> accept = apply.thenAcceptAsync(s -> {
             System.out.println(Thread.currentThread().getName() + ": thenAcceptAsync");
             sleep(400);
             System.out.println(Thread.currentThread().getName() + ": " + s);

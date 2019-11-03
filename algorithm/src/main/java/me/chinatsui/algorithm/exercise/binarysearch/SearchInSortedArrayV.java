@@ -1,7 +1,5 @@
 package me.chinatsui.algorithm.exercise.binarysearch;
 
-import org.junit.Test;
-
 /**
  * Try to find the last number less than or equals to the target in a sorted array.
  * <p>

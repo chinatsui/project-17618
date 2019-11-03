@@ -61,7 +61,7 @@ public class KnapsackII {
          * The way to list involved items.
          */
         int cv = maxValue;
-        ArrayList<Integer> items = new ArrayList();
+        ArrayList<Integer> items = new ArrayList<>();
         for (int i = n - 1; i >= 1; i--) {
             if (cw >= weights[i] && dp[i - 1][cw - weights[i]] == cv - values[i]) {
                 items.add(values[i]);

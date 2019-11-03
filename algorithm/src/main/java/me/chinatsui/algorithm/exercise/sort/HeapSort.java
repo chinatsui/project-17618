@@ -25,7 +25,7 @@ public class HeapSort extends Sort {
     }
 
     private void sink(int[] nums, int i, int bound) {
-        int j = (i + 1) * 2 - 1, k = j + 1, n = nums.length;
+        int j = (i + 1) * 2 - 1, k = j + 1;
 
         if (j == bound) {
             if (nums[i] < nums[j]) {

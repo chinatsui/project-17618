@@ -15,6 +15,5 @@ public class PermutationsTest {
     public void test() {
         List<List<Integer>> actual = p.permute(new int[]{1, 2, 3});
         Assert.assertEquals(6, actual.size());
-        //TODO: Iterate actual for deep detection.
     }
 }

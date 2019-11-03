@@ -35,12 +35,11 @@ public class Memorizer<A, V> implements Computable<A, V> {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public V compute(A arg) {
         while (true) {
             Future<V> future = cache.get(arg);
             if (future == null) {
-                FutureTask ft = new FutureTask<>(() -> computable.compute(arg));
+                FutureTask<V> ft = new FutureTask<>(() -> computable.compute(arg));
 
                 /*
                   cache.put(arg, ft) cannot avoid duplicate FutureTask run

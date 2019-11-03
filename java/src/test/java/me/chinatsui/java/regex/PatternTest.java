@@ -3,7 +3,6 @@ package me.chinatsui.java.regex;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 public class PatternTest {

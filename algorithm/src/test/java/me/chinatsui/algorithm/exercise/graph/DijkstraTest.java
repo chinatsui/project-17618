@@ -2,7 +2,6 @@ package me.chinatsui.algorithm.exercise.graph;
 
 import java.util.List;
 
-import me.chinatsui.algorithm.exercise.graph.Dijkstra.Edge;
 import me.chinatsui.algorithm.exercise.graph.Dijkstra.Graph;
 import org.junit.Assert;
 import org.junit.Before;

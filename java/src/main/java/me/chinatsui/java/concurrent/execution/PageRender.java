@@ -21,10 +21,9 @@ public class PageRender {
         instance.render();
     }
 
-    @SuppressWarnings("unchecked")
     private void render() {
         List<ImageInfo> infoList = scanForImageInfo();
-        CompletionService completionService = new ExecutorCompletionService(executor);
+        CompletionService<ImageData> completionService = new ExecutorCompletionService<>(executor);
         for (ImageInfo info : infoList) {
             completionService.submit(info::download);
         }

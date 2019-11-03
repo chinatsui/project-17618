@@ -62,7 +62,7 @@ public class LogService {
                     synchronized (LogService.this) {
                         reservation--;
                     }
-//                    System.out.println("[INFO] " + msg);
+                   System.out.println("[INFO] " + msg);
                 } catch (InterruptedException e) {
                     run();
                 }

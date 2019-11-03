@@ -2,11 +2,6 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 
 public class GreatestCommonDivisor {
 
-    public static void main(String[] args) {
-        String str1 = "abcdef";
-        String str2 = "abcdef".replace("abc", "111");
-    }
-
     public enum Solution {
         INSTANCE;
 

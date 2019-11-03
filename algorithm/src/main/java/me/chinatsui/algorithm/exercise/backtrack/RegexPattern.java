@@ -22,7 +22,6 @@ public class RegexPattern {
         char[] charSeq = text.toCharArray();
         int tLen = text.length();
 
-        //TODO: We can use KMP solution to enhance below brute-force iteration.
         for (int i = 0; i < tLen; i++) {
             if (match(charSeq, i, 0)) {
                 return i;
@@ -32,6 +31,13 @@ public class RegexPattern {
         return -1;
     }
 
+    /**
+     * We can make use of KMP for optmization.
+     * @param charSeq
+     * @param ti
+     * @param pj
+     * @return
+     */
     private boolean match(char[] charSeq, int ti, int pj) {
         if (pj == pLen) {
             return true;
