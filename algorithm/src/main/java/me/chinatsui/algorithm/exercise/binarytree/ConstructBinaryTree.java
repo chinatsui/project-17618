@@ -24,11 +24,6 @@ import me.chinatsui.algorithm.entity.TreeNode;
  */
 public class ConstructBinaryTree {
 
-    public static void main(String[] args) {
-        ConstructBinaryTree cbt = new ConstructBinaryTree();
-        cbt.construct(new int[]{9, 3, 15, 20, 7}, new int[]{9, 15, 7, 20, 3});
-    }
-
     public TreeNode construct(int[] inorder, int[] postorder) {
         validate(inorder, postorder);
         int n = inorder.length, m = postorder.length;
