@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.binarytree;
+package me.chinatsui.algorithm.exercise.bst;
 
 import me.chinatsui.algorithm.entity.TreeNode;
 
@@ -24,7 +24,7 @@ import me.chinatsui.algorithm.entity.TreeNode;
  * Explanation: The LCA of nodes 2 and 4 is 2, since a node
  * can be a descendant of itself according to the LCA definition.
  */
-public class LCAII {
+public class LCA {
 
     public TreeNode resolve(TreeNode root, int p, int q) {
         if (root == null) {
