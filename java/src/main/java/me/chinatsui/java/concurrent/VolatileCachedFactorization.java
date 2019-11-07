@@ -27,8 +27,8 @@ public class VolatileCachedFactorization {
             return instance.getFactors(BigInteger.valueOf(24));
         });
 
-        BigInteger[] arr1 = (BigInteger[]) future1.get();
-        BigInteger[] arr2 = (BigInteger[]) future2.get();
+        BigInteger[] arr1 = future1.get();
+        BigInteger[] arr2 = future2.get();
         System.out.println(Arrays.toString(arr1));
         System.out.println(Arrays.toString(arr2));
     }

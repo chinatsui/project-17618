@@ -15,8 +15,10 @@ public class LevelOrderTraversalTest {
     @Test
     public void test() {
         TreeNode root = TreeNodes.deserialize(new Integer[]{5, 6, 7, null, 32, null, 12, 11});
-        List<Integer> trace = lot.traverse(root);
-        Integer[] expected = new Integer[]{5, 6, 7, 32, 12, 11};
-        Assert.assertArrayEquals(expected, trace.toArray());
+        List<List<Integer>> actual = lot.traverse(root);
+        Assert.assertArrayEquals(new Integer[]{5}, actual.get(0).toArray(new Integer[1]));
+        Assert.assertArrayEquals(new Integer[]{6, 7}, actual.get(1).toArray(new Integer[2]));
+        Assert.assertArrayEquals(new Integer[]{32, 12}, actual.get(2).toArray(new Integer[2]));
+        Assert.assertArrayEquals(new Integer[]{11}, actual.get(3).toArray(new Integer[1]));
     }
 }

@@ -28,23 +28,33 @@ import me.chinatsui.algorithm.entity.TreeNode;
  */
 public class LevelOrderTraversal {
 
-    public List<Integer> traverse(TreeNode root) {
-        List<Integer> trace = new ArrayList<>();
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        while (q.size() > 0) {
-            TreeNode node = q.poll();
-            trace.add(node.val);
-
-            if (node.left != null) {
-                q.offer(node.left);
-            }
-
-            if (node.right != null) {
-                q.offer(node.right);
-            }
+    public List<List<Integer>> traverse(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
         }
 
-        return trace;
+        List<List<Integer>> res = new ArrayList<>();
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            List<Integer> level = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                level.add(node.val);
+
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+
+            res.add(level);
+        }
+
+        return res;
     }
 }
