@@ -38,7 +38,7 @@ public class MergeTwoSortedList {
 
         if (h1 != null) {
             cur.next = h1;
-        } else if (h2 != null) {
+        } else {
             cur.next = h2;
         }
 

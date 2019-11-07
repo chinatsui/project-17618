@@ -24,16 +24,16 @@ public class MergeKSortedList extends MergeTwoSortedList {
             return null;
         }
 
-        return partition(nodes, 0, nodes.length - 1);
+        return merge(nodes, 0, nodes.length - 1);
     }
 
-    private ListNode partition(ListNode[] nodes, int start, int end) {
+    private ListNode merge(ListNode[] nodes, int start, int end) {
         if (start == end) {
             return nodes[start];
         } else {
             int mid = start + (end - start) / 2;
-            ListNode left = partition(nodes, start, mid);
-            ListNode right = partition(nodes, mid + 1, end);
+            ListNode left = merge(nodes, start, mid);
+            ListNode right = merge(nodes, mid + 1, end);
             return merge(left, right);
         }
     }

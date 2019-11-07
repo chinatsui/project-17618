@@ -12,9 +12,9 @@ public class MergeTwoSortedListTest {
 
     @Test
     public void test() {
-        ListNode h1 = ListNodes.construct(new int[]{1, 2, 4});
-        ListNode h2 = ListNodes.construct(new int[]{1, 3, 4});
+        ListNode h1 = ListNodes.deserialize(new int[]{1, 2, 4});
+        ListNode h2 = ListNodes.deserialize(new int[]{1, 3, 4});
         ListNode actual = mtsl.merge(h1, h2);
-        Assert.assertEquals(ListNodes.construct(new int[]{1, 1, 2, 3, 4, 4}), actual);
+        Assert.assertArrayEquals(new int[]{1, 1, 2, 3, 4, 4}, ListNodes.serialize(actual));
     }
 }

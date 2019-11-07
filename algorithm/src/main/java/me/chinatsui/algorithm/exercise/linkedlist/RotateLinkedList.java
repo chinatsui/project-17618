@@ -2,73 +2,55 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 
 import me.chinatsui.algorithm.entity.ListNode;
 
+/**
+ * LeetCode-61
+ *
+ * Given a linked list, rotate the list to the right by k places, where k is non-negative.
+ *
+ * Example 1:
+ * Input: 1->2->3->4->5->NULL, k = 2
+ * Output: 4->5->1->2->3->NULL
+ * Explanation:
+ * rotate 1 steps to the right: 5->1->2->3->4->NULL
+ * rotate 2 steps to the right: 4->5->1->2->3->NULL
+ *
+ * Example 2:
+ * Input: 0->1->2->NULL, k = 4
+ * Output: 2->0->1->NULL
+ * Explanation:
+ * rotate 1 steps to the right: 2->0->1->NULL
+ * rotate 2 steps to the right: 1->2->0->NULL
+ * rotate 3 steps to the right: 0->1->2->NULL
+ * rotate 4 steps to the right: 2->0->1->NULL
+ */
 public class RotateLinkedList {
 
-    public static void main(String[] args) {
-        ListNode node = new ListNode(1);
-        node.next = new ListNode(2);
-        node.next.next = new ListNode(3);
-        node.next.next.next = new ListNode(4);
-
-        System.out.println(Solution.INSTANCE.rotateRight(node, 2));
-    }
-
-    public enum Solution {
-        INSTANCE;
-
-        public ListNode rotateRight(ListNode head, int k) {
-            if (head == null || k == 0) {
-                return head;
-            }
-
-            ListNode tail = null;
-            int n = 0;
-
-            // reverse the whole
-            while (head != null) {
-                n++;
-                ListNode next = head.next;
-                head.next = tail;
-                tail = head;
-                head = next;
-            }
-            head = tail;
-
-            k = k % n;
-            // reverse 0...k%n
-            tail = null;
-            int i = 0;
-            while (i < k) {
-                i++;
-                ListNode next = head.next;
-                head.next = tail;
-                tail = head;
-                head = next;
-            }
-            ListNode left = tail;
-            tail = null;
-
-            // reverse k%n...n
-            while (k < n) {
-                k++;
-                ListNode next = head.next;
-                head.next = tail;
-                tail = head;
-                head = next;
-            }
-
-            if (left != null) {
-                ListNode result = left;
-                while (left.next != null) {
-                    left = left.next;
-                }
-
-                left.next = tail;
-
-                return result;
-            } else {
-                return tail;
-            }
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null || k < 1) {
+            return head;
         }
+
+        int n = 1;
+        ListNode tail = head;
+
+        while (tail.next != null) {
+            tail = tail.next;
+            n++;
+        }
+
+        k = k % n;
+        int offset = n - k;
+        ListNode dummy = new ListNode(0), prev = dummy;
+        dummy.next = head;
+        while (offset > 0) {
+            prev = prev.next;
+            offset--;
+        }
+
+        tail.next = dummy.next;
+        dummy.next = prev.next;
+        prev.next = null;
+
+        return dummy.next;
     }
 }

@@ -33,7 +33,7 @@ public class CopyList {
             cur = copy.next;
         }
 
-        // restore old linked list to construct deep copy of old linked list.
+        // restore old linked list to deserialize deep copy of old linked list.
         cur = head;
         Node dummy = new Node(0);
         Node dummyCur = dummy;

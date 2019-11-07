@@ -55,7 +55,7 @@ public class Dijkstra {
             }
         }
 
-        // construct shortest path.
+        // deserialize shortest path.
         List<Integer> shortestPath = new ArrayList<>();
         shortestPath.add(src);
         constructShortestPath(shortestPath, predecessor, src, dst);
