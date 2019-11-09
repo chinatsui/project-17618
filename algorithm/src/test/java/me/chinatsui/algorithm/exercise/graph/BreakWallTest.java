@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import me.chinatsui.algorithm.exercise.graph.BreakWall.Point;
+import me.chinatsui.algorithm.exercise.graph.BreakWall.Coord;
 
 public class BreakWallTest {
 
@@ -30,7 +30,9 @@ public class BreakWallTest {
 
     @Test
     public void test() {
-        List<Point> path = bw.shortestPath(new Point(0, 0), new Point(4, 3));
+        List<Coord> path = bw.shortestPath(new Coord(0, 0), new Coord(4, 3));
         Assert.assertEquals(8, path.size());
+        path = bw.shortestPath(new Coord(0, 0), new Coord(1, 5));
+        Assert.assertEquals(0, path.size());
     }
 }

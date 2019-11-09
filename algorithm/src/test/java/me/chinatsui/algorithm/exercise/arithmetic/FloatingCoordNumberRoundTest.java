@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FloatingPointNumberRoundTest {
+public class FloatingCoordNumberRoundTest {
 
     private FloatingPointNumberRound fpnr = new FloatingPointNumberRound();
 

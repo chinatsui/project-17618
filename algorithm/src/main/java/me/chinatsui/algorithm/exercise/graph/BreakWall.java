@@ -10,6 +10,8 @@ import java.util.Objects;
 import java.util.Queue;
 
 /**
+ * Google Interview Question
+ *
  * Given an 2D matrix, each cell is either a wall 1 or empty 0, the cell with "0" can be passed,
  * however the cell with "1" can't.
  * <p>
@@ -20,12 +22,12 @@ import java.util.Queue;
  */
 public class BreakWall {
 
-    private int[][] matrix;
-    private int n, m;
+    private final int[][] matrix;
+    private final int n, m;
 
     // aux array used for calculate adjacent points
-    private int[] rows = new int[]{1, 0, 0, -1};
-    private int[] cols = new int[]{0, 1, -1, 0};
+    private final int[] rows = new int[]{1, 0, 0, -1};
+    private final int[] cols = new int[]{0, 1, -1, 0};
 
     public BreakWall(int[][] matrix) {
         if (matrix == null || matrix.length < 1 || matrix[0].length < 1) {
@@ -37,31 +39,36 @@ public class BreakWall {
         this.m = matrix[0].length;
     }
 
-    public List<Point> shortestPath(Point src, Point dst) {
-        Map<Point, PathNode> forwardPath = bfs(src, dst);
-        Map<Point, PathNode> backwardPath = bfs(dst, src);
-        List<Point> walls = getWalls();
+    public List<Coord> shortestPath(Coord src, Coord dst) {
+        BFSResult srcDstRes = bfs(src, dst);
+        BFSResult dstSrcRes = bfs(dst, src);
+
+        List<Coord> wallsToCheck = dstSrcRes.walls;
+        wallsToCheck.retainAll(srcDstRes.walls);
 
         int shortestPathLen = Integer.MAX_VALUE;
-        List<Point> shortestPath = null;
-        for (Point wall : walls) {
-            Point adj1 = findNearestWallAdjacentPointInPath(wall, forwardPath);
-            Point adj2 = findNearestWallAdjacentPointInPath(wall, backwardPath);
+        List<Coord> shortestPath = null;
+        for (Coord wall : wallsToCheck) {
+            Coord adj1 = findNearestWallAdjacentCoord(wall, srcDstRes.predecessors);
+            Coord adj2 = findNearestWallAdjacentCoord(wall, dstSrcRes.predecessors);
 
             // which means a new potential shortest path could concat by part of forward and backward paths.
             if (adj1 != null && adj2 != null) {
-                // path.get(point) refers to the PathNode to this point, so actual path length should plus one.
-                int forwardPartLen = forwardPath.get(adj1).dist + 1;
-                int backwardPartLen = backwardPath.get(adj2).dist + 1;
+                // path.get(coord) refers to the coord's predecessor, so actual path length should plus one.
+                int forwardPartLen = srcDstRes.predecessors.get(adj1).dist + 1;
+                int backwardPartLen = dstSrcRes.predecessors.get(adj2).dist + 1;
 
-                // break the wall
+                // break the wall calculate path length
                 int temp = forwardPartLen + backwardPartLen + 1;
+
+                // try to find the shortest path
                 if (temp < shortestPathLen) {
                     shortestPathLen = temp;
-                    List<Point> forwardPartPath = flattenPath(forwardPath, src, adj1);
-                    List<Point> backwardPartPath = flattenPath(backwardPath, dst, adj2);
+                    List<Coord> forwardPartPath = buildPath(srcDstRes.predecessors, src, adj1);
+                    List<Coord> backwardPartPath = buildPath(dstSrcRes.predecessors, dst, adj2);
                     Collections.reverse(backwardPartPath);
                     shortestPath = new ArrayList<>(forwardPartPath);
+                    // break the wall
                     shortestPath.add(wall);
                     shortestPath.addAll(backwardPartPath);
                 }
@@ -71,13 +78,54 @@ public class BreakWall {
         return shortestPath == null ? new ArrayList<>() : shortestPath;
     }
 
-    private Point findNearestWallAdjacentPointInPath(Point wall, Map<Point, PathNode> path) {
-        List<Point> adjacentPoints = getAdjacentPoints(wall);
+    private BFSResult bfs(Coord src, Coord dst) {
+        Map<Coord, PathNode> path = new HashMap<>();
+        List<Coord> walls = new ArrayList<>();
 
-        Point res = null;
+        // mark start coord as visited
+        boolean[][] visited = new boolean[n][m];
+        visited[src.x][src.y] = true;
+
+        // enqueue start coord to prepare bfs
+        Queue<PathNode> queue = new LinkedList<>();
+        queue.offer(new PathNode(src, 0));
+
+        // bfs
+        while (!queue.isEmpty()) {
+            PathNode node = queue.poll();
+            Coord cur = node.coord;
+
+            if (cur.equals(dst)) {
+                return new BFSResult(path, walls);
+            }
+
+            for (Coord adj : getAdjacentCoords(cur)) {
+                int row = adj.x;
+                int col = adj.y;
+
+                if (!visited[row][col]) {
+                    Coord next = new Coord(row, col);
+                    if (matrix[row][col] == 0) {
+                        visited[row][col] = true;
+                        queue.offer(new PathNode(next, node.dist + 1));
+                        path.put(next, node);
+                    } else {
+                        walls.add(next);
+                    }
+                }
+            }
+        }
+
+        return new BFSResult(path, walls);
+    }
+
+    private Coord findNearestWallAdjacentCoord(Coord wall, Map<Coord, PathNode> path) {
+        List<Coord> adjacentCoords = getAdjacentCoords(wall);
+
+        Coord res = null;
         PathNode pathNode = null;
-        for (Point adj : adjacentPoints) {
-            // don't consider the adjacent point which is also a wall, because we only can break a wall once.
+        for (Coord adj : adjacentCoords) {
+            // don't consider the adjacent coord which is also a wall, because we only can break a wall once.
             if (matrix[adj.x][adj.y] == 1) {
                 continue;
             }
@@ -87,7 +135,7 @@ public class BreakWall {
                     res = adj;
                     pathNode = path.get(adj);
                 } else {
-                    // find nearest adjacent point
+                    // find nearest adjacent coord
                     PathNode temp = path.get(adj);
                     if (temp.dist < pathNode.dist) {
                         res = adj;
@@ -100,99 +148,60 @@ public class BreakWall {
         return res;
     }
 
-    private List<Point> flattenPath(Map<Point, PathNode> path, Point src, Point dst) {
-        LinkedList<Point> res = new LinkedList<>();
-        Point cur = dst;
-        while (!cur.equals(src)) {
-            res.push(cur);
-            cur = path.get(cur).point;
-        }
-        res.push(cur);
-        return res;
-    }
-
-    private Map<Point, PathNode> bfs(Point src, Point dst) {
-        Map<Point, PathNode> path = new HashMap<>();
-
-        // mark start point as visited
-        boolean[][] visited = new boolean[n][m];
-        visited[src.x][src.y] = true;
-
-        // enqueue start point to prepare bfs
-        Queue<PathNode> queue = new LinkedList<>();
-        queue.offer(new PathNode(src, 0));
-
-        // bfs
-        while (!queue.isEmpty()) {
-            PathNode node = queue.poll();
-            Point cur = node.point;
-
-            if (cur.equals(dst)) {
-                return path;
-            }
-
-            for (Point adj : getAdjacentPoints(cur)) {
-                int row = adj.x;
-                int col = adj.y;
-
-                if (!visited[row][col] && matrix[row][col] == 0) {
-                    visited[row][col] = true;
-                    Point next = new Point(row, col);
-                    queue.offer(new PathNode(next, node.dist + 1));
-                    path.put(next, node);
-                }
-            }
-        }
-
-        return path;
-    }
-
-    private List<Point> getWalls () {
-        List<Point> walls = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (matrix[i][j] == 1) {
-                    walls.add(new Point(i, j));
-                }
-            }
-        }
-
-        return walls;
-    }
-
-    private List<Point> getAdjacentPoints(Point cur) {
-        List<Point> adjacentPoints = new ArrayList<>();
+    private List<Coord> getAdjacentCoords(Coord cur) {
+        List<Coord> adjacentCoords = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             int row = cur.x + rows[i];
             int col = cur.y + cols[i];
 
             if (isValidPoint(row, col) ) {
-                adjacentPoints.add(new Point(row, col));
+                adjacentCoords.add(new Coord(row, col));
             }
         }
 
-        return adjacentPoints;
+        return adjacentCoords;
+    }
+
+    private List<Coord> buildPath(Map<Coord, PathNode> path, Coord src, Coord dst) {
+        LinkedList<Coord> res = new LinkedList<>();
+        Coord cur = dst;
+        while (!cur.equals(src)) {
+            res.push(cur);
+            cur = path.get(cur).coord;
+        }
+        res.push(cur);
+        return res;
     }
 
     private boolean isValidPoint(int row, int col) {
         return row >= 0 && row < matrix.length && col >= 0 && col < matrix[0].length;
     }
 
+    static class BFSResult {
+        Map<Coord, PathNode> predecessors;
+        List<Coord> walls;
+
+        public BFSResult(Map<Coord, PathNode> predecessors,  List<Coord> walls) {
+            this.predecessors = predecessors;
+            this.walls = walls;
+        }
+    }
+
     static class PathNode {
-        Point point;
+        Coord coord;
         int dist;
 
-        PathNode(Point point, int dist) {
-            this.point = point;
+        PathNode(Coord coord, int dist) {
+            this.coord = coord;
             this.dist = dist;
         }
     }
 
-    static class Point {
+    static class Coord {
         int x;
         int y;
 
-        Point(int x, int y) {
+        Coord(int x, int y) {
             this.x = x;
             this.y = y;
         }
@@ -201,9 +210,9 @@ public class BreakWall {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            Point point = (Point) o;
-            return x == point.x &&
-                    y == point.y;
+            Coord coord = (Coord) o;
+            return x == coord.x &&
+                    y == coord.y;
         }
 
         @Override

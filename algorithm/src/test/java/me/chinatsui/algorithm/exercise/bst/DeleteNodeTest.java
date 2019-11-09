@@ -1,14 +1,13 @@
 package me.chinatsui.algorithm.exercise.bst;
 
 import me.chinatsui.algorithm.entity.TreeNode;
-import me.chinatsui.algorithm.exercise.bst.DeleteNodeInBST;
 import me.chinatsui.algorithm.util.TreeNodes;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DeleteNodeInBSTTest {
+public class DeleteNodeTest {
 
-    private DeleteNodeInBST dnibst = new DeleteNodeInBST();
+    private DeleteNode dnibst = new DeleteNode();
 
     @Test
     public void test() {

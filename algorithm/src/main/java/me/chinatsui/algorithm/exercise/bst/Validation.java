@@ -37,7 +37,7 @@ import me.chinatsui.algorithm.entity.TreeNode;
  * Output: false
  * Explanation: The root node's value is 5 but its right child's value is 4.
  */
-public class ValidateBST {
+public class Validation {
 
     public boolean validate(TreeNode root) {
         Stack<TreeNode> stack = new Stack<>();

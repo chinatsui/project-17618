@@ -43,7 +43,7 @@ import me.chinatsui.algorithm.entity.TreeNode;
  *    \   \
  *     4   7
  */
-public class DeleteNodeInBST {
+public class DeleteNode {
 
     public TreeNode deleteNode(TreeNode root, int key) {
         if (root == null) {

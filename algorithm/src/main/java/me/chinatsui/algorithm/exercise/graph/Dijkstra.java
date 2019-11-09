@@ -1,8 +1,9 @@
 package me.chinatsui.algorithm.exercise.graph;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class Dijkstra {
@@ -14,78 +15,82 @@ public class Dijkstra {
     }
 
     public List<Integer> shortestPath(int src, int dst) {
-        int n = graph.vertexCount();
+        int n = graph.count();
 
-        // init predecessor and set max value for each vertex.
         int[] predecessor = new int[n];
-        Vertex[] vertexes = new Vertex[n];
+        // Use array to main path node for distance update in runtime.
+        PathNode[] pathNodes = new PathNode[n];
+
+        // init predecessor and set max value for distance of each path node.
         for (int i = 0; i < n; i++) {
             predecessor[i] = i;
-            vertexes[i] = new Vertex(i, Integer.MAX_VALUE);
+            pathNodes[i] = new PathNode(i, Integer.MAX_VALUE);
         }
 
         // init visited array and put vertex src into queue.
         boolean[] visited = new boolean[n];
         PriorityQueue pq = new PriorityQueue(n);
-        pq.offer(vertexes[src]);
-        vertexes[src].dist = 0;
+        pq.offer(pathNodes[src]);
+        pathNodes[src].dist = 0;
         visited[src] = true;
 
         // bfs
         while (!pq.isEmpty()) {
-            Vertex cur = pq.poll();
+            PathNode cur = pq.poll();
 
             if (cur.id == dst) {
                 break;
             }
 
-            LinkedList<Edge> edges = graph.adj[cur.id];
-            for (Edge edge : edges) {
-                Vertex next = vertexes[edge.dst];
-                if (cur.dist + edge.weight < next.dist) {
-                    next.dist = cur.dist + edge.weight;
-                    if (visited[next.id]) {
-                        pq.update(next);
+            HashMap<Integer, Edge> edges = graph.adj[cur.id];
+            for (Map.Entry<Integer, Edge> entry : edges.entrySet()) {
+                Edge edge = entry.getValue();
+                PathNode adj = pathNodes[edge.dst];
+
+                // Found a shorter path to the dst path node, so update it.
+                if (cur.dist + edge.weight < adj.dist) {
+                    adj.dist = cur.dist + edge.weight;
+                    if (visited[adj.id]) {
+                        pq.update(adj);
                     } else {
-                        pq.offer(next);
-                        visited[next.id] = true;
+                        pq.offer(adj);
+                        visited[adj.id] = true;
                     }
-                    predecessor[next.id] = cur.id;
+                    predecessor[adj.id] = cur.id;
                 }
             }
         }
 
-        // deserialize shortest path.
-        List<Integer> shortestPath = new ArrayList<>();
-        shortestPath.add(src);
-        constructShortestPath(shortestPath, predecessor, src, dst);
-        return shortestPath;
+        return buildPath(predecessor, src, dst);
     }
 
-    private void constructShortestPath(List<Integer> shortestPath, int[] predecessor, int src, int dst) {
-        if (src == dst) {
-            return;
+    private LinkedList buildPath(int[] predecessor, int src, int dst) {
+        LinkedList<Integer> path = new LinkedList<>();
+        while (dst != src) {
+            path.push(dst);
+            dst = predecessor[dst];
         }
-        constructShortestPath(shortestPath, predecessor, src, predecessor[dst]);
-        shortestPath.add(dst);
+        path.push(dst);
+        return path;
     }
 
     static class Graph {
-        LinkedList<Edge>[] adj;
+        // use HashMap to replace the latest edge for the same dst
+        HashMap<Integer, Edge>[] adj;
 
         Graph(int n) {
-            adj = new LinkedList[n];
+            adj = new HashMap[n];
             for (int i = 0; i < n; i++) {
-                adj[i] = new LinkedList<>();
+                adj[i] = new HashMap<>();
             }
         }
 
-        int vertexCount() {
+        int count() {
             return adj.length;
         }
 
         void addEdge(int src, int dst, int weight) {
-            this.adj[src].add(new Edge(src, dst, weight));
+            adj[src].put(dst, new Edge(src, dst, weight));
         }
     }
 
@@ -101,50 +106,50 @@ public class Dijkstra {
         }
     }
 
-    static class Vertex {
+    static class PathNode {
         int id;
         int dist;
 
-        Vertex(int id, int dist) {
+        PathNode(int id, int dist) {
             this.id = id;
             this.dist = dist;
         }
     }
 
     static class PriorityQueue {
-        Vertex[] vertexes;
+        PathNode[] pathNodes;
         int size;
 
         PriorityQueue(int n) {
-            vertexes = new Vertex[n];
+            pathNodes = new PathNode[n];
         }
 
-        Vertex poll() {
-            Vertex vertex;
+        PathNode poll() {
+            PathNode pathNode;
             if (size == 0) {
-                vertex = null;
+                pathNode = null;
             } else {
-                vertex = vertexes[0];
+                pathNode = pathNodes[0];
                 swap(0, size - 1);
-                vertexes[--size] = null;
+                pathNodes[--size] = null;
                 sink(0, size - 1);
             }
-            return vertex;
+            return pathNode;
         }
 
-        void offer(Vertex vertex) {
-            if (size == vertexes.length) {
-                throw new RuntimeException("The vertex in the queue has exceeds the limit.");
+        void offer(PathNode pathNode) {
+            if (size == pathNodes.length) {
+                throw new RuntimeException("The pathNode in the queue has exceeds the limit.");
             } else {
-                vertexes[size++] = vertex;
+                pathNodes[size++] = pathNode;
                 swim(size - 1);
             }
         }
 
-        void update(Vertex vertex) {
+        void update(PathNode pathNode) {
             for (int i = 0; i < size; i++) {
-                if (vertexes[i].id == vertex.id) {
-                    vertexes[i].dist = vertex.dist;
+                if (pathNodes[i].id == pathNode.id) {
+                    pathNodes[i].dist = pathNode.dist;
                     break;
                 }
             }
@@ -159,12 +164,12 @@ public class Dijkstra {
             int right = left + 1;
 
             if (left == bound) {
-                if (vertexes[i].dist > vertexes[left].dist) {
+                if (pathNodes[i].dist > pathNodes[left].dist) {
                     swap(i, left);
                 }
             } else if (right <= bound) {
-                int sm = vertexes[left].dist < vertexes[right].dist ? left : right;
-                if (vertexes[i].dist > vertexes[sm].dist) {
+                int sm = pathNodes[left].dist < pathNodes[right].dist ? left : right;
+                if (pathNodes[i].dist > pathNodes[sm].dist) {
                     swap(i, sm);
                     sink(sm, bound);
                 }
@@ -173,16 +178,16 @@ public class Dijkstra {
 
         private void swim(int i) {
             int parent = (i - 1) / 2;
-            if (vertexes[i].dist < vertexes[parent].dist) {
+            if (pathNodes[i].dist < pathNodes[parent].dist) {
                 swap(i, parent);
                 swim(parent);
             }
         }
 
         private void swap(int src, int dst) {
-            Vertex tmp = vertexes[src];
-            vertexes[src] = vertexes[dst];
-            vertexes[dst] = tmp;
+            PathNode tmp = pathNodes[src];
+            pathNodes[src] = pathNodes[dst];
+            pathNodes[dst] = tmp;
         }
     }
 }
