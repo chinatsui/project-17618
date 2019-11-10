@@ -49,6 +49,13 @@ public class SortTest {
         Assert.assertTrue(isArraySorted(data));
     }
 
+    @Test
+    public void test_counting_sort_works_as_expected() {
+        int[] data = Nums.getRandomIntegerArray(15, 20);
+        new CountingSort().sort(data);
+        Assert.assertTrue(isArraySorted(data));
+    }
+
     private boolean isArraySorted(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             if (arr[i] > arr[i + 1]) {

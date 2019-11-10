@@ -10,7 +10,7 @@ public class InsertionSort extends Sort {
 
         for (int i = 1; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[j] > nums[i]) {
+                if (nums[i] < nums[j]) {
                     int tmp = nums[i];
                     System.arraycopy(nums, j, nums, j + 1, i - j);
                     nums[j] = tmp;

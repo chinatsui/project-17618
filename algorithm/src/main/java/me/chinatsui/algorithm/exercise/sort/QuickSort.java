@@ -19,16 +19,16 @@ public class QuickSort extends Sort {
             return;
         }
 
-        int sm = lo - 1, p = hi;
-        for (int i = lo; i < hi; i++) {
-            if (nums[i] < nums[p]) {
+        int sm = lo - 1;
+        for (int i = lo; i <
+                hi; i++) {
+            if (nums[i] < nums[hi]) {
                 swap(nums, ++sm, i);
             }
         }
 
-        swap(nums, ++sm, p);
-        p = sm;
-        partition(nums, lo, p - 1);
-        partition(nums, p + 1, hi);
+        swap(nums, ++sm, hi);
+        partition(nums, lo, sm - 1);
+        partition(nums, sm + 1, hi);
     }
 }
