@@ -3,9 +3,9 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class DecimalNumberRadixConverterTest {
+public class DecimalConversionTest {
 
-    private DecimalNumberRadixConverter dnrc = new DecimalNumberRadixConverter();
+    private DecimalConversion dnrc = new DecimalConversion();
 
     @Test(expected = UnsupportedOperationException.class)
     public void test_convert_when_given_negative_integer_throws_unsupported_exception() {

@@ -1,6 +1,6 @@
 package me.chinatsui.algorithm.exercise.arithmetic;
 
-public class DecimalNumberRadixConverter {
+public class DecimalConversion {
 
     private static final String digits = "0123456789ABCDEF";
 

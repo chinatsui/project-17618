@@ -5,7 +5,7 @@ import me.chinatsui.algorithm.entity.ListNode;
 /**
  * LeetCode-160
  * <p>
- * Write a program to find the node at which the intersection of two singly linked lists begins.
+ * Write a program to find the node at which the intersect of two singly linked lists begins.
  * <p>
  * <p>
  * For example, the following two linked lists:
@@ -20,7 +20,7 @@ import me.chinatsui.algorithm.entity.ListNode;
  * <p>
  * Notes:
  * <p>
- * If the two linked lists have no intersection at all, return null.
+ * If the two linked lists have no intersect at all, return null.
  * The linked lists must retain their original structure after the function returns.
  * You may assume there are no cycles anywhere in the entire linked structure.
  * Your code should preferably run in O(n) time and use only O(1) memory.
