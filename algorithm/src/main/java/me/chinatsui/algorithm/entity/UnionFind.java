@@ -33,12 +33,12 @@ public abstract class UnionFind {
         }
 
         @Override
-        int find(int p) {
+        public int find(int p) {
             return ids[p];
         }
 
         @Override
-        void union(int p, int q) {
+        public void union(int p, int q) {
             int idp = find(p);
             int idq = find(q);
 
@@ -62,7 +62,7 @@ public abstract class UnionFind {
         }
 
         @Override
-        int find(int p) {
+        public int find(int p) {
             while (p != ids[p]) {
                 p = ids[p];
             }
@@ -71,7 +71,7 @@ public abstract class UnionFind {
         }
 
         @Override
-        void union(int p, int q) {
+        public void union(int p, int q) {
             int idp = find(p);
             int idq = find(q);
 
@@ -97,7 +97,7 @@ public abstract class UnionFind {
         }
 
         @Override
-        void union(int p, int q) {
+        public void union(int p, int q) {
             int idp = find(p);
             int idq = find(q);
 
