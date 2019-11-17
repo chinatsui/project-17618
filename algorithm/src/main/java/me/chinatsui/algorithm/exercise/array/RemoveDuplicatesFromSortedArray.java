@@ -32,9 +32,9 @@ public class RemoveDuplicatesFromSortedArray {
             return 0;
         }
 
-        int i = 0, j = 1, n = nums.length;
-        for (; j < n; j++) {
-            if (nums[j] != nums[j - 1]) {
+        int i = 0;
+        for (int j = 1; j < nums.length; j++) {
+            if (nums[i] != nums[j]) {
                 nums[++i] = nums[j];
             }
         }

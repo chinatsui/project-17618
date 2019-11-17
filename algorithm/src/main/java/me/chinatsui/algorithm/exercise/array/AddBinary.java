@@ -1,63 +1,43 @@
 package me.chinatsui.algorithm.exercise.array;
 
+/**
+ * LeetCode-67
+ * <p>
+ * Given two binary strings, return their sum (also a binary string).
+ * <p>
+ * The input strings are both non-empty and contains only characters 1 or 0.
+ * <p>
+ * Example 1:
+ * Input: a = "11", b = "1"
+ * Output: "100"
+ * <p>
+ * Example 2:
+ * Input: a = "1010", b = "1011"
+ * Output: "10101"
+ */
 public class AddBinary {
 
-    public static void main(String[] args) {
-        String result = Solution.INSTANCE.addBinary("1010101", "1011");
-        System.out.println(result);
-    }
-
-    public enum Solution {
-        INSTANCE;
-
-        public String addBinary(String a, String b) {
-            if (a == null || a.isEmpty()) {
-                return b;
+    public String addBinary(String a, String b) {
+        int i = a.length() - 1, j = b.length() - 1, carry = 0;
+        StringBuilder res = new StringBuilder();
+        while (i >= 0 || j >= 0) {
+            int sum = carry;
+            if (i >= 0) {
+                sum += a.charAt(i--) - '0';
             }
 
-            if (b == null || b.isEmpty()) {
-                return a;
+            if (j >= 0) {
+                sum += b.charAt(j--) - '0';
             }
 
-            StringBuffer res = new StringBuffer();
-            int carry = 0;
-            int i = a.length() - 1, j = b.length() - 1;
-            while (i >= 0 && j >= 0) {
-                int sum = 0;
-                int a_digit = toInt(a.charAt(i));
-                int b_digit = toInt(b.charAt(j));
-                sum += a_digit + b_digit + carry;
-                carry = sum / 2;
-                sum %= 2;
-                res.insert(0, toChar(sum));
-                i--;
-                j--;
-            }
-
-            int k = Math.max(i, j);
-            while (k >= 0) {
-                int sum = 0;
-                int digit = toInt(a.charAt(k));
-                sum += digit + carry;
-                carry = sum / 2;
-                sum %= 2;
-                res.insert(0, toChar(sum));
-                k--;
-            }
-
-            if (carry > 0) {
-                res.insert(0, toChar(carry));
-            }
-
-            return res.toString();
+            res.append(sum % 2);
+            carry = sum / 2;
         }
 
-        private int toInt(char ch) {
-            return ch == '1' ? 1 : 0;
+        if (carry > 0) {
+            res.append(carry);
         }
 
-        private char toChar(int num) {
-            return num == 1 ? '1' : '0';
-        }
+        return res.reverse().toString();
     }
 }
