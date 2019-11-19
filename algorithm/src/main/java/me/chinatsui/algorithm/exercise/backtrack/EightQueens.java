@@ -6,8 +6,6 @@ import java.util.List;
 
 public class EightQueens {
 
-    private final int QUEEN_SIZE = 8;
-
     public List<int[]> resolve() {
         List<int[]> res = new ArrayList<>();
         int[] positions = new int[8];
@@ -16,6 +14,7 @@ public class EightQueens {
     }
 
     private void place(int[] positions, int row, List<int[]> res) {
+        int QUEEN_SIZE = 8;
         if (row == QUEEN_SIZE) {
             res.add(Arrays.copyOf(positions, QUEEN_SIZE));
         } else {
@@ -29,22 +28,25 @@ public class EightQueens {
     }
 
     private boolean check(int[] positions, int row, int col) {
-        int leftUp = col - 1, rightUp = col + 1;
+        int upperLeft = col - 1, upperRight = col + 1;
         for (int i = row - 1; i >= 0; i--) {
+            // same column for different rows
             if (positions[i] == col) {
                 return false;
             }
 
-            if (positions[i] == leftUp) {
+            // upper left
+            if (positions[i] == upperLeft) {
                 return false;
             }
 
-            if (positions[i] == rightUp) {
+            // upper right
+            if (positions[i] == upperRight) {
                 return false;
             }
 
-            leftUp--;
-            rightUp++;
+            upperLeft--;
+            upperRight++;
         }
 
         return true;

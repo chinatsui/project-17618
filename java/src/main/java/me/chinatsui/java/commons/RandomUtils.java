@@ -11,12 +11,16 @@ public class RandomUtils {
         StringBuilder str = new StringBuilder();
         ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < size; i++) {
-            boolean isLowerCase = random.nextInt(2) % 2 == 0;
-            int offset = random.nextInt(26);
-            if (isLowerCase) {
-                str.append((char) ('a' + offset));
+            if (random.nextInt(3) % 2 == 0) {
+                boolean isLowerCase = random.nextInt(2) % 2 == 0;
+                int offset = random.nextInt(26);
+                if (isLowerCase) {
+                    str.append((char) ('a' + offset));
+                } else {
+                    str.append((char) ('A' + offset));
+                }
             } else {
-                str.append((char) ('A' + offset));
+                str.append(random.nextInt(10));
             }
         }
         return str.toString();
