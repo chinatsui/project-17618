@@ -7,13 +7,13 @@ import org.junit.Test;
 
 public class CombinationSumTest {
 
-    private CombinationSum cs = new CombinationSum();
+    private CombinationSum combinationSum = new CombinationSum();
 
     @Test
     public void test() {
         int[] candidates = new int[]{2, 3, 5};
         int target = 8;
-        List<List<Integer>> actual = cs.combinationSum(candidates, target);
+        List<List<Integer>> actual = combinationSum.combinationSum(candidates, target);
         Assert.assertEquals(3, actual.size());
         for (List<Integer> list : actual) {
             int sum = 0;

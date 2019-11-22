@@ -7,11 +7,11 @@ import org.junit.Test;
 
 public class EightQueensTest {
 
-    private EightQueens eq = new EightQueens();
+    private EightQueens eightQueens = new EightQueens();
 
     @Test
     public void test() {
-        List<int[]> res = eq.resolve();
+        List<int[]> res = eightQueens.resolve();
         Assert.assertEquals(92, res.size());
         Assert.assertArrayEquals(new int[]{0, 4, 7, 5, 2, 6, 1, 3}, res.get(0));
         Assert.assertArrayEquals(new int[]{0, 5, 7, 2, 6, 3, 1, 4}, res.get(1));

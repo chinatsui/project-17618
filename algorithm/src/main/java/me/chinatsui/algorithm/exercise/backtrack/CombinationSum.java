@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * LeetCode-39
+ * LeetCode 39 - Combination Sum
  *
  * Given a set of candidate numbers (candidates) (without duplicates) and a target number (target),
  * find all unique combinations in candidates where the candidate numbers sums to target.

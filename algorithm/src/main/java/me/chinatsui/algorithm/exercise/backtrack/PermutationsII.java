@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * LeetCode-47
+ * LeetCode 47 - PermutationsII
  * <p>
  * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
  * <p>
@@ -28,8 +28,7 @@ public class PermutationsII {
 
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
-        boolean[] visited = new boolean[nums.length];
-        permute(nums, res, new ArrayList<>(), visited);
+        permute(nums, res, new ArrayList<>(), new boolean[nums.length]);
         return res;
     }
 
