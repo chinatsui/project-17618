@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.binarytree;
 import me.chinatsui.algorithm.entity.TreeNode;
 
 /**
- * LeetCode-776
+ * LeetCode 776 - Split BST
  * <p>
  * Given a Binary Search Tree (BST) with root node root, and a target value V,
  * split the tree into two subtrees where one subtree has nodes that are all smaller or equal to the target value,
@@ -37,27 +37,24 @@ import me.chinatsui.algorithm.entity.TreeNode;
  */
 public class SplitBST {
 
-    public static TreeNode[] splitBST(TreeNode root, int V) {
-        TreeNode dummySm = new TreeNode(0);
-        TreeNode curSm = dummySm;
-        TreeNode dummyLg = new TreeNode(0);
-        TreeNode curLg = dummyLg;
+    public TreeNode[] splitBST(TreeNode root, int V) {
+        TreeNode dummySM = new TreeNode(0), curSM = dummySM;
+        TreeNode dummyLG = new TreeNode(0), curLG = dummyLG;
 
         while (root != null) {
             if (root.val <= V) {
-                curSm.right = root;
-                curSm = root;
+                curSM.right = root;
+                curSM = curSM.right;
                 root = root.right;
-                curSm.right = null;
+                curSM.right = null;
             } else {
-                curLg.left = root;
-                curLg = root;
+                curLG.left = root;
+                curLG = curLG.left;
                 root = root.left;
-                curLg.left = null;
+                curLG.left = null;
             }
         }
 
-        return new TreeNode[]{dummySm.right, dummyLg.left};
+        return new TreeNode[]{dummySM.right, dummyLG.left};
     }
-
 }

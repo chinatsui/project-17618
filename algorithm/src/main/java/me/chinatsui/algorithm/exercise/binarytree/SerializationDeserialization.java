@@ -11,18 +11,18 @@ public class SerializationDeserialization {
     private static final String NN = "X";
 
     public String serialize(TreeNode root) {
-        StringBuilder sb = new StringBuilder();
-        buildContent(root, sb);
-        return sb.toString();
+        StringBuilder builder = new StringBuilder();
+        buildContent(root, builder);
+        return builder.toString();
     }
 
-    private void buildContent(TreeNode node, StringBuilder sb) {
+    private void buildContent(TreeNode node, StringBuilder builder) {
         if (node == null) {
-            sb.append(NN).append(SPL);
+            builder.append(NN).append(SPL);
         } else {
-            sb.append(node.val).append(SPL);
-            buildContent(node.left, sb);
-            buildContent(node.right, sb);
+            builder.append(node.val).append(SPL);
+            buildContent(node.left, builder);
+            buildContent(node.right, builder);
         }
     }
 

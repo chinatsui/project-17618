@@ -35,11 +35,11 @@ public class ConstructBinaryTree {
             return null;
         }
 
+        TreeNode root = new TreeNode(postorder[k]);
         if (inStart == inEnd) {
-            return new TreeNode(postorder[k]);
+            return root;
         }
 
-        TreeNode root = new TreeNode(postorder[k]);
         int p = inStart;
         for (; p <= inEnd; p++) {
             if (inorder[p] == postorder[k]) {
