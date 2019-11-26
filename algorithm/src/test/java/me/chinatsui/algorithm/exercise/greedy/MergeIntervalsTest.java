@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.array;
+package me.chinatsui.algorithm.exercise.greedy;
 
 import me.chinatsui.algorithm.exercise.greedy.MergeIntervals;
 import org.junit.Assert;

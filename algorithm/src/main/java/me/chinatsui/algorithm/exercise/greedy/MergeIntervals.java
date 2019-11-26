@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * LeetCode-56
+ * LeetCode 56 - Merge Intervals
  * <p>
  * Given a collection of intervals, merge all overlapping intervals.
  * <p>

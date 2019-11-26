@@ -27,7 +27,7 @@ public class JumpGame {
             throw new IllegalArgumentException();
         }
 
-        // dp[i] = OR (dp[j] && j + nums[i] >= i), 0 <= i < n
+        // dp[i] = OR (dp[j] && j + nums[j] >= i), 0 <= i < n
         int n = nums.length;
         boolean[] dp = new boolean[n];
         dp[0] = true;

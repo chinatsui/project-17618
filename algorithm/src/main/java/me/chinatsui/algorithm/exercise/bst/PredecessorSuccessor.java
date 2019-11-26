@@ -2,6 +2,9 @@ package me.chinatsui.algorithm.exercise.bst;
 
 import me.chinatsui.algorithm.entity.TreeNode;
 
+/**
+ * Given a binary search tree and a key, find the predecessor and successor of the key node.
+ */
 public class PredecessorSuccessor {
 
     public Result resolve(TreeNode root, int val) {

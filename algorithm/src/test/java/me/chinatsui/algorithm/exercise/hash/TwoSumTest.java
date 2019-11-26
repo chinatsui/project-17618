@@ -8,7 +8,7 @@ public class TwoSumTest {
     private TwoSum ts = new TwoSum();
 
     @Test
-    public void test_01() {
+    public void test() {
         int[] nums = {2, 7, 11, 15};
         int target = 18;
         Assert.assertArrayEquals(new int[]{1, 2}, ts.twoSum(nums, target));
