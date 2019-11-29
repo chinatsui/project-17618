@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-21
+ * LeetCode 21. Merge Two Sorted List
  * <p>
  * Merge two sorted linked lists and return it as a new list.
  * The new list should be made by splicing together the nodes of the first two lists.

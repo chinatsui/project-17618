@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import java.util.HashMap;
 
 /**
- * LeetCode-146
+ * LeetCode 146. LRU Cache
  * <p>
  * Design and implement a data structure for Least Recently Used (LRU) cache.
  * It should support the following operations: get and put.

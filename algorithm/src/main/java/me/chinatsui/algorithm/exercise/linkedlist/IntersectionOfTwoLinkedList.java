@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-160
+ * LeetCode 160. Intersection of Two Linked Lists
  * <p>
  * Write a program to find the node at which the intersect of two singly linked lists begins.
  * <p>

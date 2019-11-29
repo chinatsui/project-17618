@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.linkedlist;
 
 /**
- * LeetCode-138
+ * LeetCode 138. Copy List with Random Pointer
  * <p>
  * A linked list is given such that each node contains an additional random pointer
  * which could point to any node in the list or null.

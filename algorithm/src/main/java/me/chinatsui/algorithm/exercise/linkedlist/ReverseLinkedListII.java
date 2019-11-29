@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-92
+ * LeetCode 92. Reverse Linked List II
  * <p>
  * Reverse a linked list from position m to n. Do it in one-pass.
  * <p>

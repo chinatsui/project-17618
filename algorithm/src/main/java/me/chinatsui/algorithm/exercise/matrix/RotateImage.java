@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.matrix;
 
 /**
- * LeetCode-48
+ * LeetCode 48. Rotate Image
  * <p>
  * You are given an n x n 2D matrix representing an image.
  * <p>
@@ -62,7 +62,7 @@ public class RotateImage {
             }
         }
 
-        // reverse symmetry
+        // reverse diagonal
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 int tmp = matrix[i][j];

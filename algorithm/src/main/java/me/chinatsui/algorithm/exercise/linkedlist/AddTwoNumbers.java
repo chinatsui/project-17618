@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-2
+ * LeetCode 2. Add Two Numbers
  * <p>
  * You are given two non-empty linked lists representing two non-negative integers.
  * The digits are stored in reverse order and each of their nodes contain a single digit.

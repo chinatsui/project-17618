@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-206
+ * LeetCode 206. Reverse Linked List
  * <p>
  * Reverse a singly linked list.
  * <p>

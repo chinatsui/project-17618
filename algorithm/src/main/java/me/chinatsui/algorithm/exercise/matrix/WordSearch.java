@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.matrix;
 
 /**
- * LeetCode-79
+ * LeetCode 79. Word Search
  * <p>
  * Given a 2D board and a word, find if the word exists in the grid.
  * <p>

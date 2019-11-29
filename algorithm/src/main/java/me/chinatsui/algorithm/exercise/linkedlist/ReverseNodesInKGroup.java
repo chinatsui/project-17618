@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-25
+ * LeetCode 25. Reverse Nodes in k-Group
  * <p>
  * Given a linked list, reverse k nodes of the linked list at a time and return its modified list.
  * <p>

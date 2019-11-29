@@ -4,7 +4,7 @@ import me.chinatsui.algorithm.entity.ListNode;
 import me.chinatsui.algorithm.util.ListNodes;
 
 /**
- * LeetCode-25, follow-up
+ * LeetCode 25. Reverse Nodes in k-Group's follow-up
  * <p>
  * Given a linked list, start from the end node to reverse k nodes of the linked list
  * at a time and return its modified list.

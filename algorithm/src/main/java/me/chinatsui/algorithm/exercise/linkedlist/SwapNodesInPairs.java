@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 import me.chinatsui.algorithm.entity.ListNode;
 
 /**
- * LeetCode-24
+ * LeetCode 24. Swap Nodes in Pairs
  * <p>
  * Given a linked list, swap every two adjacent nodes and return its head.
  * <p>
