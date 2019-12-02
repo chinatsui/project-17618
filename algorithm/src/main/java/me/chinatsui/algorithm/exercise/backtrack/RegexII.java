@@ -27,12 +27,16 @@ public class RegexII {
             return ti == text.length;
         }
 
-        if (ti == text.length && (pattern[pj] == '*' || pattern[pj] == '?')) {
-            return match(text, ti, pattern, pj + 1);
+        if (ti == text.length) {
+            if (pattern[pj] == '*' || pattern[pj] == '?') {
+                return match(text, ti, pattern, pj + 1);
+            } else {
+                return false;
+            }
         }
 
         if (pattern[pj] == '*') {
-            for (int k = ti; k < text.length; k++) {
+            for (int k = ti; k <= text.length; k++) {
                 if (match(text, k, pattern, pj + 1)) {
                     return true;
                 }

@@ -45,7 +45,7 @@ public class MaxSlidingWindow {
                 dq.pollFirst();
             }
 
-            // remove index which refers to smaller number from the last of dq
+            // remove index which refers to a smaller number from the last of dq
             while (!dq.isEmpty() && nums[dq.peekLast()] < nums[i]) {
                 dq.pollLast();
             }

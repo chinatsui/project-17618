@@ -11,6 +11,10 @@ public class ListNode {
     }
 
     public String toString() {
+        return String.valueOf(val);
+    }
+
+    public String flatten() {
         String str = "";
         ListNode cur = this;
         while (cur != null) {

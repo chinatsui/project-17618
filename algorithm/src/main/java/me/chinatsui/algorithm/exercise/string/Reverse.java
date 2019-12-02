@@ -1,12 +1,6 @@
 package me.chinatsui.algorithm.exercise.string;
 
-public enum ReverseString {
-
-    INSTANCE;
-
-    public static void main(String[] args) {
-        System.out.println(INSTANCE.reverseString("hello"));
-    }
+public class Reverse {
 
     public String reverseString(String s) {
         if (s == null) {
@@ -28,5 +22,4 @@ public enum ReverseString {
 
         return new String(ch);
     }
-
 }

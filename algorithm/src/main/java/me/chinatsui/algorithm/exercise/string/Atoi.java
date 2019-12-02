@@ -23,7 +23,7 @@ package me.chinatsui.algorithm.exercise.string;
  * Note:
  * Only the space character ' ' is considered as whitespace character.
  * Assume we are dealing with an environment which could only store integers
- * within the 32-bit signed integer range: [−231,  231 − 1].
+ * within the 32-bit signed integer range: [−2^31,  2^31 − 1].
  * If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.
  * <p>
  * Example 1:
@@ -55,13 +55,18 @@ package me.chinatsui.algorithm.exercise.string;
  */
 public class Atoi {
 
+    public static void main(String[] args) {
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
+    }
+
     public int convert(String str) {
         if (str == null) {
             return 0;
         }
 
         int result = 0;
-        boolean isPos = true;
+        boolean positive = true;
 
         str = str.trim();
 
@@ -69,10 +74,10 @@ public class Atoi {
             char c = str.charAt(i);
 
             if (i == 0 && (c == '+' || c == '-')) {
-                isPos = c == '+';
+                positive = c == '+';
             } else if (c >= '0' && c <= '9') {
                 if (isOverFlow(result, c)) {
-                    return isPos ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                    return positive ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                 }
                 result *= 10;
                 result += c - '0';
@@ -81,16 +86,14 @@ public class Atoi {
             }
         }
 
-        return isPos ? result : -result;
+        return positive ? result : -result;
     }
 
     private boolean isOverFlow(int result, char c) {
         if (Integer.MAX_VALUE / 10 == result && c - '0' > 7) {
             return true;
-        } else if (Integer.MAX_VALUE / 10 < result) {
-            return true;
         } else {
-            return false;
+            return Integer.MAX_VALUE / 10 < result;
         }
     }
 }

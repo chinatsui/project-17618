@@ -4,87 +4,100 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+/**
+ * LeetCode 207. Course Schedule
+ *
+ * There are a total of n courses you have to take, labeled from 0 to n-1.
+ *
+ * Some courses may have prerequisites, for example to take course 0 you have to first take course 1,
+ * which is expressed as a pair: [0,1]
+ *
+ * Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+ *
+ * Example 1:
+ * Input: 2, [[1,0]]
+ * Output: true
+ * Explanation: There are a total of 2 courses to take.
+ *              To take course 1 you should have finished course 0. So it is possible.
+ *
+ * Example 2:
+ * Input: 2, [[1,0],[0,1]]
+ * Output: false
+ * Explanation: There are a total of 2 courses to take.
+ *              To take course 1 you should have finished course 0, and to take course 0 you should
+ *              also have finished course 1. So it is impossible.
+ */
 public class CourseSchedule {
 
-    public static void main(String[] args) {
-        int[][] prerequisites = {{1, 0}, {2, 0}, {3, 1}, {3, 2}};
-        System.out.println(Solution.INSTANCE.canFinish(4, prerequisites));
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses <= 1) {
+            return true;
+        }
+
+        Courses courses = new Courses(numCourses);
+        for (int[] p : prerequisites) {
+            courses.add(p[1], p[0]);
+        }
+        DependencyCheck check  = new DependencyCheck(courses);
+        return !check.foundCycle;
     }
 
-    enum Solution {
-        INSTANCE;
+    protected static class DependencyCheck {
+        private Courses courses;
+        private boolean foundCycle;
+        private boolean[] visited;
+        private Stack<Integer> onStack;
 
-        public boolean canFinish(int numCourses, int[][] prerequisites) {
-            DirectedGraph graph = new DirectedGraph(numCourses);
-            for (int[] entry : prerequisites) {
-                graph.addEdge(entry[1], entry[0]);
-            }
-            DirectedGraphCycleCheck cycleCheck = new DirectedGraphCycleCheck(graph);
-            return !cycleCheck.hasCycle;
-        }
-    }
+        public DependencyCheck(Courses courses) {
+            this.courses = courses;
+            this.visited = new boolean[courses.size];
+            onStack = new Stack<>();
+            for (int i = 0; i < courses.size; i++) {
+                if (foundCycle) {
+                    break;
+                }
 
-    @SuppressWarnings("unchecked")
-    static class DirectedGraph {
-        int N;
-        Set<Integer>[] adjacent;
-
-        DirectedGraph(int n) {
-            N = n;
-            adjacent = new Set[N];
-            for (int i = 0; i < N; i++) {
-                adjacent[i] = new HashSet<>();
-            }
-        }
-
-        void addEdge(int v, int w) {
-            adjacent[v].add(w);
-        }
-
-        Set<Integer> getAdjSet(int v) {
-            return adjacent[v];
-        }
-
-        int getVertexCount() {
-            return N;
-        }
-    }
-
-    static class DirectedGraphCycleCheck {
-        DirectedGraph graph;
-        boolean hasCycle;
-        Set<Integer> visited = new HashSet<>();
-        Stack<Integer> trace = new Stack<>();
-
-        DirectedGraphCycleCheck(DirectedGraph graph) {
-            this.graph = graph;
-            int cnt = this.graph.getVertexCount();
-            for (int i = 0; i < cnt; i++) {
-                if (!visited.contains(i)) {
+                if (!visited[i]) {
                     dfs(i);
-                    trace.clear();
                 }
             }
         }
 
-        void dfs(int v) {
-            if (hasCycle) {
-                return;
-            }
+        private void dfs(int v) {
+            visited[v] = true;
+            onStack.push(v);
 
-            visited.add(v);
-            trace.push(v);
-
-            for (Integer w : graph.getAdjSet(v)) {
-                if (!visited.contains(w)) {
-                    dfs(w);
-                } else if (trace.contains(w)) {
-                    hasCycle = true;
+            for (int w : courses.adj[v]) {
+                if (foundCycle) {
                     return;
                 }
-            }
 
-            trace.pop();
+                if (!visited[w]) {
+                    dfs(w);
+                } else if (onStack.contains(w)) {
+                    foundCycle = true;
+                    break;
+                }
+            }
+            onStack.pop();
+        }
+
+    }
+
+    protected static class Courses {
+        private Set<Integer>[] adj;
+        private int size;
+
+        public Courses(int n) {
+            this.size = n;
+            this.adj = new HashSet[n];
+            for (int i = 0; i < n; i++) {
+                adj[i] = new HashSet();
+            }
+        }
+
+        public void add(int v, int w) {
+            adj[v].add(w);
         }
     }
 }

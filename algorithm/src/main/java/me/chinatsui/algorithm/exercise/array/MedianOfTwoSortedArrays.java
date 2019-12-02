@@ -49,11 +49,11 @@ public class MedianOfTwoSortedArrays {
                 iMax = i - 1;
             } else {
                 if (i == 0) {
-                    maxLeft = (double) nums2[j - 1];
+                    maxLeft = nums2[j - 1];
                 } else if (j == 0) {
-                    maxLeft = (double) nums1[i - 1];
+                    maxLeft = nums1[i - 1];
                 } else {
-                    maxLeft = (double) Math.max(nums1[i - 1], nums2[j - 1]);
+                    maxLeft = Math.max(nums1[i - 1], nums2[j - 1]);
                 }
                 break;
             }
@@ -65,11 +65,11 @@ public class MedianOfTwoSortedArrays {
 
         double minRight;
         if (i == n) {
-            minRight = (double) nums2[j];
+            minRight = nums2[j];
         } else if (j == m) {
-            minRight = (double) nums1[i];
+            minRight = nums1[i];
         } else {
-            minRight = (double) Math.min(nums1[i], nums2[j]);
+            minRight = Math.min(nums1[i], nums2[j]);
         }
 
         return (maxLeft + minRight) / 2;

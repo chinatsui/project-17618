@@ -13,5 +13,6 @@ public class RegexIITest {
         Assert.assertFalse(regexII.match("abcdxxa", "a*bcd?xx"));
         Assert.assertTrue(regexII.match("abcd", "a*bcd?**"));
         Assert.assertFalse(regexII.match("abcd", "a*bcd?**4"));
+        Assert.assertTrue(regexII.match("aa", "*"));
     }
 }
