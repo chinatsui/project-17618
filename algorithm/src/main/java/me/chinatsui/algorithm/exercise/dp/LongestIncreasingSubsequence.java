@@ -2,25 +2,26 @@ package me.chinatsui.algorithm.exercise.dp;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * LeetCode-300
- *
+ * <p>
  * Given an unsorted array of integers, find the length of longest increasing sub sequence.
  * Input: [10,9,2,5,3,7,101,18]
  * Output: 4
  * Explanation: The longest increasing sub sequence is [2,3,7,101], therefore the length is 4.
- *
+ * <p>
  * Note:
  * There may be more than one LIS combination, it is only necessary for you to return the length.
  * Your algorithm should run in O(n2) complexity.
- *
+ * <p>
  * Follow up: Could you improve it to O(n log n) time complexity?
  */
 public class LongestIncreasingSubsequence {
 
     public static void main(String[] args) {
-        int[] nums = {4, 5, 6, 3};
+        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
         System.out.println(Solution.INSTANCE.lengthOfLIS(nums));
     }
 
@@ -49,39 +50,69 @@ public class LongestIncreasingSubsequence {
                 return 0;
             }
 
-            ArrayList<Integer> tails = new ArrayList<>();
+            List<Integer> tails = new ArrayList<>();
 
-            for (int n : nums) {
-                int idx = binarySearch(tails, n);
-                if (idx == tails.size()) {
-                    tails.add(n);
+            for (int num : nums) {
+                int index = binarySearch(tails, num);
+                if (index == tails.size()) {
+                    tails.add(num);
                 } else {
-                    tails.set(idx, n);
+                    tails.set(index, num);
                 }
             }
 
             return tails.size();
         }
 
-        private int binarySearch(ArrayList<Integer> tails, int n) {
-            if (tails.isEmpty()) {
+        private int binarySearch(List<Integer> tails, int num) {
+            if (tails.size() < 1) {
                 return 0;
             }
 
             int lo = 0, hi = tails.size() - 1;
-            while (lo < hi) {
-                int mid = (lo + hi) / 2;
-                int val = tails.get(mid);
-                if (val == n) {
-                    return mid;
-                } else if (val < n) {
-                    lo = mid + 1;
+            while (lo <= hi) {
+                int mi = lo + (hi - lo) / 2;
+                if (tails.get(mi) >= num) {
+                    if (mi == 0 || tails.get(mi - 1) < num) {
+                        return mi;
+                    } else {
+                        hi = mi - 1;
+                    }
                 } else {
-                    hi = mid;
+                    lo = mi + 1;
                 }
             }
 
-            return n <= tails.get(lo) ? lo : lo + 1;
+            return tails.size();
+        }
+    }
+
+    public enum Solution2 {
+        INSTANCE;
+
+        public int lengthOfLIS(int[] nums) {
+            if (nums == null || nums.length < 1) {
+                return 0;
+            }
+
+            int n = nums.length;
+
+            // dp[i] means the longest sub sequence ends with nums[i]
+            int[] dp = new int[n];
+            dp[0] = 1;
+
+            int max = 1;
+            for (int i = 1; i < n; i++) {
+                dp[i] = 1;
+                for (int j = 0; j < i; j++) {
+                    if (nums[i] > nums[j] && dp[i] < dp[j] + 1) {
+                        dp[i] = dp[j] + 1;
+                    }
+                }
+                max = Math.max(max, dp[i]);
+            }
+
+            return max;
         }
     }
 }

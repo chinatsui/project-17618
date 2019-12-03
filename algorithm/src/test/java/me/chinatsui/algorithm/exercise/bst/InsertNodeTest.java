@@ -10,13 +10,13 @@ public class InsertNodeTest {
 
     private SearchNode sn = new SearchNode();
     private InsertNode in = new InsertNode();
-    private Validation validation = new Validation();
+    private ValidateBST validateBST = new ValidateBST();
 
     @Test
     public void test() {
         TreeNode root = TreeNodes.getBinarySearchTree();
         root = in.insert(root, 11);
-        Assert.assertTrue(validation.validate(root));
+        Assert.assertTrue(validateBST.validate(root));
         Assert.assertEquals(11, sn.search(root, 11).val);
     }
 }

@@ -24,18 +24,18 @@ public class LICS {
         }
 
         int n = nums.length;
-        int old, now;
-        int res = old = 1;
+        int res = 1, cur = res;
         for (int i = 1; i < n; i++) {
             if (nums[i] > nums[i - 1]) {
-                now = old + 1;
+                cur++;
             } else {
-                now = 1;
+                res = Math.max(res, cur);
+                cur = 1;
             }
-            res = Math.max(res, now);
-            old = now;
         }
 
-        return res;
+        // It is possible the cur keeps increasing until the last one,
+        // so we have to re-compare "res" and "cur" one more time.
+        return Math.max(res, cur);
     }
 }

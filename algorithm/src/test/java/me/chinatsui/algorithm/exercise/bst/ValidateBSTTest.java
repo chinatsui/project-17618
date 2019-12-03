@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import me.chinatsui.algorithm.util.TreeNodes;
 
-public class ValidationTest {
+public class ValidateBSTTest {
 
-    private Validation vbst = new Validation();
+    private ValidateBST vbst = new ValidateBST();
 
     @Test
     public void test() {

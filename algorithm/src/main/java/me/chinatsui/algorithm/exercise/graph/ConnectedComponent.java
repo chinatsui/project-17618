@@ -8,12 +8,11 @@ public class ConnectedComponent {
     private Graph graph;
     private int[] ids;
     private int count;
-    private boolean[] visited;
 
     public ConnectedComponent(Graph graph) {
         this.graph = graph;
         int n = graph.size();
-        visited = new boolean[n];
+        boolean[] visited = new boolean[n];
         ids = new int[n];
         for (int i = 0; i < n; i++) {
             ids[i] = graph.adjSet[i] != null ? i : -1;
@@ -21,20 +20,20 @@ public class ConnectedComponent {
 
         for (int i = 0; i < n; i++) {
             if (!visited[i] && graph.adjSet[i] != null) {
-                dfs(i);
+                dfs(i, visited);
                 count++;
             }
         }
     }
 
-    private void dfs(int src) {
+    private void dfs(int src, boolean[] visited) {
         visited[src] = true;
         ids[src] = count;
         Set<Integer> adjSet = graph.adjSet[src];
         if (adjSet != null) {
-            for (int adj :adjSet) {
+            for (int adj : adjSet) {
                 if (!visited[adj]) {
-                    dfs(adj);
+                    dfs(adj, visited);
                 }
             }
         }
@@ -78,6 +77,10 @@ public class ConnectedComponent {
         void removeEdge(int src, int dst) {
             if (adjSet[src] != null) {
                 adjSet[src].remove(dst);
+            }
+
+            if (adjSet[dst] != null) {
+                adjSet[dst].remove(src);
             }
         }
     }

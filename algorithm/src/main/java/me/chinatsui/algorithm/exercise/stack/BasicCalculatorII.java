@@ -4,38 +4,38 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * LeetCode-227
- * <p>
+ * LeetCode 227. Basic Calculator II
+ * <priorities>
  * Implement a basic calculator to evaluate a simple expression string.
- * <p>
+ * <priorities>
  * The expression string contains only non-negative integers, +, -, *, / operators and empty spaces .
  * The integer division should truncate toward zero.
- * <p>
+ * <priorities>
  * Example 1:
  * Input: "3+2*2"
  * Output: 7
- * <p>
+ * <priorities>
  * Example 2:
  * Input: " 3/2 "
  * Output: 1
- * <p>
+ * <priorities>
  * Example 3:
  * Input: " 3+5 / 2 "
  * Output: 5
- * <p>
+ * <priorities>
  * Note:
  * You may assume that the given expression is always valid.
  * Do not use the eval built-in library function.
  */
 public class BasicCalculatorII {
 
-    private static HashMap<Character, Integer> p = new HashMap<>();
+    private static HashMap<Character, Integer> priorities = new HashMap<>();
 
     static {
-        p.put('+', 1);
-        p.put('-', 2);
-        p.put('*', 3);
-        p.put('/', 3);
+        priorities.put('+', 1);
+        priorities.put('-', 2);
+        priorities.put('*', 3);
+        priorities.put('/', 3);
     }
 
     public int calculate(String s) {
@@ -89,7 +89,7 @@ public class BasicCalculatorII {
     }
 
     private boolean isPrior(char op1, char op2) {
-        return p.get(op1) > p.get(op2);
+        return priorities.get(op1) > priorities.get(op2);
     }
 
     private int calculate(Integer num1, Integer num2, char op) {

@@ -36,27 +36,27 @@ public class Dijkstra {
 
         // bfs
         while (!pq.isEmpty()) {
-            PathNode cur = pq.poll();
+            PathNode curr = pq.poll();
 
-            if (cur.id == dst) {
+            if (curr.id == dst) {
                 break;
             }
 
-            HashMap<Integer, Edge> edges = graph.adj[cur.id];
-            for (Map.Entry<Integer, Edge> entry : edges.entrySet()) {
+            HashMap<Integer, Edge> adjEdges = graph.adj[curr.id];
+            for (Map.Entry<Integer, Edge> entry : adjEdges.entrySet()) {
                 Edge edge = entry.getValue();
-                PathNode adj = pathNodes[edge.dst];
+                PathNode next = pathNodes[edge.dst];
 
                 // Found a shorter path to the dst path node, so update it.
-                if (cur.dist + edge.weight < adj.dist) {
-                    adj.dist = cur.dist + edge.weight;
-                    if (visited[adj.id]) {
-                        pq.update(adj);
+                if (curr.dist + edge.weight < next.dist) {
+                    next.dist = curr.dist + edge.weight;
+                    if (visited[next.id]) {
+                        pq.update(next);
                     } else {
-                        pq.offer(adj);
-                        visited[adj.id] = true;
+                        pq.offer(next);
+                        visited[next.id] = true;
                     }
-                    predecessor[adj.id] = cur.id;
+                    predecessor[next.id] = curr.id;
                 }
             }
         }
