@@ -26,17 +26,17 @@ public class CloneGraph {
     private void dfs(UndirectedGraphNode node, UndirectedGraphNode copy) {
         if (node != null && !visited.contains(node)) {
             visited.add(node);
-            for (UndirectedGraphNode n : node.neighbors) {
+            for (UndirectedGraphNode neighbor : node.neighbors) {
                 UndirectedGraphNode copyNeighbor;
-                if (copyMap.containsKey(n)) {
-                    copyNeighbor = copyMap.get(n);
+                if (copyMap.containsKey(neighbor)) {
+                    copyNeighbor = copyMap.get(neighbor);
                     copy.neighbors.add(copyNeighbor);
                 } else {
-                    copyNeighbor = new UndirectedGraphNode(n.label);
+                    copyNeighbor = new UndirectedGraphNode(neighbor.label);
                     copy.neighbors.add(copyNeighbor);
-                    copyMap.put(n, copyNeighbor);
+                    copyMap.put(neighbor, copyNeighbor);
                 }
-                dfs(n, copyNeighbor);
+                dfs(neighbor, copyNeighbor);
             }
         }
     }

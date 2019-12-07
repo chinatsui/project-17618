@@ -5,7 +5,7 @@ public class SkipList {
     private static final int MAX_LEVEL = 16;
     private static final double PROBABILITY = 0.5f;
     private Node head = new Node(0);
-    private int levels;
+    private int levels = 0;
 
     public Node search(int val) {
         Node cur = head;

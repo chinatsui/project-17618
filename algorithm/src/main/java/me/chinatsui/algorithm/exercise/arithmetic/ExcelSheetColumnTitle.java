@@ -29,20 +29,20 @@ package me.chinatsui.algorithm.exercise.arithmetic;
  */
 public class ExcelSheetColumnTitle {
 
-    public String convertToTitle(int n) {
-        StringBuilder builder = new StringBuilder();
+    private static char[] map = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
-        char[] chars = new char[26];
-        for (char ch = 'A'; ch <= 'Z'; ch++) {
-            chars[ch - 'A'] = ch;
+    public String convertToTitle(int n) {
+        if (n < 1) {
+            return "";
         }
 
+        String res = "";
         n--;
         while (n >= 0) {
-            builder.append(chars[n % 26]);
+            res = map[n % 26] + res;
             n = n / 26 - 1;
         }
 
-        return builder.reverse().toString();
+        return res;
     }
 }

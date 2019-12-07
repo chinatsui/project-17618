@@ -25,7 +25,7 @@ public class Trie {
         cur.isEnding = true;
     }
 
-    public boolean exists(char[] prefix) {
+    public boolean startsWith(char[] prefix) {
         TrieNode cur = root;
         for (int i = 0; i < prefix.length; i++) {
             if (cur.children.containsKey(prefix[i])) {

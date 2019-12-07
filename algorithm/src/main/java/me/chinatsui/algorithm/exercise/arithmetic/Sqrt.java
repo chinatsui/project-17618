@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.binarysearch;
+package me.chinatsui.algorithm.exercise.arithmetic;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

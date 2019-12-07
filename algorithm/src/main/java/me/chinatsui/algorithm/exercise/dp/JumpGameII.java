@@ -25,6 +25,7 @@ public class JumpGameII {
         }
 
         int n = nums.length;
+        // dp[i] refers to the minimum steps to reach i.
         int[] dp = new int[n];
         dp[0] = 0;
 

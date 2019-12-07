@@ -1,15 +1,13 @@
 package me.chinatsui.algorithm.exercise.binarytree;
 
+import me.chinatsui.algorithm.entity.TreeNode;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-
-import me.chinatsui.algorithm.entity.TreeNode;
 
 /**
- * LeetCode-103
+ * LeetCode 103. Binary Tree Zigzag Level Order Traversal
  *
  * Given a binary tree, return the zigzag level order traversal of its nodes' values.
  * (ie, from left to right, then right to left for the next level and alternate between).
@@ -31,34 +29,39 @@ import me.chinatsui.algorithm.entity.TreeNode;
  */
 public class ZigzagOrderTraversal {
 
-    public List<Integer> traverse(TreeNode root) {
-        Map<Integer, LinkedList<Integer>> traceMap = new TreeMap<>();
-        traverse(root, traceMap, 0);
-        List<Integer> res = new ArrayList<>();
-        traceMap.forEach((k,v) -> res.addAll(v));
-        return res;
-    }
-
-    private void traverse(TreeNode root, Map<Integer, LinkedList<Integer>> traceMap, int row) {
+    public List<List<Integer>> traverse(TreeNode root) {
         if (root == null) {
-            return;
+            return new ArrayList<>();
         }
 
-        LinkedList<Integer> trace;
-        if (traceMap.containsKey(row)) {
-            trace = traceMap.get(row);
-        } else {
-            trace = new LinkedList<>();
-            traceMap.put(row, trace);
+        List<List<Integer>> res = new LinkedList<>();
+        LinkedList<TreeNode> q = new LinkedList<>();
+        q.offer(root);
+        int level = 0;
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            LinkedList<Integer> row = new LinkedList<>();
+            for (int i = 0; i < size; i++) {
+                TreeNode cur = q.poll();
+                if (level % 2 == 0) {
+                    row.addLast(cur.val);
+                } else {
+                    row.addFirst(cur.val);
+                }
+
+                if (cur.left != null) {
+                    q.offer(cur.left);
+                }
+
+                if (cur.right != null) {
+                    q.offer(cur.right);
+                }
+            }
+            level++;
+            res.add(row);
         }
 
-        if (row % 2 == 0) {
-            trace.offer(root.val);
-        } else {
-            trace.push(root.val);
-        }
-
-        traverse(root.left, traceMap, row + 1);
-        traverse(root.right, traceMap, row + 1);
+        return res;
     }
 }

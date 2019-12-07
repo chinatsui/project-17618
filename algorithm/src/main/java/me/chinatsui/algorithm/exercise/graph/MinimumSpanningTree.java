@@ -10,10 +10,10 @@ import me.chinatsui.algorithm.entity.UnionFind.WeightedQuickUnionUF;
 
 public abstract class MinimumSpanningTree {
 
-    protected WeightedUndirectedGraph graph;
     protected int n;
-    protected List<Edge> edgeList;
+    protected WeightedUndirectedGraph graph;
     protected PriorityQueue<Edge> minPQ;
+    protected List<Edge> edgeList;
     protected int weight;
 
     public MinimumSpanningTree(WeightedUndirectedGraph graph) {

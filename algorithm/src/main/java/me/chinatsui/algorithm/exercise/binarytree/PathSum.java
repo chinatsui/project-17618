@@ -27,18 +27,22 @@ import me.chinatsui.algorithm.entity.TreeNode;
 public class PathSum {
 
     public boolean hasPathSum(TreeNode root, int sum) {
-        return hasPathSum(root, sum, 0);
+        if (root == null) {
+            return false;
+        }
+
+        return dfs(root, sum);
     }
 
-    private boolean hasPathSum(TreeNode node, int sum, int cur) {
+    private boolean dfs(TreeNode node, int remain) {
         if (node == null) {
             return false;
         }
 
         if (node.left == null && node.right == null) {
-            return cur + node.val == sum;
+            return node.val == remain;
         }
 
-        return  hasPathSum(node.left, sum, cur + node.val) || hasPathSum(node.right, sum, cur + node.val);
+        return dfs(node.left, remain - node.val) || dfs(node.right, remain - node.val);
     }
 }

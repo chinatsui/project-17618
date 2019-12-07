@@ -4,7 +4,7 @@ import me.chinatsui.algorithm.entity.ListNode;
 import me.chinatsui.algorithm.util.ListNodes;
 
 /**
- * Given a linked list, the task is tofind the maximum sum obtained by adding any k consecutive nodes of linked list.
+ * Given a linked list, the task is to find the maximum sum obtained by adding any k consecutive nodes of linked list.
  * <p>
  * Examples:
  * Input: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> NULL, K = 5

@@ -11,7 +11,7 @@ public class MaximumPathSumTest {
 
     @Test
     public void test() {
-        TreeNode root = TreeNodes.deserialize(new Integer[]{-10, 9, 20, null, null, 15, 7});
+        TreeNode root = TreeNodes.deserialize(new Integer[]{1,2,3});
         Assert.assertEquals(42, mps.maxPathSum(root));
     }
 }

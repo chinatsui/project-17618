@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.stack;
+package me.chinatsui.algorithm.exercise.queue;
 
 import java.util.LinkedList;
 

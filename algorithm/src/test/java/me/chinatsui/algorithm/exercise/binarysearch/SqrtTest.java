@@ -1,5 +1,6 @@
 package me.chinatsui.algorithm.exercise.binarysearch;
 
+import me.chinatsui.algorithm.exercise.arithmetic.Sqrt;
 import org.junit.Assert;
 import org.junit.Test;
 

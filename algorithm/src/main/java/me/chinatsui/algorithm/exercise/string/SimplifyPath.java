@@ -1,6 +1,7 @@
 package me.chinatsui.algorithm.exercise.string;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -46,6 +47,12 @@ import java.util.Stack;
  */
 public class SimplifyPath {
 
+    public static void main(String[] args) {
+        String input = "/a//b////c/d//././/..";
+        String[] parts = input.split("/+");
+        System.out.println(Arrays.toString(parts));
+    }
+
     public String canonicalPath(String path) {
         if (path == null || path.length() < 1) {
             return path;
@@ -80,7 +87,7 @@ public class SimplifyPath {
             }
         }
 
-        StringBuilder builder = new StringBuilder("");
+        StringBuilder builder = new StringBuilder();
         stack.forEach(p -> builder.append("/").append(p));
 
         String res = builder.toString();

@@ -30,7 +30,7 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 public class ExcelSheetColumnNumber {
 
     public int titleToNumber(String s) {
-        if (s == null || s.isEmpty()) {
+        if (s == null || s.length() < 1) {
             return 0;
         }
 
@@ -38,17 +38,16 @@ public class ExcelSheetColumnNumber {
         double check = Math.pow(26, n - 1);
 
         if (check > Integer.MAX_VALUE) {
-            return -1;
+            return 0;
         }
 
-        int pow = (int) check, sum = 0;
+        int res = 0, pow = (int)check;
         char[] chars = s.toCharArray();
         for (int i = 0; i < n; i++) {
-            int val = chars[i] - 'A' + 1;
-            sum += val * pow;
+            res += (chars[i] - 'A' + 1) * pow;
             pow /= 26;
         }
 
-        return sum;
+        return res;
     }
 }

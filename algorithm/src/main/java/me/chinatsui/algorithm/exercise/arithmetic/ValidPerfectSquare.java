@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.binarysearch;
+package me.chinatsui.algorithm.exercise.arithmetic;
 
 /**
  * LeetCode 367. Valid Perfect Square
@@ -13,7 +13,7 @@ public class ValidPerfectSquare {
         int lo = 1, hi = num;
         while (lo <= hi) {
             int mi = lo + (hi - lo) / 2;
-            int res = num / mi, tail = num % mi;  //Prevents overflow
+            int res = num / mi, tail = num % mi;
 
             if (res == mi && tail == 0) {
                 return true;
