@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.dp;
+package me.chinatsui.algorithm.exercise.array;
 
 /**
  * LeetCode-674

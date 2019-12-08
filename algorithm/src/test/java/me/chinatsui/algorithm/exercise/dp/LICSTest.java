@@ -1,5 +1,6 @@
 package me.chinatsui.algorithm.exercise.dp;
 
+import me.chinatsui.algorithm.exercise.array.LICS;
 import org.junit.Assert;
 import org.junit.Test;
 

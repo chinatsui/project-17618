@@ -3,9 +3,9 @@ package me.chinatsui.algorithm.exercise.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MinimumSubarrayTest {
+public class MinimumSumSubarrayTest {
 
-    private MinimumSubarray ms = new MinimumSubarray();
+    private MinimumSumSubarray ms = new MinimumSumSubarray();
 
     @Test
     public void test() {

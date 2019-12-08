@@ -3,9 +3,9 @@ package me.chinatsui.algorithm.exercise.array;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class MaximumSubarrayTest {
+public class MaximumSumSubarrayTest {
 
-    private MaximumSubarray ms = new MaximumSubarray();
+    private MaximumSumSubarray ms = new MaximumSumSubarray();
 
     @Test
     public void test() {

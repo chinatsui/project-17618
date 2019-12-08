@@ -8,7 +8,7 @@ import me.chinatsui.algorithm.entity.TreeNode;
 public class SerializationDeserialization {
 
     private static final String SPL = ",";
-    private static final String NN = "X";
+    private static final String NN = "N";
 
     public String serialize(TreeNode root) {
         StringBuilder builder = new StringBuilder();
