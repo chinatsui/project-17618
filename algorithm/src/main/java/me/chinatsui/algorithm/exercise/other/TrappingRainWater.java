@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.trick;
+package me.chinatsui.algorithm.exercise.other;
 
 /**
  * LeetCode 42. Trapping Rain Water

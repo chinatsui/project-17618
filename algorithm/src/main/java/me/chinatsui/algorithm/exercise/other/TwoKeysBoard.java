@@ -1,6 +1,4 @@
-package me.chinatsui.algorithm.exercise.arithmetic;
-
-import java.util.Arrays;
+package me.chinatsui.algorithm.exercise.other;
 
 /**
  * LeetCode 650. 2 Keys Keyboard

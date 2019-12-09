@@ -1,7 +1,7 @@
 package me.chinatsui.algorithm.exercise.binarysearch;
 
 /**
- * Try to find the first number equals to target in a sorted array in which there exists duplicate numbers.
+ * Try to find the first number equals to target in a sorted array in which there startsWith duplicate numbers.
  * <p>
  * Example:
  * nums = [1,2,3,5,7,8,8,8,12,15], target = 8, returns 5

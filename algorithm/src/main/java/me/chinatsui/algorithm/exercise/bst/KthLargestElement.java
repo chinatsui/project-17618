@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.trick;
+package me.chinatsui.algorithm.exercise.bst;
 
 /**
  * LeetCode 215. Kth Largest Element in an Array

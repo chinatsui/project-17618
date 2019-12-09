@@ -3,7 +3,7 @@ package me.chinatsui.algorithm.exercise.matrix;
 /**
  * LeetCode 79. Word Search
  * <p>
- * Given a 2D board and a word, find if the word exists in the grid.
+ * Given a 2D board and a word, find if the word startsWith in the grid.
  * <p>
  * The word can be constructed from letters of sequentially adjacent cell,
  * where "adjacent" cells are those horizontally or vertically neighboring.

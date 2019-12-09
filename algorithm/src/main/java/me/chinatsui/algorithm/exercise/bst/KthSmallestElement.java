@@ -1,5 +1,9 @@
 package me.chinatsui.algorithm.exercise.bst;
 
+import java.util.Stack;
+
+import me.chinatsui.algorithm.entity.TreeNode;
+
 /**
  * LeetCode 230. Kth Smallest Element in a BST
  *
@@ -33,4 +37,27 @@ package me.chinatsui.algorithm.exercise.bst;
  * How would you optimize the kthSmallest routine?
  */
 public class KthSmallestElement {
+
+    private Stack<TreeNode> stack = new Stack<>();
+
+    public int kthSmallest(TreeNode root, int k) {
+        pushNodes(root);
+        while (!stack.isEmpty()) {
+            TreeNode curr = stack.pop();
+            if (k == 1) {
+                return curr.val;
+            } else {
+                pushNodes(curr.right);
+                k--;
+            }
+        }
+        return -1;
+    }
+
+    private void pushNodes(TreeNode node) {
+        while (node != null) {
+            stack.push(node);
+            node = node.left;
+        }
+    }
 }

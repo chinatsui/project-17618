@@ -9,7 +9,7 @@ package me.chinatsui.algorithm.exercise.binarysearch;
  *
  * Find the minimum element.
  *
- * You may assume no duplicate exists in the array.
+ * You may assume no duplicate startsWith in the array.
  *
  * Example 1:
  * Input: [3,4,5,1,2]

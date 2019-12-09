@@ -28,9 +28,9 @@ public class SortColors {
             return;
         }
 
-        // p1 - the position in which color 1 maybe put for now
+        // p0 - the position in which color 0 maybe put for now
         // p2 - the position in which color 2 would be put in the future
-        int p1 = 0, p2 = nums.length - 1;
+        int p0 = 0, p2 = nums.length - 1;
         for (int i = 0; i <= p2; i++) {
             if (nums[i] == 2) {
                 // because we don't know what color is swapped to position i, so we need to re-check it once.
@@ -39,7 +39,7 @@ public class SortColors {
             } else if (nums[i] == 0) {
                 // because we are for sure aware of that either 1 or 0 would be swapped to position i, the two cases
                 // are both expected to put in position i, and not need to re-check it, so won't do i--.
-                swap(nums, i, p1++);
+                swap(nums, i, p0++);
             }
         }
     }

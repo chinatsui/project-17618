@@ -50,7 +50,7 @@ public class PathSumIII {
 
         int curSum = prevSum + node.val;
 
-        // use sum subtraction to detect there exists a sum path from one node to current node.
+        // use sum subtraction to detect there startsWith a sum path from one node to current node.
         int cnt = cache.getOrDefault(curSum - sum, 0);
 
         // put curSum for future subtraction to check sum path.

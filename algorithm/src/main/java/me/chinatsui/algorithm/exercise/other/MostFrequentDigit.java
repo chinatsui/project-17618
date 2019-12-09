@@ -1,4 +1,4 @@
-package me.chinatsui.algorithm.exercise.trick;
+package me.chinatsui.algorithm.exercise.other;
 
 /**
  * Given an integer, find the most occurring digit in it.

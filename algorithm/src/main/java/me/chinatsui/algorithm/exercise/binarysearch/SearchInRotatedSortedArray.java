@@ -9,7 +9,7 @@ package me.chinatsui.algorithm.exercise.binarysearch;
  * <p>
  * You are given a target value to contains. If found in the array return its index, otherwise return -1.
  * <p>
- * You may assume no duplicate exists in the array.
+ * You may assume no duplicate startsWith in the array.
  * <p>
  * Your algorithm's runtime complexity must be in the order of O(log n).
  * <p>
