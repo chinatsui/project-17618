@@ -13,10 +13,10 @@ import me.chinatsui.algorithm.entity.TreeNode;
  * Output:1
  * Explanation:
  * The tree is look like this:
- * 1
- * /   \
- * -5     2
- * / \   /  \
+ *       1
+ *     /   \
+ *   -5     2
+ *   / \   /  \
  * 1   2 -4  -5
  * The sum of whole tree is minimum, so return the root.
  * <p>
@@ -46,6 +46,10 @@ public class MinimumSubtree {
     private int traverse(TreeNode node) {
         if (node == null) {
             return 0;
+        }
+
+        if (node.left == null || node.right == null) {
+            return node.val;
         }
 
         int leftSum = traverse(node.left);

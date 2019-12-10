@@ -59,24 +59,24 @@ public class RegexExpressionMatching {
             return false;
         }
 
-        int m = s.length();
-        int n = p.length();
-
-        boolean[][] dp = new boolean[m + 1][n + 1];
+        int n = s.length(), m = p.length();
+        boolean[][] dp = new boolean[n + 1][m + 1];
         dp[0][0] = true;
 
-        for (int j = 2; j <= n; j++) {
+        for (int j = 2; j <= m; j++) {
             if (p.charAt(j - 1) == '*') {
                 dp[0][j] = dp[0][j - 2];
             }
         }
 
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
                 if (p.charAt(j - 1) == '*') {
-                    dp[i][j] = dp[i][j - 1] || dp[i][j - 2]; // repeat 0 time or remove preceding element
+                    // repeat 0 time or remove preceding element
+                    dp[i][j] = dp[i][j - 1] || dp[i][j - 2];
                     if (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.') {
-                        dp[i][j] |= dp[i - 1][j]; // repeat preceding element more than one times
+                        // repeat preceding element more than one times
+                        dp[i][j] |= dp[i - 1][j];
                     }
                 } else {
                     dp[i][j] = dp[i - 1][j - 1] && (p.charAt(j - 1) == s.charAt(i - 1) || p.charAt(j - 1) == '.');
@@ -84,7 +84,7 @@ public class RegexExpressionMatching {
             }
         }
 
-        return dp[m][n];
+        return dp[n][m];
     }
 
 }

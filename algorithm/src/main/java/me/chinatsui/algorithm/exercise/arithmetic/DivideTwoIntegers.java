@@ -3,12 +3,15 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 public class DivideTwoIntegers {
 
     public static void main(String[] args) {
-        DivideTwoIntegers dti = new DivideTwoIntegers();
-        System.out.println(dti.divide(Integer.MAX_VALUE, 2));
+        System.out.println( 9 % -9);
     }
 
     public int divide(int dividend, int divisor) {
         // fast special cases
+        if (dividend == 0) {
+            return 0;
+        }
+
         if (dividend == divisor) {
             return 1;
         }

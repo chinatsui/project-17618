@@ -49,10 +49,6 @@ import me.chinatsui.algorithm.entity.TreeNode;
  */
 public class RecoverBST {
 
-    private TreeNode prev;
-    private TreeNode large;
-    private TreeNode small;
-
     public void recoverTree(TreeNode root) {
         if (root == null) {
             return;
@@ -61,6 +57,7 @@ public class RecoverBST {
         Stack<TreeNode> stack = new Stack<>();
         pushNodes(root, stack);
 
+        TreeNode prev = null, large = null, small = null;
         while (!stack.isEmpty()) {
             TreeNode node = stack.pop();
             if (prev != null && prev.val > node.val) {

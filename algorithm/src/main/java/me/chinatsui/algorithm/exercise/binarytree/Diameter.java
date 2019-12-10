@@ -16,14 +16,17 @@ public class Diameter {
             return -1;
         }
 
+        if (node.left == null && node.right == null) {
+            return 0;
+        }
+
         int left = dfs(node.left);
-        left = left == -1 ? 0 : left + 1;
+        left = left == -1 ? 0 : 1 + left;
 
         int right = dfs(node.right);
-        right = right == -1 ? 0 : right + 1;
+        right = right == -1 ? 0 : 1 + right;
 
         length = Math.max(length, left + right);
-
         return Math.max(left, right);
     }
 }

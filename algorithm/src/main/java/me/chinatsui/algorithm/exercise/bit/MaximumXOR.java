@@ -22,11 +22,13 @@ public class MaximumXOR {
     public int findMaximumXOR(int[] nums) {
         int max = 0, mask = 0;
         for (int i = 31; i >= 0; i--) {
+
             mask = mask | (1 << i);
             Set<Integer> prefixes = new HashSet<>();
             for (int num : nums) {
                 prefixes.add(num & mask);
             }
+
             int tmp = max | (1 << i);
             for (int prefix : prefixes) {
                 // tmp^num1 == num2, so tmp = num1^num2, then tmp is a potential max
