@@ -57,10 +57,11 @@ public class Matrix01 {
 
         while (!queue.isEmpty()) {
             int[] pos = queue.poll();
+            int i = pos[0], j = pos[1];
             for (int[] d : directions) {
-                int x = pos[0] + d[0], y = pos[1] + d[1];
+                int x = i + d[0], y = j + d[1];
                 if (isValid(matrix, x, y) && matrix[x][y] != 0 && !visited[x][y]) {
-                    matrix[x][y] = matrix[pos[0]][pos[1]] + 1;
+                    matrix[x][y] = matrix[i][j] + 1;
                     queue.offer(new int[]{x, y});
                     visited[x][y] = true;
                 }

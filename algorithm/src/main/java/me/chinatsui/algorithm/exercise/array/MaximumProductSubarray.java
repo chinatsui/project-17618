@@ -18,11 +18,6 @@ package me.chinatsui.algorithm.exercise.array;
  */
 public class MaximumProductSubarray {
 
-    public static void main(String[] args) {
-        MaximumProductSubarray mps = new MaximumProductSubarray();
-        System.out.println(mps.maxProduct(new int[]{-1, -2, -9, -6}));
-    }
-
     public int maxProduct(int[] nums) {
         if (nums == null || nums.length == 0) {
             return 0;

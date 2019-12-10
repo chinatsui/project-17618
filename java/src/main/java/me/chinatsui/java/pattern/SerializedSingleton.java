@@ -24,19 +24,3 @@ public class SerializedSingleton implements Serializable {
         return getInstance();
     }
 }
-
-class SerializedSingletonTest {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        SerializedSingleton instance1 = SerializedSingleton.getInstance();
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serializedSingleton.ser"));
-        oos.writeObject(instance1);
-        oos.close();
-
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serializedSingleton.ser"));
-        SerializedSingleton instance2 = (SerializedSingleton) ois.readObject();
-        ois.close();
-
-        System.out.println(instance1.hashCode());
-        System.out.println(instance2.hashCode());
-    }
-}

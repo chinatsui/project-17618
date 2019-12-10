@@ -65,21 +65,24 @@ public class CanIWin {
         }
 
         for (int i = 0; i < state.length; i++) {
-            if (state[i] == 0) {
-                state[i] = 1;
-                int chosen = i + 1;
-                // Two cases:
-                // 1. Player1 chooses the number causes total exceeds, so win.
-                // 2. Player2's chosen result is false, so player1 win.
-                if (chosen >= remain || !canIWin(remain - chosen, state, cache)) {
-                    state[i] = 0;
-                    cache.put(key, true);
-                    return true;
-                }
-                state[i] = 0;
+            if (state[i] == 1) {
+                continue;
             }
+
+            state[i] = 1;
+            int chosen = i + 1;
+            // Two cases:
+            // 1. Player1 chooses the number causes total exceeds, so win.
+            // 2. Player2's chosen result is false, so player1 win.
+            if (chosen >= remain || !canIWin(remain - chosen, state, cache)) {
+                cache.put(key, true);
+                state[i] = 0;
+                return true;
+            }
+            state[i] = 0;
         }
 
+        // no matter how player1 choose, he always failed for the key (state).
         cache.put(key, false);
         return false;
     }

@@ -43,20 +43,18 @@ package me.chinatsui.algorithm.exercise.binarytree;
 public class PopulateNextPointers {
 
     public void populate(Node root) {
-        Node rowHead = root;
-
-        while (rowHead != null) {
-            Node rowNow = rowHead;
-            while (rowNow != null) {
-                if (rowNow.left != null) {
-                    rowNow.left.next = rowNow.right;
-                    if (rowNow.next != null) {
-                        rowNow.right.next = rowNow.next.left;
+        while (root != null) {
+            Node row = root;
+            while (row != null) {
+                if (row.left != null) {
+                    row.left.next = row.right;
+                    if (row.next != null) {
+                        row.right.next = row.next.left;
                     }
                 }
-                rowNow = rowNow.next;
+                row = row.next;
             }
-            rowHead = rowHead.left;
+            root = root.left;
         }
     }
 

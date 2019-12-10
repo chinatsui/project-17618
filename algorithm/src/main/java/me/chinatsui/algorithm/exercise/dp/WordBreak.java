@@ -38,6 +38,7 @@ public class WordBreak {
 
         Set<String> wordSet = new HashSet<>(wordDict);
         int n = s.length();
+        // dp[i] = (j == 0 || dp[j - 1]) && words.contains(s[j...i])
         boolean[] dp = new boolean[n];
 
         for (int i = 0; i < n; i++) {

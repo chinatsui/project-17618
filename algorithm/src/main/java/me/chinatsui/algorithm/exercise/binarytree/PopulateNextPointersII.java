@@ -41,52 +41,50 @@ package me.chinatsui.algorithm.exercise.binarytree;
 public class PopulateNextPointersII extends PopulateNextPointers {
 
     public void populate(Node root) {
-        Node rowHead = root;
-        while (rowHead != null) {
-            Node rowNow = rowHead;
-            Node childNow = null;
+        while (root != null) {
+            Node row = root, child = null;
 
             // connect next pointers for current level.
-            while (rowNow != null) {
-                if (rowNow.left != null) {
-                    childNow = rowNow.left;
-                    if (rowNow.right != null) {
-                        childNow.next = rowNow.right;
-                        childNow = childNow.next;
+            while (row != null) {
+                if (row.left != null) {
+                    child = row.left;
+                    if (row.right != null) {
+                        child.next = row.right;
+                        child = child.next;
                     }
-                } else if (rowNow.right != null){
-                    childNow = rowNow.right;
+                } else if (row.right != null){
+                    child = row.right;
                 }
 
-                if (rowNow.next != null) {
-                    if (childNow != null) {
-                        if (rowNow.next.left != null) {
-                            childNow.next = rowNow.next.left;
-                        } else if (rowNow.next.right != null) {
-                            childNow.next = rowNow.next.right;
+                if (row.next != null) {
+                    if (child != null) {
+                        if (row.next.left != null) {
+                            child.next = row.next.left;
+                        } else if (row.next.right != null) {
+                            child.next = row.next.right;
                         }
                     }
                 }
 
-                rowNow = rowNow.next;
+                row = row.next;
             }
 
             // find the head node for next level.
-            Node nextRowHead = null;
-            while (nextRowHead == null) {
-                if (rowHead.left != null) {
-                    nextRowHead = rowHead.left;
+            Node nextRoot = null;
+            while (nextRoot == null) {
+                if (root.left != null) {
+                    nextRoot = root.left;
                 } else {
-                    nextRowHead = rowHead.right;
+                    nextRoot = root.right;
                 }
 
-                if (rowHead.next == null) {
+                if (root.next == null) {
                     break;
                 } else {
-                    rowHead = rowHead.next;
+                    root = root.next;
                 }
             }
-            rowHead = nextRowHead;
+            root = nextRoot;
         }
     }
 }

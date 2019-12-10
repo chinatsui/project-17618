@@ -28,16 +28,16 @@ public class CountPrimes {
             return 0;
         }
 
-        boolean[] sieve = new boolean[n + 1];
+        boolean[] sieve = new boolean[n];
         sieve[2] = true;
         for (int i = 3; i < n; i += 2) { // why i += 2? Because any multiple of 2 can't be a prime
             sieve[i] = true;
         }
 
-        for (int p = 3; p * p <= n; p++) {
-            if (sieve[p]) {
-                for (int i = p + p; i <= n; i += p) {
-                    sieve[i] = false;
+        for (int i = 3; i * i < n; i += 2) {
+            if (sieve[i]) {
+                for (int j = i + i; j < n; j += i) {
+                    sieve[j] = false;
                 }
             }
         }

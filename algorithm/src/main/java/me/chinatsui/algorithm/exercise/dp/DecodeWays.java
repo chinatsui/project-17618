@@ -29,12 +29,12 @@ public class DecodeWays {
         }
 
         int n = s.length();
-        char[] ch = s.toCharArray();
 
         // dp[i] means the ways of decoding first i digits that is 0...i-1
         int[] dp = new int[n + 1];
         dp[0] = 1; // first 0 digits cannot be decoded, this should be regarded as one way.
 
+        char[] ch = s.toCharArray();
         for (int i = 1; i <= n; i++) {
             // last digit
             int num1 = ch[i - 1] - '0';

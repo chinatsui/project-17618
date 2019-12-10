@@ -2,7 +2,6 @@ package me.chinatsui.algorithm.exercise.linkedlist;
 
 import me.chinatsui.algorithm.entity.ListNode;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 public class AddTwoNumbersII {
@@ -37,7 +36,7 @@ public class AddTwoNumbersII {
 
         ListNode cur = null;
         int sum = 0;
-        while(!s1.isEmpty() || !s2.isEmpty()) {
+        while (!s1.isEmpty() || !s2.isEmpty()) {
             int num1 = s1.isEmpty() ? 0 : s1.pop();
             int num2 = s2.isEmpty() ? 0 : s2.pop();
             sum += num1 + num2;

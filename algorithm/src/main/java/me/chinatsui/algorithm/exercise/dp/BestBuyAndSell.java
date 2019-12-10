@@ -1,34 +1,24 @@
 package me.chinatsui.algorithm.exercise.dp;
 
-public enum BestBuyAndSell {
-
-    INSTANCE;
-
-    public static void main(String[] args) {
-        int[] prices = {1, 2};
-        System.out.println(INSTANCE.maxProfit(prices));
-    }
+/**
+ * LeetCode 121. Best Time to Buy and Sell Stock
+ */
+public class BestBuyAndSell {
 
     public int maxProfit(int[] prices) {
-        if (prices == null || prices.length < 2) {
+        if (prices == null || prices.length < 1) {
             return 0;
         }
 
-        int n = prices.length;
-
-        int profit = 0;
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n - 1; j++ ) {
-                profit = Math.max(profit, doTransaction(prices[i], prices[j]));
+        int min = prices[0], profit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] < min) {
+                min = prices[i];
+            } else {
+                profit = Math.max(prices[i] - min, profit);
             }
         }
 
         return profit;
     }
-
-    private int doTransaction(int buy, int sell) {
-        return sell - buy < 0 ? 0 : sell - buy;
-    }
-
 }

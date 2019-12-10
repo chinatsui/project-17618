@@ -23,6 +23,10 @@ package me.chinatsui.algorithm.exercise.other;
  */
 public class ReverseInteger {
 
+    public static void main(String[] args) {
+        System.out.println(-29 % 10);
+    }
+
     public int reverse(int x) {
         if (x == 0) {
             return x;

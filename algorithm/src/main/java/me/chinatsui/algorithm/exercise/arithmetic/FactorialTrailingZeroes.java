@@ -18,16 +18,11 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 public class FactorialTrailingZeroes {
 
     public int trailingZeroes(int n) {
-        if (n < 5) {
-            return 0;
+        int res = 0;
+        while (n >= 5) {
+            res += n / 5;
+            n /= 5;
         }
-
-        long i = 5, cnt = 0;
-        while (i <= n) {
-            cnt += n / i;
-            i *= 5;
-        }
-
-        return (int)cnt;
+        return res;
     }
 }
