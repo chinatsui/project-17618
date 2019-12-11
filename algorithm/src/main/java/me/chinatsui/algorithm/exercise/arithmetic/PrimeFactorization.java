@@ -5,20 +5,31 @@ import java.util.List;
 
 public class PrimeFactorization {
 
-    public int[] getPrimeFactors(int num) {
-        int prime = 2;
-        int cur = num;
-        List<Integer> factors = new ArrayList<>();
+    public List<Integer> getPrimeFactors(int num) {
+        List<Integer> primes = new ArrayList<>();
 
-        while (cur > 1 && prime < num) {
-            if (cur % prime == 0) {
-                factors.add(prime);
-                cur /= prime;
-            } else {
-                prime++;
+        // Print the number of 2s that divide n
+        while (num % 2 == 0) {
+            primes.add(2);
+            num /= 2;
+        }
+
+        // n must be odd at this point.  So we can
+        // skip one element (Note i = i +2)
+        for (int i = 3; i * i <= num; i += 2) {
+            // While i divides n, print i and divide n
+            while (num % i == 0) {
+                primes.add(i);
+                num /= i;
             }
         }
 
-        return factors.stream().mapToInt(i -> i).toArray();
+        // This condition is to handle the case when
+        // n is a prime number greater than 2
+        if (num > 2) {
+            primes.add(num);
+        }
+
+        return primes;
     }
 }
