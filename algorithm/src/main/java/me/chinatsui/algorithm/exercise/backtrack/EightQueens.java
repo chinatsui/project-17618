@@ -6,6 +6,8 @@ import java.util.List;
 
 public class EightQueens {
 
+    private static final int QUEEN_SIZE = 8;;
+
     public List<int[]> resolve() {
         List<int[]> res = new ArrayList<>();
         int[] positions = new int[8];
@@ -14,7 +16,6 @@ public class EightQueens {
     }
 
     private void place(int[] positions, int row, List<int[]> res) {
-        int QUEEN_SIZE = 8;
         if (row == QUEEN_SIZE) {
             res.add(Arrays.copyOf(positions, QUEEN_SIZE));
         } else {

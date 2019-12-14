@@ -6,10 +6,6 @@ import java.util.Stack;
 
 public class AddTwoNumbersII {
 
-    public static void main(String[] args) {
-        int[][] points = {};
-    }
-
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         if (l1 == null) {
             return l2;

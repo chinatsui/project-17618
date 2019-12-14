@@ -31,7 +31,7 @@ public class WaterAndJugProblem {
     }
 
     public boolean canMeasureWater(int x, int y, int z) {
-        //limit brought by the statement that water is finallly in one or both buckets
+        //limit brought by the statement that water is finally in one or both buckets
         if (x + y < z) return false;
 
         //case x or y is zero

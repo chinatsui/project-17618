@@ -22,11 +22,12 @@ public class MinimumSizeSubarraySum {
             return 0;
         }
 
-        int minSize = 0, sum = 0;
+        int minSize = -1, sum = 0;
         for (int i = 0, j = 0; i < nums.length; i++) {
             sum += nums[i];
+            // maybe here can be optimized by binary search.
             while (sum >= s) {
-                if (minSize == 0) {
+                if (minSize == -1) {
                     minSize = i - j + 1;
                 } else {
                     minSize = Math.min(minSize, i - j + 1);

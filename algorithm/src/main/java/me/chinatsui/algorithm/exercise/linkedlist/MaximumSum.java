@@ -16,14 +16,6 @@ import me.chinatsui.algorithm.util.ListNodes;
  */
 public class MaximumSum {
 
-    public static void main(String[] args) {
-        ListNode head = ListNodes.deserialize(new int[]{1, 2, 3, 4, 5, 6});
-        MaximumSum ms = new MaximumSum();
-        System.out.println(ms.maxSum(head, 5));
-        head = ListNodes.deserialize(new int[]{2, 5, 3, 6, 4, 1, 7});
-        System.out.println(ms.maxSum(head, 4));
-    }
-
     public int maxSum(ListNode head, int k) {
         int sum = 0, curSum = sum, visited = 0;
         ListNode prev = new ListNode(0);

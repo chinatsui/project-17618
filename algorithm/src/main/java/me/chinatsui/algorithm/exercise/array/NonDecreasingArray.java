@@ -22,11 +22,6 @@ package me.chinatsui.algorithm.exercise.array;
  */
 public class NonDecreasingArray {
 
-    public static void main(String[] args) {
-        NonDecreasingArray ao = new NonDecreasingArray();
-        System.out.println(ao.isAlmostOrdered(new int[]{10,20,30,40,11,15}));
-    }
-
     public boolean isAlmostOrdered(int[] nums) {
         if (nums == null || nums.length < 2) {
             return true;

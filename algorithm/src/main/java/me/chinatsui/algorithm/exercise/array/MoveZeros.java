@@ -21,17 +21,14 @@ public class MoveZeros {
             return;
         }
 
-        int j = -1;
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] == 0 && j == -1) {
-                j = i;
-            } else if (nums[i] != 0 && j != -1) {
-                exchange(nums, j++, i);
+        for (int i = 0, j = 0; j < nums.length; j++) {
+            if (nums[j] != 0) {
+                swap(nums, i++, j);
             }
         }
     }
 
-    private void exchange(int[] nums, int src, int dst) {
+    private void swap(int[] nums, int src, int dst) {
         int tmp = nums[src];
         nums[src] = nums[dst];
         nums[dst] = tmp;

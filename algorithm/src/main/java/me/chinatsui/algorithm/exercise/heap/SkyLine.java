@@ -17,7 +17,7 @@ public class SkyLine {
             heights.add(new int[]{b[0], -b[2]});
             heights.add(new int[]{b[1], b[2]});
         }
-        heights.sort((h1,h2) -> {
+        heights.sort((h1, h2) -> {
             if (h1[0] != h2[0]) {
                 return h1[0] - h2[0];
             } else {
@@ -26,7 +26,7 @@ public class SkyLine {
         });
 
         List<List<Integer>> res = new ArrayList<>();
-        PriorityQueue<Integer> pq = new PriorityQueue<>((h1,h2) -> (h2-h1));
+        PriorityQueue<Integer> pq = new PriorityQueue<>((h1, h2) -> (h2 - h1));
         pq.offer(0);
         int prev = 0;
         for (int[] h : heights) {

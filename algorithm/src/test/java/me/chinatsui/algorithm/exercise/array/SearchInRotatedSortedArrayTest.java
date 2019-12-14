@@ -1,6 +1,5 @@
 package me.chinatsui.algorithm.exercise.array;
 
-import me.chinatsui.algorithm.exercise.binarysearch.SearchInRotatedSortedArray;
 import org.junit.Assert;
 import org.junit.Test;
 

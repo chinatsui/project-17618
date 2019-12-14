@@ -50,7 +50,6 @@ public class TopKFrequentElements {
             } else {
                 frequencies.put(num,  1);
             }
-
         }
 
         List<Integer>[] bucket = new List[max + 1];

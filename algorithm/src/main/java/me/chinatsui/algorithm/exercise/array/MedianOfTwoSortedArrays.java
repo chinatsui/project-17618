@@ -40,7 +40,7 @@ public class MedianOfTwoSortedArrays {
         double maxLeft = Double.NaN;
         int iLo = 0, iHi = n;
         while (iLo <= iHi) {
-            i = iLo + ((iHi + 1 - iLo) >> 1);
+            i = iLo + (iHi + 1 - iLo) / 2;
             j = n + (m + 1 - n) / 2 - i;
             if (j > 0 && i < n && nums2[j - 1] > nums1[i]) {
                 // should select more elements from nums1, "i" should be bigger
