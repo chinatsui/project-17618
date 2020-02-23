@@ -1,21 +1,8 @@
 package me.chinatsui.algorithm.exercise.dp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PascalTriangleShortestPath {
-
-    public static void main(String[] args) {
-        ArrayList<ArrayList<Integer>> data = new ArrayList<>();
-        data.add(new ArrayList<>(Arrays.asList(5)));
-        data.add(new ArrayList<>(Arrays.asList(7, 8)));
-        data.add(new ArrayList<>(Arrays.asList(10, 3, 4)));
-        data.add(new ArrayList<>(Arrays.asList(4, 2, 1, 6)));
-        data.add(new ArrayList<>(Arrays.asList(10, 7, 9, 4, 5)));
-
-        PascalTriangleShortestPath shortestPath = new PascalTriangleShortestPath();
-        System.out.println(shortestPath.resolve(data));
-    }
 
     public int resolve(ArrayList<ArrayList<Integer>> data) {
         if (!isValid(data)) {

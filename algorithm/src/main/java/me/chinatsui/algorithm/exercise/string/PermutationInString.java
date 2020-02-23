@@ -20,11 +20,6 @@ package me.chinatsui.algorithm.exercise.string;
  */
 public class PermutationInString {
 
-    public static void main(String[] args) {
-        PermutationInString pis = new PermutationInString();
-        System.out.println(pis.checkInclusion("adc", "dcda"));
-    }
-
     public boolean checkInclusion(String s1, String s2) {
         if (s1 == null || s2 == null) {
             return false;

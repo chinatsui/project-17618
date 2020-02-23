@@ -2,10 +2,6 @@ package me.chinatsui.algorithm.exercise.bit;
 
 public class ReverseBits {
 
-    public static void main(String[] args) {
-        System.out.println(Math.pow(2, 31));
-    }
-
     public int reverse(int n) {
         if (n == 0) return 0;
 

@@ -2,11 +2,6 @@ package me.chinatsui.algorithm.exercise.string;
 
 public class StringIndex {
 
-    public static void main(String[] args) {
-        StringIndex stringIndex = new StringIndex();
-        System.out.println(stringIndex.strStr("mississippi", "issipi"));
-    }
-
     public int strStr(String haystack, String needle) {
         if (haystack == null || needle == null) {
             return -1;
@@ -43,5 +38,4 @@ public class StringIndex {
 
         return -1;
     }
-
 }

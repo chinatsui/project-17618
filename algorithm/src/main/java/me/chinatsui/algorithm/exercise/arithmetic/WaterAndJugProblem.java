@@ -1,7 +1,5 @@
 package me.chinatsui.algorithm.exercise.arithmetic;
 
-import java.util.LinkedHashMap;
-
 /**
  * LeetCode 365. Water and Jug Problem
  * <p>
@@ -24,11 +22,6 @@ import java.util.LinkedHashMap;
  * Output: False
  */
 public class WaterAndJugProblem {
-
-    public static void main(String[] args) {
-        LinkedHashMap<Integer, Integer> res = new LinkedHashMap<>();
-        res.entrySet().iterator().next().getValue();
-    }
 
     public boolean canMeasureWater(int x, int y, int z) {
         //limit brought by the statement that water is finally in one or both buckets

@@ -49,11 +49,6 @@ package me.chinatsui.algorithm.exercise.dp;
  */
 public class RegexExpressionMatching {
 
-    public static void main(String[] args) {
-        RegexExpressionMatching rem = new RegexExpressionMatching();
-        System.out.println(rem.isMatch("aa", "a*"));
-    }
-
     public boolean isMatch(String s, String p) {
         if (s == null || p == null) {
             return false;
@@ -86,5 +81,4 @@ public class RegexExpressionMatching {
 
         return dp[n][m];
     }
-
 }

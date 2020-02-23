@@ -2,13 +2,6 @@ package me.chinatsui.algorithm.exercise.dp;
 
 public class LongestCommonSubsequence {
 
-    public static void main(String[] args) {
-        String a = "bedaacbade";
-        String b = "dccaeedbeb";
-
-        System.out.println(new LongestCommonSubsequence().getCLS(a, b));
-    }
-
     public String getCLS(String A, String B) {
         if (A == null || A.length() == 0) {
             return "";
@@ -71,5 +64,4 @@ public class LongestCommonSubsequence {
 
         return dpStr[m - 1][n - 1];
     }
-
 }

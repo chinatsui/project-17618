@@ -5,12 +5,6 @@ package me.chinatsui.algorithm.exercise.dp;
  */
 public class Knapsack {
 
-    public static void main(String[] args) {
-        Knapsack knapsack = new Knapsack();
-        int[] weights = {1, 3, 6, 8};
-        System.out.println(knapsack.resolveWithBackTracking(weights, 12));
-    }
-
     public int resolveWithDP(int[] weights, int maxWeight) {
         if (!isValid(weights, maxWeight)) {
             return 0;

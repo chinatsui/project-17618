@@ -21,10 +21,6 @@ public class BloomFilter {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(1 << 32);
-    }
-
     // 将字符串标记到 bits 中
     public void add(String value) {
         for (SimpleHash f : func) {

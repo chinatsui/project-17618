@@ -2,11 +2,6 @@ package me.chinatsui.algorithm.exercise.dp;
 
 public class TrappingRainWater {
 
-    public static void main(String[] args) {
-        int[] input = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-        System.out.println(new TrappingRainWater().trap(input));
-    }
-
     public int trap(int[] height) {
         int left = 0;
         int leftWall = 0;
@@ -28,5 +23,4 @@ public class TrappingRainWater {
         }
         return water;
     }
-
 }

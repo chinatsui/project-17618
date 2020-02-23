@@ -5,13 +5,6 @@ import me.chinatsui.algorithm.util.TreeNodes;
 
 public class ConvertToDLL {
 
-    public static void main(String[] args) {
-        ConvertToDLL ctd = new ConvertToDLL();
-        TreeNode bst = TreeNodes.getBinarySearchTree();
-        TreeNode dll = ctd.convert(bst);
-        System.out.println(1);
-    }
-
     public TreeNode convert(TreeNode root) {
         if (root == null) {
             return null;
@@ -27,7 +20,7 @@ public class ConvertToDLL {
 
     private TreeNode buildDLL(TreeNode node) {
         if (node == null) {
-            return node;
+            return null;
         }
 
         if (node.left != null) {

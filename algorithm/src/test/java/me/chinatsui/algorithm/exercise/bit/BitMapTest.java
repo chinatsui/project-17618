@@ -3,8 +3,6 @@ package me.chinatsui.algorithm.exercise.bit;
 import org.junit.Assert;
 import org.junit.Test;
 
-import me.chinatsui.algorithm.exercise.bit.BitMap;
-
 public class BitMapTest {
 
     @Test

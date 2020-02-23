@@ -1,12 +1,8 @@
 package me.chinatsui.algorithm.exercise.hash;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 /**
  * LeetCode 347. Top K Frequent Elements
@@ -27,12 +23,6 @@ import java.util.PriorityQueue;
  *
  */
 public class TopKFrequentElements {
-
-    public static void main(String[] args) {
-        int[] nums = {1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4};
-        List<Integer> result = new TopKFrequentElements().resolve(nums, 2);
-        System.out.println(result);
-    }
 
     public List<Integer> resolve(int[] nums, int k) {
         if (nums == null || nums.length < 1 || k < 1) {

@@ -13,6 +13,7 @@ public class SerializationDeserialization {
     public String serialize(TreeNode root) {
         StringBuilder builder = new StringBuilder();
         buildContent(root, builder);
+        builder.deleteCharAt(builder.length() - 1);
         return builder.toString();
     }
 

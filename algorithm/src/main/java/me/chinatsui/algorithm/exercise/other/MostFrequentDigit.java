@@ -22,14 +22,6 @@ package me.chinatsui.algorithm.exercise.other;
  */
 public class MostFrequentDigit {
 
-    public static void main(String[] args) {
-        MostFrequentDigit mfd = new MostFrequentDigit();
-        System.out.println(mfd.resolve(12234));
-        System.out.println(mfd.resolve(1223377));
-        System.out.println(mfd.resolve(5));
-        System.out.println(mfd.resolve(1000));
-    }
-
     public int resolve(int num) {
         if (num == 0) {
             return 0;

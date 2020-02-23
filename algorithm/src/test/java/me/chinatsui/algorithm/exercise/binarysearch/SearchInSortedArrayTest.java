@@ -5,7 +5,7 @@ import org.junit.Test;
 
 public class SearchInSortedArrayTest {
 
-    private SearchInRotatedSortedArray sirsa = new SearchInRotatedSortedArray();
+    private SearchInRotatedArray sirsa = new SearchInRotatedArray();
 
     @Test
     public void test() {

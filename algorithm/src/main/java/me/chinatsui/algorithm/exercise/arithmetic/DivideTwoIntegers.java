@@ -2,10 +2,6 @@ package me.chinatsui.algorithm.exercise.arithmetic;
 
 public class DivideTwoIntegers {
 
-    public static void main(String[] args) {
-        System.out.println( 9 % -9);
-    }
-
     public int divide(int dividend, int divisor) {
         // fast special cases
         if (dividend == 0) {

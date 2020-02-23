@@ -20,11 +20,6 @@ import java.util.List;
  */
 public class LongestIncreasingSubsequence {
 
-    public static void main(String[] args) {
-        int[] nums = {10, 9, 2, 5, 3, 7, 101, 18};
-        System.out.println(Solution.INSTANCE.lengthOfLIS(nums));
-    }
-
     public enum Solution {
         /*
         The "tails" is an ArrayList storing the smallest "last element"

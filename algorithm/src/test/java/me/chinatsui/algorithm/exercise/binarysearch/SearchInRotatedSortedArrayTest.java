@@ -1,11 +1,11 @@
-package me.chinatsui.algorithm.exercise.array;
+package me.chinatsui.algorithm.exercise.binarysearch;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class SearchInRotatedSortedArrayTest {
 
-    private SearchInRotatedSortedArray sirsa = new SearchInRotatedSortedArray();
+    private SearchInRotatedArray sirsa = new SearchInRotatedArray();
 
     @Test
     public void test() {

@@ -1,7 +1,6 @@
 package me.chinatsui.algorithm.exercise.dp;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.IntStream;
 
 /**
@@ -10,12 +9,6 @@ import java.util.stream.IntStream;
 public class SinglesDayClipCoupons {
 
     int times = 3;
-
-    public static void main(String[] args) {
-        int[] prices = {12, 32, 111, 23, 176, 198};
-        SinglesDayClipCoupons solution = new SinglesDayClipCoupons();
-        System.out.println(Arrays.toString(solution.resolve(prices, 200)));
-    }
 
     public int[] resolve(int[] prices, int couponBound) {
         if (!isValid(prices, couponBound)) {

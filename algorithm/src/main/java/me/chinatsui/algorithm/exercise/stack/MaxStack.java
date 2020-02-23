@@ -3,23 +3,8 @@ package me.chinatsui.algorithm.exercise.stack;
 import java.util.Stack;
 
 public class MaxStack {
-    Stack<Integer> s = new Stack<Integer>();
-    Integer max;
-
-    // Driver Code
-    public static void main(String[] args) {
-        MaxStack s = new MaxStack();
-        s.push(3);
-        s.push(5);
-        System.out.println("Max: " + s.getMax());
-        s.push(7);
-        s.push(19);
-        System.out.println("Max: " + s.getMax());
-        System.out.println("Pop: " + s.pop());
-        System.out.println("Max: " + s.getMax());
-        System.out.println("Pop: " + s.pop());
-        System.out.println("Peek: " + s.peek());
-    }
+    private Stack<Integer> s = new Stack<>();
+    private Integer max;
 
     // Prints maximum element of MyStack
     public Integer getMax() {

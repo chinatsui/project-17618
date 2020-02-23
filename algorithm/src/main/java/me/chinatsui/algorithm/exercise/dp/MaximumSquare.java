@@ -2,16 +2,6 @@ package me.chinatsui.algorithm.exercise.dp;
 
 public class MaximumSquare {
 
-    public static void main(String[] args) {
-        char[][] matrix =
-               {{'0', '0', '0', '1'},
-                {'1', '1', '0', '1'},
-                {'1', '1', '1', '1'},
-                {'0', '1', '1', '1'},
-                {'0', '1', '1', '1'}};
-        System.out.println(maximalSquare(matrix));
-    }
-
     public static int maximalSquare(char[][] matrix) {
 
         if (matrix == null || matrix.length == 0) {
@@ -57,5 +47,4 @@ public class MaximumSquare {
 
         return max * max;
     }
-
 }

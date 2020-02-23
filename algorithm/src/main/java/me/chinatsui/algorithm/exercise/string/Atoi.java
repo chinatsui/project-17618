@@ -55,11 +55,6 @@ package me.chinatsui.algorithm.exercise.string;
  */
 public class Atoi {
 
-    public static void main(String[] args) {
-        System.out.println(Integer.MAX_VALUE);
-        System.out.println(Integer.MIN_VALUE);
-    }
-
     public int convert(String str) {
         if (str == null) {
             return 0;

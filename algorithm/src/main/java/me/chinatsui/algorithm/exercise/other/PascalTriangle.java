@@ -5,10 +5,6 @@ import java.util.List;
 
 public class PascalTriangle {
 
-    public static void main(String[] args) {
-        generate(5);
-    }
-
     public static List<List<Integer>> generate(int numRows) {
         List<List<Integer>> res = new ArrayList<>();
         ArrayList<Integer> row = new ArrayList<>();

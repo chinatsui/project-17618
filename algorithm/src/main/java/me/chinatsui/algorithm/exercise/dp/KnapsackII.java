@@ -7,13 +7,6 @@ import java.util.ArrayList;
  */
 public class KnapsackII {
 
-    public static void main(String[] args) {
-        int[] weights = {2, 2, 6, 5, 4};
-        int[] values = {6, 3, 5, 4, 6};
-        KnapsackII knapsack = new KnapsackII();
-        System.out.println(knapsack.resolve_v2(weights, values, 10));
-    }
-
     public int resolve(int[] weights, int[] values, int maxWeight) {
         if (!isValid(weights, values, maxWeight)) {
             return 0;

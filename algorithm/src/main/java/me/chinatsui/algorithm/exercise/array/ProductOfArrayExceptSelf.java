@@ -1,15 +1,6 @@
 package me.chinatsui.algorithm.exercise.array;
 
-import java.util.Arrays;
-
 public class ProductOfArrayExceptSelf {
-
-    public static void main(String[] args) {
-        int[] input = new int[]{2, 2, 3, 4};
-        System.out.println(Arrays.toString(productExceptSelf(input)));
-        int num = 38;
-        num = num == 0 ? 0 : (num % 9 == 0 ? 9 : (num % 9));
-    }
 
     public static int[] productExceptSelf(int[] nums) {
         if (nums == null || nums.length < 1) {
